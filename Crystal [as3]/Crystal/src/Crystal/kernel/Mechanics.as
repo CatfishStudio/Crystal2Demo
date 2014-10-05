@@ -189,6 +189,42 @@ package Crystal.kernel
 			return resultCheck;
 		}
 		
+		/* Обмен местами в массиве выбранных пользователем кристалов  */
+		public static function ExchangeCrystals(unit1:Unit, unit2:Unit):void
+		{
+			var unitType:String = (Resource.MatrixUnit[unit1.posColumnI][unit1.posRowJ] as Unit).unitType;
+			var flagRemove:Boolean = (Resource.MatrixUnit[unit1.posColumnI][unit1.posRowJ] as Unit).flagRemove;
+			var flagModification:Boolean = (Resource.MatrixUnit[unit1.posColumnI][unit1.posRowJ] as Unit).flagModification;
+			var typeModification:int = (Resource.MatrixUnit[unit1.posColumnI][unit1.posRowJ] as Unit).typeModification;
+			var posColumnI:int = (Resource.MatrixUnit[unit1.posColumnI][unit1.posRowJ] as Unit).posColumnI;
+			var posRowJ:int = (Resource.MatrixUnit[unit1.posColumnI][unit1.posRowJ] as Unit).posRowJ;
+			var posX:int = (Resource.MatrixUnit[unit1.posColumnI][unit1.posRowJ] as Unit).posX;
+			var posY:int = (Resource.MatrixUnit[unit1.posColumnI][unit1.posRowJ] as Unit).posY;
+		
+			var crystalMove:Unit = new Unit();
+			crystalMove = (Resource.MatrixUnit[unit1.posColumnI][unit1.posRowJ] as Unit);
+			
+			(Resource.MatrixUnit[unit1.posColumnI][unit1.posRowJ] as Unit).unitType = (Resource.MatrixUnit[unit2.posColumnI][unit2.posRowJ] as Unit).unitType;
+			(Resource.MatrixUnit[unit1.posColumnI][unit1.posRowJ] as Unit).flagRemove = (Resource.MatrixUnit[unit2.posColumnI][unit2.posRowJ] as Unit).flagRemove;
+			(Resource.MatrixUnit[unit1.posColumnI][unit1.posRowJ] as Unit).flagModification = (Resource.MatrixUnit[unit2.posColumnI][unit2.posRowJ] as Unit).flagModification;
+			(Resource.MatrixUnit[unit1.posColumnI][unit1.posRowJ] as Unit).typeModification = (Resource.MatrixUnit[unit2.posColumnI][unit2.posRowJ] as Unit).typeModification;
+			(Resource.MatrixUnit[unit1.posColumnI][unit1.posRowJ] as Unit).posColumnI = (Resource.MatrixUnit[unit2.posColumnI][unit2.posRowJ] as Unit).posColumnI;
+			(Resource.MatrixUnit[unit1.posColumnI][unit1.posRowJ] as Unit).posRowJ = (Resource.MatrixUnit[unit2.posColumnI][unit2.posRowJ] as Unit).posRowJ;
+			(Resource.MatrixUnit[unit1.posColumnI][unit1.posRowJ] as Unit).posX = (Resource.MatrixUnit[unit2.posColumnI][unit2.posRowJ] as Unit).posX;
+			(Resource.MatrixUnit[unit1.posColumnI][unit1.posRowJ] as Unit).posY = (Resource.MatrixUnit[unit2.posColumnI][unit2.posRowJ] as Unit).posY;
+			
+			(Resource.MatrixUnit[unit2.posColumnI][unit2.posRowJ] as Unit).unitType = unitType;
+			(Resource.MatrixUnit[unit2.posColumnI][unit2.posRowJ] as Unit).flagRemove = flagRemove;
+			(Resource.MatrixUnit[unit2.posColumnI][unit2.posRowJ] as Unit).flagModification = flagModification;
+			(Resource.MatrixUnit[unit2.posColumnI][unit2.posRowJ] as Unit).typeModification = typeModification;
+			(Resource.MatrixUnit[unit2.posColumnI][unit2.posRowJ] as Unit).posColumnI = posColumnI;
+			(Resource.MatrixUnit[unit2.posColumnI][unit2.posRowJ] as Unit).posRowJ = posRowJ;
+			(Resource.MatrixUnit[unit2.posColumnI][unit2.posRowJ] as Unit).posX = posX;
+			(Resource.MatrixUnit[unit2.posColumnI][unit2.posRowJ] as Unit).posY = posY;
+			
+			
+		}
+		
 		
 	}
 

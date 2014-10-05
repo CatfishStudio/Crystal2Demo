@@ -3,6 +3,9 @@ package Crystal.units
 	import flash.display.Bitmap;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
+	import flash.ui.Mouse;
+	import flash.ui.MouseCursor;
 	
 	import Crystal.kernel.Atlas;
 	import Crystal.resource.Resource;

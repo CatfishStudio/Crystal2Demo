@@ -8,6 +8,8 @@ package Crystal.level
 	import flash.events.Event;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.ui.Mouse;
+	import flash.ui.MouseCursor;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
 	import flash.events.IOErrorEvent;
@@ -60,6 +62,13 @@ package Crystal.level
 		private var _levelQuestAmountTime:Date;	// время отведенное на уровень
 		private var _levelQuestAmountMoves:int;	// количество ходов на уровень
 		/*----------------------------*/
+		
+		private var _clickObject:Boolean = false; 	// флаг нажатия на объект (кристал, камень, руну)
+		private var _blockedField:Boolean = false;	// флаг блокировки игрового поля от нажатий
+		private var _movingObject:String;			// Направление передвижения объекта на поле (при воздействии пользователя на него)
+		private var _unit1:Unit;					// Выбранные объекты для обмена местами
+		private var _unit2:Unit;						
+		
 		
 		public function Level(xmlFileName:String) 
 		{
@@ -132,6 +141,13 @@ package Crystal.level
 					(Resource.MatrixUnit[iUnit][jUnit] as Unit).posX = (Resource.MatrixUnit[iUnit][jUnit] as Unit).x;
 					(Resource.MatrixUnit[iUnit][jUnit] as Unit).posY = (Resource.MatrixUnit[iUnit][jUnit] as Unit).y;
 					(Resource.MatrixUnit[iUnit][jUnit] as Unit).unitType = _xml.cell[index].cellObject;
+					/*события*/
+					(Resource.MatrixUnit[iUnit][jUnit] as Unit).addEventListener(MouseEvent.CLICK, onMouseClick);
+					(Resource.MatrixUnit[iUnit][jUnit] as Unit).addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
+					(Resource.MatrixUnit[iUnit][jUnit] as Unit).addEventListener(MouseEvent.MOUSE_UP, onMouseUp);
+					(Resource.MatrixUnit[iUnit][jUnit] as Unit).addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
+					(Resource.MatrixUnit[iUnit][jUnit] as Unit).addEventListener(MouseEvent.MOUSE_OUT, onMouseOut);
+					(Resource.MatrixUnit[iUnit][jUnit] as Unit).addEventListener(MouseEvent.MOUSE_OVER, onMouseOver);
 					index++;
 				}
 			}
@@ -297,6 +313,110 @@ package Crystal.level
 			this.dispatchEvent(new NavigationEvent(NavigationEvent.CHANGE_SCREEN, { id: "GAME_WINDOW_SETTING_SHOW" }, true));
 		}
 		
+		/*События объектов игрового поля --------------------------------------------*/
+		private function onMouseClick(e:MouseEvent):void
+		{
+			// при нажатии
+			trace("ПОЗИЦИЯ(i-колонка):" + (e.target as Unit).posColumnI.toString() + "  ПОЗИЦИЯ(j-строка):" + (e.target as Unit).posRowJ.toString());
+		}
+		
+		private function onMouseDown(e:MouseEvent):void
+		{
+			_clickObject = true; // флаг - объект нажат
+		}
+		
+		private function onMouseUp(e:MouseEvent):void
+		{
+			_clickObject = false; // флаг - объект не нажат
+		}
+		
+		private function onMouseOut(e:MouseEvent):void
+		{
+			//_clickObject = false;
+			Mouse.cursor = MouseCursor.AUTO;
+		}
+		
+		private function onMouseOver(e:MouseEvent):void
+		{
+			Mouse.cursor = MouseCursor.BUTTON;
+		}
+		
+		private function onMouseMove(e:MouseEvent):void
+		{
+			/* i - столбец; j - строка */
+			if(_blockedField == false){	// Игровое поле разблокировано
+				if (_clickObject) {		// объект нажат
+					/* Смещение по горизонтале вправо */
+					trace("X=" + e.localX.toString() + " |  Y=" + e.localY.toString());
+					if (e.localX > 35 && e.localY < 35) {
+						if ((e.target as Unit).posColumnI < Resource.COLUMNS - 1) {	// < 9
+							/* Если не преграда (Камень) */
+							if((Resource.MatrixUnit[(e.target as Unit).posColumnI + 1][(e.target as Unit).posRowJ] as Unit).unitType != "CRYSTAL_TYPE_9_STONE"){
+								_movingObject = "Right:I+1";	// Обмен местами по горизонтали с объектом стоящим справа
+								_unit1 = (e.target as Unit);
+								_unit2 = (Resource.MatrixUnit[(e.target as Unit).posColumnI + 1][(e.target as Unit).posRowJ] as Unit);
+								this.addEventListener(Event.ENTER_FRAME, AnimationExchangeCrystals);
+								this.play();
+								
+								//uAction.Perform();
+							}
+						}
+						trace("Смещение по горизонтале вправо X > 45 и Y < 45");
+						_clickObject = false;
+					}
+					
+					/* Смещение по горизонтале влево */
+					if (e.localX < 5 && e.localY > 5) {
+						trace("Смещение по горизонтале влево X < 5 и Y > 5");
+						_clickObject = false;
+					}
+					
+					/* Смещение по вертикале вверх */
+					if (e.localY < 5 && e.localX > 5) {
+						trace("Смещение по вертикале вверх Y < 5 и X > 5");
+						_clickObject = false;
+					}
+					
+					/* Смещение по вертикале вниз */
+					if (e.localY > 35 && e.localX < 35) {
+						trace("Смещение по вертикале вниз Y > 45 и X < 45");
+						_clickObject = false;
+					}
+				}
+			}
+		}
+		
+		/* Анимация обмена местами между двумя объектами на поле, после воздействия на них пользователем */
+		private function AnimationExchangeCrystals(e:Event):void 
+		{
+			/* Анимация пеемещания кристалов */
+			if (_movingObject !="") {
+				if (_movingObject == "Right:I+1") { // Смещение по горизонтале вправо
+					_unit1.x += 10; // вправо
+					_unit2.x -= 10; // влево
+					trace("АНИМАЦИЯ: _unit1.x=" + _unit1.x.toString() + " | " + "_unit2.posX=" + _unit2.posX.toString());
+					if (_unit1.x >= _unit2.posX) {
+						this.stop();
+						this.removeEventListener(Event.ENTER_FRAME, AnimationExchangeCrystals);
+						Mechanics.ExchangeCrystals(_unit1, _unit2);
+					}
+				}
+				if (_movingObject == "Left:I-1") { // Смещение по горизонтале влево
+					_unit1.x += 10; // вправо
+					_unit2.x -= 10; // влево
+				}
+				if (_movingObject == "Up:J-1") { // Смещение по вертикале вверх
+					_unit1.y += 10; // вправо
+					_unit2.y -= 10; // влево
+				}
+				if (_movingObject == "Down:J+1") { // Смещение по вертикале вниз
+					_unit1.y -= 10; // вправо
+					_unit2.y += 10; // влево
+				}
+				
+			}
+		}
+		/*------------------------------------------------------------------------*/
 	}
 
 }
