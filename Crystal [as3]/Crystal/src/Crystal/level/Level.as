@@ -318,6 +318,8 @@ package Crystal.level
 		{
 			// при нажатии
 			trace("ПОЗИЦИЯ(i-колонка):" + (e.target as Unit).posColumnI.toString() + "  ПОЗИЦИЯ(j-строка):" + (e.target as Unit).posRowJ.toString());
+			trace("ПОЗИЦИЯ(X):" + (e.target as Unit).x.toString() + "  ПОЗИЦИЯ(Y):" + (e.target as Unit).y.toString());
+			trace("ПОЗИЦИЯ(posX):" + (e.target as Unit).posX.toString() + "  ПОЗИЦИЯ(posY):" + (e.target as Unit).posY.toString());
 		}
 		
 		private function onMouseDown(e:MouseEvent):void
@@ -357,8 +359,6 @@ package Crystal.level
 								_unit2 = (Resource.MatrixUnit[(e.target as Unit).posColumnI + 1][(e.target as Unit).posRowJ] as Unit);
 								this.addEventListener(Event.ENTER_FRAME, AnimationExchangeCrystals);
 								this.play();
-								
-								//uAction.Perform();
 							}
 						}
 						trace("Смещение по горизонтале вправо X > 45 и Y < 45");
@@ -399,6 +399,12 @@ package Crystal.level
 						this.stop();
 						this.removeEventListener(Event.ENTER_FRAME, AnimationExchangeCrystals);
 						Mechanics.ExchangeCrystals(_unit1, _unit2);
+						_unit1.posX = _unit1.x;
+						_unit2.posX = _unit2.x;
+						trace("UNIT1 - ПОЗИЦИЯ(i-колонка):" + (Resource.MatrixUnit[_unit1.posColumnI][_unit1.posRowJ] as Unit).posColumnI.toString() + "  ПОЗИЦИЯ(j-строка):" + (Resource.MatrixUnit[_unit1.posColumnI][_unit1.posRowJ] as Unit).posRowJ.toString());
+						trace("UNIT1 - ПОЗИЦИЯ(X):" + (Resource.MatrixUnit[_unit1.posColumnI][_unit1.posRowJ] as Unit).x.toString() + "  ПОЗИЦИЯ(Y):" + (Resource.MatrixUnit[_unit1.posColumnI][_unit1.posRowJ] as Unit).y.toString());
+						trace("UNIT2 - ПОЗИЦИЯ(i-колонка):" + (Resource.MatrixUnit[_unit2.posColumnI][_unit2.posRowJ] as Unit).posColumnI.toString() + "  ПОЗИЦИЯ(j-строка):" + (Resource.MatrixUnit[_unit2.posColumnI][_unit2.posRowJ] as Unit).posRowJ.toString());
+						trace("UNIT2 - ПОЗИЦИЯ(X):" + (Resource.MatrixUnit[_unit2.posColumnI][_unit2.posRowJ] as Unit).x.toString() + "  ПОЗИЦИЯ(Y):" + (Resource.MatrixUnit[_unit2.posColumnI][_unit2.posRowJ] as Unit).y.toString());
 					}
 				}
 				if (_movingObject == "Left:I-1") { // Смещение по горизонтале влево

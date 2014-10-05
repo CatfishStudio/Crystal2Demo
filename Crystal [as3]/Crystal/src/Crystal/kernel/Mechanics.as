@@ -201,9 +201,6 @@ package Crystal.kernel
 			var posX:int = (Resource.MatrixUnit[unit1.posColumnI][unit1.posRowJ] as Unit).posX;
 			var posY:int = (Resource.MatrixUnit[unit1.posColumnI][unit1.posRowJ] as Unit).posY;
 		
-			var crystalMove:Unit = new Unit();
-			crystalMove = (Resource.MatrixUnit[unit1.posColumnI][unit1.posRowJ] as Unit);
-			
 			(Resource.MatrixUnit[unit1.posColumnI][unit1.posRowJ] as Unit).unitType = (Resource.MatrixUnit[unit2.posColumnI][unit2.posRowJ] as Unit).unitType;
 			(Resource.MatrixUnit[unit1.posColumnI][unit1.posRowJ] as Unit).flagRemove = (Resource.MatrixUnit[unit2.posColumnI][unit2.posRowJ] as Unit).flagRemove;
 			(Resource.MatrixUnit[unit1.posColumnI][unit1.posRowJ] as Unit).flagModification = (Resource.MatrixUnit[unit2.posColumnI][unit2.posRowJ] as Unit).flagModification;
