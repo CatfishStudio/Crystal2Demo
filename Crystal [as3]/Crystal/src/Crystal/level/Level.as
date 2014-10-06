@@ -365,6 +365,7 @@ package Crystal.level
 								_movingObject = "Right:I+1";	// Обмен местами по горизонтали с объектом стоящим справа
 								_unit1 = (e.target as Unit);
 								_unit2 = (Resource.MatrixUnit[(e.target as Unit).posColumnI + 1][(e.target as Unit).posRowJ] as Unit);
+								Mechanics.ExchangeCrystals(_unit1.posColumnI, _unit1.posRowJ, _unit2.posColumnI, _unit2.posRowJ);
 								this.addEventListener(Event.ENTER_FRAME, AnimationExchangeCrystals);
 								this.play();
 							}
@@ -406,7 +407,6 @@ package Crystal.level
 					if (_unit1.x >= _unit2.posX) {
 						this.stop();
 						this.removeEventListener(Event.ENTER_FRAME, AnimationExchangeCrystals);
-						//?????????????Mechanics.ExchangeCrystals(_unit1.posColumnI, _unit1.posRowJ, _unit2.posColumnI, _unit2.posRowJ);
 						_unit1.posX = _unit1.x;
 						_unit2.posX = _unit2.x;
 					}

@@ -192,6 +192,42 @@ package Crystal.kernel
 		/* Обмен местами в массиве выбранных пользователем кристалов  */
 		public static function ExchangeCrystals(columnCrystal1:int, rowCrystal1:int, columnCrystal2:int, rowCrystal2:int):void
 		{
+			/*
+			trace("--ДО-------------------");
+			trace("Ячейка [" + columnCrystal1.toString() + "][" + rowCrystal1.toString() + "]");
+			trace((Resource.MatrixUnit[columnCrystal1][rowCrystal1] as Unit).unitType);
+			trace((Resource.MatrixUnit[columnCrystal1][rowCrystal1] as Unit).posColumnI);
+			trace((Resource.MatrixUnit[columnCrystal1][rowCrystal1] as Unit).posX);
+			trace("Ячейка [" + columnCrystal2.toString() + "][" + rowCrystal2.toString() + "]");
+			trace((Resource.MatrixUnit[columnCrystal2][rowCrystal2] as Unit).unitType);
+			trace((Resource.MatrixUnit[columnCrystal2][rowCrystal2] as Unit).posColumnI);
+			trace((Resource.MatrixUnit[columnCrystal2][rowCrystal2] as Unit).posX);
+			trace("---------------------");
+			*/
+			
+			var crystalMove:Unit = new Unit();
+			crystalMove = Resource.MatrixUnit[columnCrystal1][rowCrystal1];
+			Resource.MatrixUnit[columnCrystal1][rowCrystal1] = Resource.MatrixUnit[columnCrystal2][rowCrystal2];
+			Resource.MatrixUnit[columnCrystal2][rowCrystal2] = crystalMove;
+			
+			(Resource.MatrixUnit[columnCrystal1][rowCrystal1] as Unit).posColumnI = columnCrystal1;
+			(Resource.MatrixUnit[columnCrystal1][rowCrystal1] as Unit).posRowJ = rowCrystal1;
+			(Resource.MatrixUnit[columnCrystal2][rowCrystal2] as Unit).posColumnI = columnCrystal2;
+			(Resource.MatrixUnit[columnCrystal2][rowCrystal2] as Unit).posRowJ = rowCrystal2;
+			
+			/*
+			trace("--ПОСЛЕ-------------------");
+			trace("Ячейка [" + columnCrystal1.toString() + "][" + rowCrystal1.toString() + "]");
+			trace((Resource.MatrixUnit[columnCrystal1][rowCrystal1] as Unit).unitType);
+			trace((Resource.MatrixUnit[columnCrystal1][rowCrystal1] as Unit).posColumnI);
+			trace((Resource.MatrixUnit[columnCrystal1][rowCrystal1] as Unit).posX);
+			trace("Ячейка [" + columnCrystal2.toString() + "][" + rowCrystal2.toString() + "]");
+			trace((Resource.MatrixUnit[columnCrystal2][rowCrystal2] as Unit).unitType);
+			trace((Resource.MatrixUnit[columnCrystal2][rowCrystal2] as Unit).posColumnI);
+			trace((Resource.MatrixUnit[columnCrystal2][rowCrystal2] as Unit).posX);
+			trace("---------------------");
+			*/
+			/*
 			var unitType:String = (Resource.MatrixUnit[columnCrystal1][rowCrystal1] as Unit).unitType;
 			var flagRemove:Boolean = (Resource.MatrixUnit[columnCrystal1][rowCrystal1] as Unit).flagRemove;
 			var flagModification:Boolean = (Resource.MatrixUnit[columnCrystal1][rowCrystal1] as Unit).flagModification;
@@ -218,7 +254,7 @@ package Crystal.kernel
 			(Resource.MatrixUnit[columnCrystal2][rowCrystal2] as Unit).posRowJ = posRowJ;
 			//(Resource.MatrixUnit[columnCrystal2][rowCrystal2] as Unit).posX = posX;
 			//(Resource.MatrixUnit[columnCrystal2][rowCrystal2] as Unit).posY = posY;
-			
+			*/
 			
 		}
 		
