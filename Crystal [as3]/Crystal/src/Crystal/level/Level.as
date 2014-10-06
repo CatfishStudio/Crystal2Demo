@@ -142,12 +142,12 @@ package Crystal.level
 					(Resource.MatrixUnit[iUnit][jUnit] as Unit).posY = (Resource.MatrixUnit[iUnit][jUnit] as Unit).y;
 					(Resource.MatrixUnit[iUnit][jUnit] as Unit).unitType = _xml.cell[index].cellObject;
 					/*события*/
-					(Resource.MatrixUnit[iUnit][jUnit] as Unit).addEventListener(MouseEvent.CLICK, onMouseClick);
-					(Resource.MatrixUnit[iUnit][jUnit] as Unit).addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
-					(Resource.MatrixUnit[iUnit][jUnit] as Unit).addEventListener(MouseEvent.MOUSE_UP, onMouseUp);
-					(Resource.MatrixUnit[iUnit][jUnit] as Unit).addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
-					(Resource.MatrixUnit[iUnit][jUnit] as Unit).addEventListener(MouseEvent.MOUSE_OUT, onMouseOut);
-					(Resource.MatrixUnit[iUnit][jUnit] as Unit).addEventListener(MouseEvent.MOUSE_OVER, onMouseOver);
+					(Resource.MatrixUnit[iUnit][jUnit] as Unit).addEventListener(MouseEvent.CLICK, onMouseUnitClick);
+					(Resource.MatrixUnit[iUnit][jUnit] as Unit).addEventListener(MouseEvent.MOUSE_DOWN, onMouseUnitDown);
+					(Resource.MatrixUnit[iUnit][jUnit] as Unit).addEventListener(MouseEvent.MOUSE_UP, onMouseUnitUp);
+					(Resource.MatrixUnit[iUnit][jUnit] as Unit).addEventListener(MouseEvent.MOUSE_MOVE, onMouseUnitMove);
+					(Resource.MatrixUnit[iUnit][jUnit] as Unit).addEventListener(MouseEvent.MOUSE_OUT, onMouseUnitOut);
+					(Resource.MatrixUnit[iUnit][jUnit] as Unit).addEventListener(MouseEvent.MOUSE_OVER, onMouseUnitOver);
 					index++;
 				}
 			}
@@ -314,42 +314,50 @@ package Crystal.level
 		}
 		
 		/*События объектов игрового поля --------------------------------------------*/
-		private function onMouseClick(e:MouseEvent):void
+		private function onMouseUnitClick(e:MouseEvent):void
 		{
 			// при нажатии
+			trace((e.target as Unit).unitType);
+			trace((Resource.MatrixUnit[(e.target as Unit).posColumnI][(e.target as Unit).posRowJ] as Unit).unitType);
+			trace((e.target as Unit).posColumnI);
+			trace((Resource.MatrixUnit[(e.target as Unit).posColumnI][(e.target as Unit).posRowJ] as Unit).posColumnI);
+			trace((e.target as Unit).x);
+			trace((Resource.MatrixUnit[(e.target as Unit).posColumnI][(e.target as Unit).posRowJ] as Unit).posX);
+			trace("---------------------");
+			/*
 			trace("ПОЗИЦИЯ(i-колонка):" + (e.target as Unit).posColumnI.toString() + "  ПОЗИЦИЯ(j-строка):" + (e.target as Unit).posRowJ.toString());
 			trace("ПОЗИЦИЯ(X):" + (e.target as Unit).x.toString() + "  ПОЗИЦИЯ(Y):" + (e.target as Unit).y.toString());
 			trace("ПОЗИЦИЯ(posX):" + (e.target as Unit).posX.toString() + "  ПОЗИЦИЯ(posY):" + (e.target as Unit).posY.toString());
+			*/
 		}
 		
-		private function onMouseDown(e:MouseEvent):void
+		private function onMouseUnitDown(e:MouseEvent):void
 		{
 			_clickObject = true; // флаг - объект нажат
 		}
 		
-		private function onMouseUp(e:MouseEvent):void
+		private function onMouseUnitUp(e:MouseEvent):void
 		{
 			_clickObject = false; // флаг - объект не нажат
 		}
 		
-		private function onMouseOut(e:MouseEvent):void
+		private function onMouseUnitOut(e:MouseEvent):void
 		{
-			//_clickObject = false;
+			_clickObject = false;
 			Mouse.cursor = MouseCursor.AUTO;
 		}
 		
-		private function onMouseOver(e:MouseEvent):void
+		private function onMouseUnitOver(e:MouseEvent):void
 		{
 			Mouse.cursor = MouseCursor.BUTTON;
 		}
 		
-		private function onMouseMove(e:MouseEvent):void
+		private function onMouseUnitMove(e:MouseEvent):void
 		{
 			/* i - столбец; j - строка */
 			if(_blockedField == false){	// Игровое поле разблокировано
 				if (_clickObject) {		// объект нажат
 					/* Смещение по горизонтале вправо */
-					trace("X=" + e.localX.toString() + " |  Y=" + e.localY.toString());
 					if (e.localX > 35 && e.localY < 35) {
 						if ((e.target as Unit).posColumnI < Resource.COLUMNS - 1) {	// < 9
 							/* Если не преграда (Камень) */
@@ -394,17 +402,13 @@ package Crystal.level
 				if (_movingObject == "Right:I+1") { // Смещение по горизонтале вправо
 					_unit1.x += 10; // вправо
 					_unit2.x -= 10; // влево
-					trace("АНИМАЦИЯ: _unit1.x=" + _unit1.x.toString() + " | " + "_unit2.posX=" + _unit2.posX.toString());
+					//trace("АНИМАЦИЯ: _unit1.x=" + _unit1.x.toString() + " | " + "_unit2.posX=" + _unit2.posX.toString());
 					if (_unit1.x >= _unit2.posX) {
 						this.stop();
 						this.removeEventListener(Event.ENTER_FRAME, AnimationExchangeCrystals);
-						Mechanics.ExchangeCrystals(_unit1, _unit2);
+						//?????????????Mechanics.ExchangeCrystals(_unit1.posColumnI, _unit1.posRowJ, _unit2.posColumnI, _unit2.posRowJ);
 						_unit1.posX = _unit1.x;
 						_unit2.posX = _unit2.x;
-						trace("UNIT1 - ПОЗИЦИЯ(i-колонка):" + (Resource.MatrixUnit[_unit1.posColumnI][_unit1.posRowJ] as Unit).posColumnI.toString() + "  ПОЗИЦИЯ(j-строка):" + (Resource.MatrixUnit[_unit1.posColumnI][_unit1.posRowJ] as Unit).posRowJ.toString());
-						trace("UNIT1 - ПОЗИЦИЯ(X):" + (Resource.MatrixUnit[_unit1.posColumnI][_unit1.posRowJ] as Unit).x.toString() + "  ПОЗИЦИЯ(Y):" + (Resource.MatrixUnit[_unit1.posColumnI][_unit1.posRowJ] as Unit).y.toString());
-						trace("UNIT2 - ПОЗИЦИЯ(i-колонка):" + (Resource.MatrixUnit[_unit2.posColumnI][_unit2.posRowJ] as Unit).posColumnI.toString() + "  ПОЗИЦИЯ(j-строка):" + (Resource.MatrixUnit[_unit2.posColumnI][_unit2.posRowJ] as Unit).posRowJ.toString());
-						trace("UNIT2 - ПОЗИЦИЯ(X):" + (Resource.MatrixUnit[_unit2.posColumnI][_unit2.posRowJ] as Unit).x.toString() + "  ПОЗИЦИЯ(Y):" + (Resource.MatrixUnit[_unit2.posColumnI][_unit2.posRowJ] as Unit).y.toString());
 					}
 				}
 				if (_movingObject == "Left:I-1") { // Смещение по горизонтале влево
