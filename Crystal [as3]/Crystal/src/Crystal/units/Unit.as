@@ -34,15 +34,6 @@ package Crystal.units
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			
-			/*
-			this.addEventListener(MouseEvent.CLICK, onMouseUnitClick);
-			this.addEventListener(MouseEvent.MOUSE_DOWN, onMouseUnitDown);
-			this.addEventListener(MouseEvent.MOUSE_UP, onMouseUnitUp);
-			this.addEventListener(MouseEvent.MOUSE_MOVE, onMouseUnitMove);
-			this.addEventListener(MouseEvent.MOUSE_OUT, onMouseUnitOut);
-			this.addEventListener(MouseEvent.MOUSE_OVER, onMouseUnitOver);
-			*/
-			
 			if ((Resource.MatrixCell[posColumnI][posRowJ] as Cell).cellType == "CELL_TYPE_EMPTY") this.visible = false;
 			
 			if (unitType == "CRYSTAL_TYPE_1_VIOLET" && (Resource.MatrixCell[posColumnI][posRowJ] as Cell).cellType != "CELL_TYPE_EMPTY") {
@@ -160,6 +151,8 @@ package Crystal.units
 				this.addChild(_imgObject);
 				this.x += 0; this.y += 1;
 			}
+			
+			posX = this.x; posY = this.y;
 		}
 		
 		

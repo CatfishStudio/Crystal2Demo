@@ -361,7 +361,8 @@ package Crystal.level
 					if (e.localX > 35 && e.localY < 35) {
 						if ((e.target as Unit).posColumnI < Resource.COLUMNS - 1) {	// < 9
 							/* Если не преграда (Камень) */
-							if((Resource.MatrixUnit[(e.target as Unit).posColumnI + 1][(e.target as Unit).posRowJ] as Unit).unitType != "CRYSTAL_TYPE_9_STONE"){
+							if ((Resource.MatrixUnit[(e.target as Unit).posColumnI + 1][(e.target as Unit).posRowJ] as Unit).unitType != "CRYSTAL_TYPE_9_STONE") {
+								//_blockedField = true; // блокируем игровое поле
 								_movingObject = "Right:I+1";	// Обмен местами по горизонтали с объектом стоящим справа
 								_unit1 = (e.target as Unit);
 								_unit2 = (Resource.MatrixUnit[(e.target as Unit).posColumnI + 1][(e.target as Unit).posRowJ] as Unit);
@@ -376,6 +377,18 @@ package Crystal.level
 					
 					/* Смещение по горизонтале влево */
 					if (e.localX < 5 && e.localY > 5) {
+						if ((e.target as Unit).posColumnI > 0) {
+							/* Если не преграда (Камень) */
+							if ((Resource.MatrixUnit[(e.target as Unit).posColumnI - 1][(e.target as Unit).posRowJ] as Unit).unitType != "CRYSTAL_TYPE_9_STONE") {
+								//_blockedField = true; // блокируем игровое поле
+								_movingObject = "Left:I-1";	// Обмен местами по горизонтали с объектом стоящим слева
+								_unit1 = (e.target as Unit);
+								_unit2 = (Resource.MatrixUnit[(e.target as Unit).posColumnI - 1][(e.target as Unit).posRowJ] as Unit);
+								Mechanics.ExchangeCrystals(_unit1.posColumnI, _unit1.posRowJ, _unit2.posColumnI, _unit2.posRowJ);
+								this.addEventListener(Event.ENTER_FRAME, AnimationExchangeCrystals);
+								this.play();
+							}
+						}
 						trace("Смещение по горизонтале влево X < 5 и Y > 5");
 						_clickObject = false;
 					}
@@ -403,7 +416,6 @@ package Crystal.level
 				if (_movingObject == "Right:I+1") { // Смещение по горизонтале вправо
 					_unit1.x += 10; // вправо
 					_unit2.x -= 10; // влево
-					//trace("АНИМАЦИЯ: _unit1.x=" + _unit1.x.toString() + " | " + "_unit2.posX=" + _unit2.posX.toString());
 					if (_unit1.x >= _unit2.posX) {
 						this.stop();
 						this.removeEventListener(Event.ENTER_FRAME, AnimationExchangeCrystals);
@@ -412,8 +424,14 @@ package Crystal.level
 					}
 				}
 				if (_movingObject == "Left:I-1") { // Смещение по горизонтале влево
-					_unit1.x += 10; // вправо
-					_unit2.x -= 10; // влево
+					_unit1.x -= 10;
+					_unit2.x += 10;
+					if (_unit1.x <= _unit2.posX) {
+						this.stop();
+						this.removeEventListener(Event.ENTER_FRAME, AnimationExchangeCrystals);
+						_unit1.posX = _unit1.x;
+						_unit2.posX = _unit2.x;
+					}
 				}
 				if (_movingObject == "Up:J-1") { // Смещение по вертикале вверх
 					_unit1.y += 10; // вправо
