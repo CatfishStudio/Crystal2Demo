@@ -361,8 +361,8 @@ package Crystal.level
 					if (e.localX > 35 && e.localY < 35) {
 						if ((e.target as Unit).posColumnI < Resource.COLUMNS - 1) {	// < 9
 							/* Если не преграда (Камень) */
-							if ((Resource.MatrixUnit[(e.target as Unit).posColumnI + 1][(e.target as Unit).posRowJ] as Unit).unitType != "CRYSTAL_TYPE_9_STONE") {
-								//_blockedField = true; // блокируем игровое поле
+							if ((e.target as Unit).unitType != "CRYSTAL_TYPE_9_STONE" && (Resource.MatrixUnit[(e.target as Unit).posColumnI + 1][(e.target as Unit).posRowJ] as Unit).unitType != "CRYSTAL_TYPE_9_STONE") {
+								_blockedField = true; // блокируем игровое поле
 								_movingObject = "Right:I+1";	// Обмен местами по горизонтали с объектом стоящим справа
 								_unit1 = (e.target as Unit);
 								_unit2 = (Resource.MatrixUnit[(e.target as Unit).posColumnI + 1][(e.target as Unit).posRowJ] as Unit);
@@ -379,8 +379,8 @@ package Crystal.level
 					if (e.localX < 5 && e.localY > 5) {
 						if ((e.target as Unit).posColumnI > 0) {
 							/* Если не преграда (Камень) */
-							if ((Resource.MatrixUnit[(e.target as Unit).posColumnI - 1][(e.target as Unit).posRowJ] as Unit).unitType != "CRYSTAL_TYPE_9_STONE") {
-								//_blockedField = true; // блокируем игровое поле
+							if ((e.target as Unit).unitType != "CRYSTAL_TYPE_9_STONE" && (Resource.MatrixUnit[(e.target as Unit).posColumnI - 1][(e.target as Unit).posRowJ] as Unit).unitType != "CRYSTAL_TYPE_9_STONE") {
+								_blockedField = true; // блокируем игровое поле
 								_movingObject = "Left:I-1";	// Обмен местами по горизонтали с объектом стоящим слева
 								_unit1 = (e.target as Unit);
 								_unit2 = (Resource.MatrixUnit[(e.target as Unit).posColumnI - 1][(e.target as Unit).posRowJ] as Unit);
@@ -395,12 +395,36 @@ package Crystal.level
 					
 					/* Смещение по вертикале вверх */
 					if (e.localY < 5 && e.localX > 5) {
+						if ((e.target as Unit).posRowJ > 0) {
+							/* Если не преграда (Камень) */
+							if ((e.target as Unit).unitType != "CRYSTAL_TYPE_9_STONE" && (Resource.MatrixUnit[(e.target as Unit).posColumnI][(e.target as Unit).posRowJ - 1] as Unit).unitType != "CRYSTAL_TYPE_9_STONE") {
+								_blockedField = true; // блокируем игровое поле
+								_movingObject = "Up:J-1";	// Обмен местами по горизонтали с объектом стоящим слева
+								_unit1 = (e.target as Unit);
+								_unit2 = (Resource.MatrixUnit[(e.target as Unit).posColumnI][(e.target as Unit).posRowJ - 1] as Unit);
+								Mechanics.ExchangeCrystals(_unit1.posColumnI, _unit1.posRowJ, _unit2.posColumnI, _unit2.posRowJ);
+								this.addEventListener(Event.ENTER_FRAME, AnimationExchangeCrystals);
+								this.play();
+							}
+						}
 						trace("Смещение по вертикале вверх Y < 5 и X > 5");
 						_clickObject = false;
 					}
 					
 					/* Смещение по вертикале вниз */
 					if (e.localY > 35 && e.localX < 35) {
+						if ((e.target as Unit).posRowJ < Resource.ROWS - 1) { // 9
+							/* Если не преграда (Камень) */
+							if ((e.target as Unit).unitType != "CRYSTAL_TYPE_9_STONE" && (Resource.MatrixUnit[(e.target as Unit).posColumnI][(e.target as Unit).posRowJ + 1] as Unit).unitType != "CRYSTAL_TYPE_9_STONE") {
+								_blockedField = true; // блокируем игровое поле
+								_movingObject = "Down:J+1";	// Обмен местами по горизонтали с объектом стоящим слева
+								_unit1 = (e.target as Unit);
+								_unit2 = (Resource.MatrixUnit[(e.target as Unit).posColumnI][(e.target as Unit).posRowJ + 1] as Unit);
+								Mechanics.ExchangeCrystals(_unit1.posColumnI, _unit1.posRowJ, _unit2.posColumnI, _unit2.posRowJ);
+								this.addEventListener(Event.ENTER_FRAME, AnimationExchangeCrystals);
+								this.play();
+							}
+						}
 						trace("Смещение по вертикале вниз Y > 45 и X < 45");
 						_clickObject = false;
 					}
@@ -434,12 +458,24 @@ package Crystal.level
 					}
 				}
 				if (_movingObject == "Up:J-1") { // Смещение по вертикале вверх
-					_unit1.y += 10; // вправо
-					_unit2.y -= 10; // влево
-				}
-				if (_movingObject == "Down:J+1") { // Смещение по вертикале вниз
 					_unit1.y -= 10; // вправо
 					_unit2.y += 10; // влево
+					if (_unit1.y <= _unit2.posY) {
+						this.stop();
+						this.removeEventListener(Event.ENTER_FRAME, AnimationExchangeCrystals);
+						_unit1.posY = _unit1.y;
+						_unit2.posY = _unit2.y;
+					}
+				}
+				if (_movingObject == "Down:J+1") { // Смещение по вертикале вниз
+					_unit1.y += 10; // вправо
+					_unit2.y -= 10; // влево
+					if (_unit1.y >= _unit2.posY) {
+						this.stop();
+						this.removeEventListener(Event.ENTER_FRAME, AnimationExchangeCrystals);
+						_unit1.posY = _unit1.y;
+						_unit2.posY = _unit2.y;
+					}
 				}
 				
 			}
