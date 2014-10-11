@@ -92,9 +92,9 @@ package Crystal.kernel
 						(Resource.MatrixUnit[i][row] as Unit).flagRemove = true;
 						(Resource.MatrixUnit[i+1][row] as Unit).flagRemove = true;
 						(Resource.MatrixUnit[i+2][row] as Unit).flagRemove = true;
-						//(Resource.MatrixUnit[i][row] as Unit).alpha = 0.2;
-						//(Resource.MatrixUnit[i+1][row] as Unit).alpha = 0.2;
-						//(Resource.MatrixUnit[i+2][row] as Unit).alpha = 0.2;
+						(Resource.MatrixUnit[i][row] as Unit).alpha = 0.2;
+						(Resource.MatrixUnit[i+1][row] as Unit).alpha = 0.2;
+						(Resource.MatrixUnit[i+2][row] as Unit).alpha = 0.2;
 						
 						/* Группа из 4-х кристалов */
 						if (i < Resource.COLUMNS - 3) { // < 7
@@ -140,9 +140,9 @@ package Crystal.kernel
 						(Resource.MatrixUnit[column][j] as Unit).flagRemove = true;
 						(Resource.MatrixUnit[column][j+1] as Unit).flagRemove = true;
 						(Resource.MatrixUnit[column][j+2] as Unit).flagRemove = true;
-						//(Resource.MatrixUnit[column][j] as Unit).alpha = 0.2;
-						//(Resource.MatrixUnit[column][j+1] as Unit).alpha = 0.2;
-						//(Resource.MatrixUnit[column][j+2] as Unit).alpha = 0.2;
+						(Resource.MatrixUnit[column][j] as Unit).alpha = 0.2;
+						(Resource.MatrixUnit[column][j+1] as Unit).alpha = 0.2;
+						(Resource.MatrixUnit[column][j+2] as Unit).alpha = 0.2;
 						
 						/* Группа из 4-х кристалов */
 						if (j < Resource.ROWS - 3) { // < 7

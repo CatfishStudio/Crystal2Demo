@@ -445,6 +445,13 @@ package Crystal.level
 						this.removeEventListener(Event.ENTER_FRAME, AnimationExchangeCrystals);
 						_unit1.posX = _unit1.x;
 						_unit2.posX = _unit2.x;
+						if (Mechanics.CheckField() == false) {	// Группа не определена возвращаем на исходную позицию
+							_movingObject = "Left:I-1";	// Обмен местами по горизонтали с объектом стоящим справа
+							Mechanics.ExchangeCrystals(_unit1.posColumnI, _unit1.posRowJ, _unit2.posColumnI, _unit2.posRowJ);
+							this.addEventListener(Event.ENTER_FRAME, AnimationBackExchangeCrystals);
+							this.play();
+						}
+							
 					}
 				}
 				if (_movingObject == "Left:I-1") { // Смещение по горизонтале влево
@@ -455,6 +462,12 @@ package Crystal.level
 						this.removeEventListener(Event.ENTER_FRAME, AnimationExchangeCrystals);
 						_unit1.posX = _unit1.x;
 						_unit2.posX = _unit2.x;
+						if (Mechanics.CheckField() == false) {	// Группа не определена возвращаем на исходную позицию
+							_movingObject = "Right:I+1";	// Обмен местами по горизонтали с объектом стоящим справа
+							Mechanics.ExchangeCrystals(_unit1.posColumnI, _unit1.posRowJ, _unit2.posColumnI, _unit2.posRowJ);
+							this.addEventListener(Event.ENTER_FRAME, AnimationBackExchangeCrystals);
+							this.play();
+						}
 					}
 				}
 				if (_movingObject == "Up:J-1") { // Смещение по вертикале вверх
@@ -465,6 +478,12 @@ package Crystal.level
 						this.removeEventListener(Event.ENTER_FRAME, AnimationExchangeCrystals);
 						_unit1.posY = _unit1.y;
 						_unit2.posY = _unit2.y;
+						if (Mechanics.CheckField() == false) {	// Группа не определена возвращаем на исходную позицию
+							_movingObject = "Down:J+1";	// Обмен местами по горизонтали с объектом стоящим внизу
+							Mechanics.ExchangeCrystals(_unit1.posColumnI, _unit1.posRowJ, _unit2.posColumnI, _unit2.posRowJ);
+							this.addEventListener(Event.ENTER_FRAME, AnimationBackExchangeCrystals);
+							this.play();
+						}
 					}
 				}
 				if (_movingObject == "Down:J+1") { // Смещение по вертикале вниз
@@ -475,9 +494,67 @@ package Crystal.level
 						this.removeEventListener(Event.ENTER_FRAME, AnimationExchangeCrystals);
 						_unit1.posY = _unit1.y;
 						_unit2.posY = _unit2.y;
+						if (Mechanics.CheckField() == false) {	// Группа не определена возвращаем на исходную позицию
+							_movingObject = "Up:J-1";	// Обмен местами по горизонтали с объектом стоящим вверху
+							Mechanics.ExchangeCrystals(_unit1.posColumnI, _unit1.posRowJ, _unit2.posColumnI, _unit2.posRowJ);
+							this.addEventListener(Event.ENTER_FRAME, AnimationBackExchangeCrystals);
+							this.play();
+						}
 					}
 				}
 				
+			}
+		}
+		
+		/* Анимация возврата на исходную позицию в случае если группа не определена */
+		private function AnimationBackExchangeCrystals(e:Event):void 
+		{
+			/* Анимация пеемещания кристалов */
+			if (_movingObject !="") {
+				if (_movingObject == "Right:I+1") { // Смещение по горизонтале вправо
+					_unit1.x += 10; // вправо
+					_unit2.x -= 10; // влево
+					if (_unit1.x >= _unit2.posX) {
+						this.stop();
+						this.removeEventListener(Event.ENTER_FRAME, AnimationBackExchangeCrystals);
+						_unit1.posX = _unit1.x;
+						_unit2.posX = _unit2.x;
+						_blockedField = false; 
+					}
+				}
+				if (_movingObject == "Left:I-1") { // Смещение по горизонтале влево
+					_unit1.x -= 10;
+					_unit2.x += 10;
+					if (_unit1.x <= _unit2.posX) {
+						this.stop();
+						this.removeEventListener(Event.ENTER_FRAME, AnimationBackExchangeCrystals);
+						_unit1.posX = _unit1.x;
+						_unit2.posX = _unit2.x;
+						_blockedField = false;
+					}
+				}
+				if (_movingObject == "Up:J-1") { // Смещение по вертикале вверх
+					_unit1.y -= 10; // вправо
+					_unit2.y += 10; // влево
+					if (_unit1.y <= _unit2.posY) {
+						this.stop();
+						this.removeEventListener(Event.ENTER_FRAME, AnimationBackExchangeCrystals);
+						_unit1.posY = _unit1.y;
+						_unit2.posY = _unit2.y;
+						_blockedField = false;
+					}
+				}
+				if (_movingObject == "Down:J+1") { // Смещение по вертикале вниз
+					_unit1.y += 10; // вправо
+					_unit2.y -= 10; // влево
+					if (_unit1.y >= _unit2.posY) {
+						this.stop();
+						this.removeEventListener(Event.ENTER_FRAME, AnimationBackExchangeCrystals);
+						_unit1.posY = _unit1.y;
+						_unit2.posY = _unit2.y;
+						_blockedField = false;
+					}
+				}
 			}
 		}
 		/*------------------------------------------------------------------------*/
