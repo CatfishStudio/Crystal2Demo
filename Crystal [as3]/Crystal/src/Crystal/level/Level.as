@@ -358,7 +358,7 @@ package Crystal.level
 			if(_blockedField == false){	// Игровое поле разблокировано
 				if (_clickObject) {		// объект нажат
 					/* Смещение по горизонтале вправо */
-					if (e.localX > 35 && e.localY < 35) {
+					if (e.localX > 35 && e.localY < 35 && e.localY > 5) {
 						if ((e.target as Unit).posColumnI < Resource.COLUMNS - 1) {	// < 9
 							/* Если не преграда (Камень) */
 							if ((e.target as Unit).unitType != "CRYSTAL_TYPE_9_STONE" && (Resource.MatrixUnit[(e.target as Unit).posColumnI + 1][(e.target as Unit).posRowJ] as Unit).unitType != "CRYSTAL_TYPE_9_STONE") {
@@ -376,7 +376,7 @@ package Crystal.level
 					}
 					
 					/* Смещение по горизонтале влево */
-					if (e.localX < 5 && e.localY > 5) {
+					if (e.localX < 5 && e.localY > 5 && e.localY < 35) {
 						if ((e.target as Unit).posColumnI > 0) {
 							/* Если не преграда (Камень) */
 							if ((e.target as Unit).unitType != "CRYSTAL_TYPE_9_STONE" && (Resource.MatrixUnit[(e.target as Unit).posColumnI - 1][(e.target as Unit).posRowJ] as Unit).unitType != "CRYSTAL_TYPE_9_STONE") {
@@ -394,7 +394,7 @@ package Crystal.level
 					}
 					
 					/* Смещение по вертикале вверх */
-					if (e.localY < 5 && e.localX > 5) {
+					if (e.localY < 5 && e.localX > 5 && e.localX < 35) {
 						if ((e.target as Unit).posRowJ > 0) {
 							/* Если не преграда (Камень) */
 							if ((e.target as Unit).unitType != "CRYSTAL_TYPE_9_STONE" && (Resource.MatrixUnit[(e.target as Unit).posColumnI][(e.target as Unit).posRowJ - 1] as Unit).unitType != "CRYSTAL_TYPE_9_STONE") {
@@ -412,7 +412,7 @@ package Crystal.level
 					}
 					
 					/* Смещение по вертикале вниз */
-					if (e.localY > 35 && e.localX < 35) {
+					if (e.localY > 35 && e.localX < 35 && e.localX > 5) {
 						if ((e.target as Unit).posRowJ < Resource.ROWS - 1) { // 9
 							/* Если не преграда (Камень) */
 							if ((e.target as Unit).unitType != "CRYSTAL_TYPE_9_STONE" && (Resource.MatrixUnit[(e.target as Unit).posColumnI][(e.target as Unit).posRowJ + 1] as Unit).unitType != "CRYSTAL_TYPE_9_STONE") {
