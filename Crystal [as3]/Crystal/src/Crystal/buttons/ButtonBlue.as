@@ -18,7 +18,7 @@ package Crystal.buttons
 			button.x = posX; button.y = posY;
 			this.addChild(button);
 			
-			var label:Label = new Label(posX + posTextX, posY + 5, 200, 30, "Arial", 24, 0xFFFFFF, text, false);
+			var label:Label = new Label(posX + posTextX, posY + 5, 120, 30, "Arial", 24, 0xFFFFFF, text, false);
 			this.addChild(label);
 			
 			/*события*/

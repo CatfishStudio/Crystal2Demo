@@ -233,10 +233,10 @@ package Crystal.level
 			/* Определение условия прохождения уровня */
 			_levelQuest = _levelType;
 			_levelQuestCrystal = _crystalType;
-			_levelQuestAmountCrystalOrObject = (_amountCrystals as int);
+			_levelQuestAmountCrystalOrObject = int(_amountCrystals);
 			_levelQuestAmountScore = 0;
 			//_levelQuestAmountTime = 0;
-			_levelQuestAmountMoves = 0;
+			_levelQuestAmountMoves = int(_amountMoves);
 			
 			
 			/* Отобразить игровое поле (i - столбец; j - строка) */
@@ -317,6 +317,7 @@ package Crystal.level
 		private function onMouseUnitClick(e:MouseEvent):void
 		{
 			// при нажатии
+			/*
 			trace((e.target as Unit).unitType);
 			trace((Resource.MatrixUnit[(e.target as Unit).posColumnI][(e.target as Unit).posRowJ] as Unit).unitType);
 			trace((e.target as Unit).posColumnI);
@@ -324,6 +325,7 @@ package Crystal.level
 			trace((e.target as Unit).x);
 			trace((Resource.MatrixUnit[(e.target as Unit).posColumnI][(e.target as Unit).posRowJ] as Unit).posX);
 			trace("---------------------");
+			*/
 			/*
 			trace("ПОЗИЦИЯ(i-колонка):" + (e.target as Unit).posColumnI.toString() + "  ПОЗИЦИЯ(j-строка):" + (e.target as Unit).posRowJ.toString());
 			trace("ПОЗИЦИЯ(X):" + (e.target as Unit).x.toString() + "  ПОЗИЦИЯ(Y):" + (e.target as Unit).y.toString());
@@ -451,7 +453,7 @@ package Crystal.level
 							Mechanics.ExchangeCrystals(_unit1.posColumnI, _unit1.posRowJ, _unit2.posColumnI, _unit2.posRowJ);
 							this.addEventListener(Event.ENTER_FRAME, AnimationBackExchangeCrystals);
 							this.play();
-						} else Mechanics.Remove(this);	// обработка удаления помоченных объектов
+						} else Mechanics.Remove(this);	// обработка удаления помеченных объектов
 							
 					}
 				}
@@ -468,7 +470,7 @@ package Crystal.level
 							Mechanics.ExchangeCrystals(_unit1.posColumnI, _unit1.posRowJ, _unit2.posColumnI, _unit2.posRowJ);
 							this.addEventListener(Event.ENTER_FRAME, AnimationBackExchangeCrystals);
 							this.play();
-						} else Mechanics.Remove(this);	// обработка удаления помоченных объектов
+						} else Mechanics.Remove(this);	// обработка удаления помеченных объектов
 					}
 				}
 				if (_movingObject == "Up:J-1") { // Смещение по вертикале вверх
@@ -484,7 +486,7 @@ package Crystal.level
 							Mechanics.ExchangeCrystals(_unit1.posColumnI, _unit1.posRowJ, _unit2.posColumnI, _unit2.posRowJ);
 							this.addEventListener(Event.ENTER_FRAME, AnimationBackExchangeCrystals);
 							this.play();
-						} else Mechanics.Remove(this);	// обработка удаления помоченных объектов
+						} else Mechanics.Remove(this);	// обработка удаления помеченных объектов
 					}
 				}
 				if (_movingObject == "Down:J+1") { // Смещение по вертикале вниз
@@ -500,7 +502,7 @@ package Crystal.level
 							Mechanics.ExchangeCrystals(_unit1.posColumnI, _unit1.posRowJ, _unit2.posColumnI, _unit2.posRowJ);
 							this.addEventListener(Event.ENTER_FRAME, AnimationBackExchangeCrystals);
 							this.play();
-						} else Mechanics.Remove(this);	// обработка удаления помоченных объектов
+						} else Mechanics.Remove(this);	// обработка удаления помеченных объектов
 					}
 				}
 				
@@ -559,6 +561,35 @@ package Crystal.level
 			}
 		}
 		/*------------------------------------------------------------------------*/
+		
+		/* Уменьшение ходов */
+		public function ReductionMoves():void
+		{
+			_levelQuestAmountMoves--;
+			_labelMove.text = "Ходов: " + _levelQuestAmountMoves.toString();
+		}
+		
+		/* Прогресс уровня */
+		public function Progress(progress:int):void
+		{
+			if (_levelQuest == "LEVEL_TYPE_COLLECT" && _crystalType == "CRYSTAL_TYPE_ALL") _labelQuest = new Label(155, 30, 400, 30, "Arial", 16, 0xFFFFFF, "Задание: Собрано 0 /  " + _amountCrystals.toString() + " любых кристалов.", false);
+			if (_levelQuest == "LEVEL_TYPE_COLLECT" && _crystalType == "CRYSTAL_TYPE_1_VIOLET") _labelQuest = new Label(155, 30, 400, 30, "Arial", 16, 0xFFFFFF, "Задание: Собрано 0 /  " + _amountCrystals.toString() + " фиолетовых кристалов.", false);
+			if (_levelQuest == "LEVEL_TYPE_COLLECT" && _crystalType == "CRYSTAL_TYPE_2_GREEN") _labelQuest = new Label(155, 30, 400, 30, "Arial", 16, 0xFFFFFF, "Задание: Собрано 0 /  " + _amountCrystals.toString() + " зеленых кристалов.", false);
+			if (_levelQuest == "LEVEL_TYPE_COLLECT" && _crystalType == "CRYSTAL_TYPE_3_RED") _labelQuest = new Label(155, 30, 400, 30, "Arial", 16, 0xFFFFFF, "Задание: Собрано 0 /  " + _amountCrystals.toString() + " красных кристалов.", false);
+			if (_levelQuest == "LEVEL_TYPE_COLLECT" && _crystalType == "CRYSTAL_TYPE_4_BLUE") _labelQuest = new Label(155, 30, 400, 30, "Arial", 16, 0xFFFFFF, "Задание: Собрано 0 /  " + _amountCrystals.toString() + " синих кристалов.", false);
+			if (_levelQuest == "LEVEL_TYPE_COLLECT" && _crystalType == "CRYSTAL_TYPE_5_YELLOW") _labelQuest = new Label(155, 30, 400, 30, "Arial", 16, 0xFFFFFF, "Задание: Собрано 0 /  " + _amountCrystals.toString() + " желтых кристалов.", false);
+			if (_levelQuest == "LEVEL_TYPE_COLLECT" && _crystalType == "CRYSTAL_TYPE_6_LINE_UPRIGHT") _labelQuest = new Label(155, 30, 400, 30, "Arial", 16, 0xFFFFFF, "Задание: Собрано 0 /  " + _amountCrystals.toString() + " линейных вертикальных кристалов.", false);
+			if (_levelQuest == "LEVEL_TYPE_COLLECT" && _crystalType == "CRYSTAL_TYPE_7_LINE_HORIZONTALLY") _labelQuest = new Label(155, 30, 400, 30, "Arial", 16, 0xFFFFFF, "Задание: Собрано 0 /  " + _amountCrystals.toString() + " горизонтальных кристалов.", false);
+			if (_levelQuest == "LEVEL_TYPE_COLLECT" && _crystalType == "CRYSTAL_TYPE_8_SUPER") _labelQuest = new Label(155, 30, 400, 30, "Arial", 16, 0xFFFFFF, "Задание: Собрано 0 /  " + _amountCrystals.toString() + " супер кристалов.", false);
+			
+			if (_levelQuest == "LEVEL_TYPE_SCORE_POINTS") {
+				_levelQuestAmountScore += progress;
+				_labelQuest.text = "Задание: Набрано " + _levelQuestAmountScore.toString() + " / " + _amountScoreStar1.toString() + " очков.";
+			}
+			
+			if (_levelQuest == "LEVEL_TYPE_DROP_OBJECT") _labelQuest = new Label(155, 30, 400, 30, "Arial", 16, 0xFFFFFF, "Задание: Спустить 0 / " + _amountCrystals.toString() + "рун.", false);
+			if (_levelQuest == "LEVEL_TYPE_TIME") _labelQuest = new Label(155, 30, 4000, 30, "Arial", 16, 0xFFFFFF, "Задание: Успеть за " + _amountTime.toString() + " минут.", false);
+		}
 	}
 
 }

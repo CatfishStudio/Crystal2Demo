@@ -35,7 +35,13 @@ package Crystal.units
 			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			
 			if ((Resource.MatrixCell[posColumnI][posRowJ] as Cell).cellType == "CELL_TYPE_EMPTY") this.visible = false;
+			else ShowImageObject();
 			
+			posX = this.x; posY = this.y;
+		}
+		
+		private function ShowImageObject():void 
+		{
 			if (unitType == "CRYSTAL_TYPE_1_VIOLET" && (Resource.MatrixCell[posColumnI][posRowJ] as Cell).cellType != "CELL_TYPE_EMPTY") {
 				_imgObject = new Bitmap(Atlas.AtlasGetBitmap(Resource.UnitsImage, 200, 300, 45, 45, true, 0x000000000000, 0, 5, 45, 45, 0, 0).bitmapData);
 				this.addChild(_imgObject);
@@ -151,12 +157,53 @@ package Crystal.units
 				this.addChild(_imgObject);
 				this.x += 0; this.y += 1;
 			}
-			
-			posX = this.x; posY = this.y;
 		}
 		
-		
-		
+		public function Modification():void
+		{
+			if (flagModification && typeModification == 5) {
+				if (unitType == "CRYSTAL_TYPE_1_VIOLET") unitType = "CRYSTAL_TYPE_1_VIOLET_SUPER";
+				if (unitType == "CRYSTAL_TYPE_2_GREEN") unitType = "CRYSTAL_TYPE_2_GREEN_SUPER";
+				if (unitType == "CRYSTAL_TYPE_3_RED") unitType = "CRYSTAL_TYPE_3_RED_SUPER";
+				if (unitType == "CRYSTAL_TYPE_4_BLUE") unitType = "CRYSTAL_TYPE_4_BLUE_SUPER";
+				if (unitType == "CRYSTAL_TYPE_5_YELLOW") unitType = "CRYSTAL_TYPE_5_YELLOW_SUPER";
+				ShowImageObject();
+				this.x -= 3; this.y -= 6;
+			}
+			if (flagModification && typeModification > 4) {
+				if (unitType == "CRYSTAL_TYPE_1_VIOLET") {
+					if (typeModification == 41) unitType = "CRYSTAL_TYPE_1_VIOLET_LINE_HORIZONTALLY";
+					if (typeModification == 42) unitType = "CRYSTAL_TYPE_1_VIOLET_LINE_UPRIGHT";
+					ShowImageObject();
+					this.x -= 3; this.y -= 6;
+				}
+				if (unitType == "CRYSTAL_TYPE_2_GREEN") {
+					if (typeModification == 41) unitType = "CRYSTAL_TYPE_2_GREEN_LINE_HORIZONTALLY";
+					if (typeModification == 42) unitType = "CRYSTAL_TYPE_2_GREEN_LINE_UPRIGHT";
+					ShowImageObject();
+					this.x -= 3; this.y -= 6;
+				}
+				if (unitType == "CRYSTAL_TYPE_3_RED") {
+					if (typeModification == 41) unitType = "CRYSTAL_TYPE_3_RED_LINE_HORIZONTALLY";
+					if (typeModification == 42) unitType = "CRYSTAL_TYPE_3_RED_LINE_UPRIGHT";
+					ShowImageObject();
+					this.x -= 3; this.y -= 6;
+				}
+				if (unitType == "CRYSTAL_TYPE_4_BLUE") {
+					if (typeModification == 41) unitType = "CRYSTAL_TYPE_4_BLUE_LINE_HORIZONTALLY";
+					if (typeModification == 42) unitType = "CRYSTAL_TYPE_4_BLUE_LINE_UPRIGHT";
+					ShowImageObject();
+					this.x -= 3; this.y -= 6;
+				}
+				if (unitType == "CRYSTAL_TYPE_5_YELLOW") {
+					if (typeModification == 41) unitType = "CRYSTAL_TYPE_5_YELLOW_LINE_HORIZONTALLY";
+					if (typeModification == 42) unitType = "CRYSTAL_TYPE_5_YELLOW_LINE_UPRIGHT";
+					ShowImageObject();
+					this.x -= 3; this.y -= 6;
+				}
+			}
+			
+		}
 		
 	}
 
