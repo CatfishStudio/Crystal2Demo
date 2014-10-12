@@ -71,6 +71,7 @@
     <asset path="src\Crystal\media\textures\progress.png" />
     <asset path="src\Crystal\media\textures\loader.png" />
     <asset path="src\Crystal\media\textures\crystal.png" />
+    <asset path="src\Crystal\media\textures\stars.png" />
   </library>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>

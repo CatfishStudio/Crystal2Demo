@@ -16,7 +16,7 @@ package Crystal.units
 		public var unitType:String;
 		public var flagRemove:Boolean = false;
 		public var flagModification:Boolean = false;
-		public var typeModification:int;
+		public var typeModification:int = 0;
 		public var posColumnI:int = 0;
 		public var posRowJ:int = 0;
 		public var posX:int = 0;

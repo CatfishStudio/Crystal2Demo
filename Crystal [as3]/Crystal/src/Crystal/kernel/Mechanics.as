@@ -3,6 +3,8 @@ package Crystal.kernel
 	import Crystal.units.Cell;
 	import Crystal.units.Unit;
 	import Crystal.resource.Resource;
+	import Crystal.animation.Stars;
+	import flash.display.MovieClip;
 	
 	public class Mechanics 
 	{
@@ -100,9 +102,12 @@ package Crystal.kernel
 						if (i < Resource.COLUMNS - 3) { // < 7
 							if (Resource.MatrixUnit[i][row].unitType == Resource.MatrixUnit[i + 3][row].unitType) {
 								/*Отмечаем кристалы для модификации и удаления */
-								(Resource.MatrixUnit[i][row] as Unit).flagModification = true;
-								(Resource.MatrixUnit[i][row] as Unit).typeModification = 4;
-								(Resource.MatrixUnit[i][row] as Unit).flagRemove = false;
+								if(i != 0){
+									if ((Resource.MatrixUnit[i][row] as Unit).typeModification < 5 && (Resource.MatrixUnit[i - 1][row] as Unit).flagModification == false) {
+										(Resource.MatrixUnit[i][row] as Unit).flagModification = true;
+										(Resource.MatrixUnit[i][row] as Unit).typeModification = 4;
+									}
+								}
 								(Resource.MatrixUnit[i + 3][row] as Unit).flagRemove = true;
 								//(Resource.MatrixUnit[i+3][row] as Unit).alpha = 0.2;
 								
@@ -112,7 +117,6 @@ package Crystal.kernel
 										/*Отмечаем кристалы для модификации и удаления */
 										(Resource.MatrixUnit[i][row] as Unit).flagModification = true;
 										(Resource.MatrixUnit[i][row] as Unit).typeModification = 5;
-										(Resource.MatrixUnit[i][row] as Unit).flagRemove = false;
 										(Resource.MatrixUnit[i + 4][row] as Unit).flagRemove = true;
 										//(Resource.MatrixUnit[i+4][row] as Unit).alpha = 0.2;
 								
@@ -148,9 +152,12 @@ package Crystal.kernel
 						if (j < Resource.ROWS - 3) { // < 7
 							if (Resource.MatrixUnit[column][j].unitType == Resource.MatrixUnit[column][j+3].unitType) {
 								/*Отмечаем кристалы для модификации и удаления */
-								(Resource.MatrixUnit[column][j] as Unit).flagModification = true;
-								(Resource.MatrixUnit[column][j] as Unit).typeModification = 4;
-								(Resource.MatrixUnit[column][j] as Unit).flagRemove = false;
+								if (j != 0) {
+									if ((Resource.MatrixUnit[column][j] as Unit).typeModification < 5 && (Resource.MatrixUnit[column][j - 1] as Unit).flagModification != false) {
+										(Resource.MatrixUnit[column][j] as Unit).flagModification = true;
+										(Resource.MatrixUnit[column][j] as Unit).typeModification = 4;
+									}
+								}
 								(Resource.MatrixUnit[column][j+3] as Unit).flagRemove = true;
 								//(Resource.MatrixUnit[column][j+3] as Unit).alpha = 0.2;
 								
@@ -160,7 +167,6 @@ package Crystal.kernel
 										/*Отмечаем кристалы для модификации и удаления */
 										(Resource.MatrixUnit[column][j] as Unit).flagModification = true;
 										(Resource.MatrixUnit[column][j] as Unit).typeModification = 5;
-										(Resource.MatrixUnit[column][j] as Unit).flagRemove = false;
 										(Resource.MatrixUnit[column][j+4] as Unit).flagRemove = true;
 										//(Resource.MatrixUnit[column][j+4] as Unit).alpha = 0.2;
 								
@@ -201,6 +207,44 @@ package Crystal.kernel
 			(Resource.MatrixUnit[columnCrystal1][rowCrystal1] as Unit).posRowJ = rowCrystal1;
 			(Resource.MatrixUnit[columnCrystal2][rowCrystal2] as Unit).posColumnI = columnCrystal2;
 			(Resource.MatrixUnit[columnCrystal2][rowCrystal2] as Unit).posRowJ = rowCrystal2;
+		}
+		
+		/* Удаление на поле всех отмеченных ячеек (Удаление, сортировка, добавление */
+		public static function Remove(level:MovieClip):Boolean
+		{
+			var resultCheck:Boolean = false;
+			
+			for (var i:int = 0; i < Resource.COLUMNS; i++) { /* i - столбецы (обработка слева на право) */
+				/* Удаление помеченных кристалов */
+				for (var j1:int = Resource.ROWS - 1; j1 >= 0; j1--) {	// 9
+					if ((Resource.MatrixUnit[i][j1] as Unit).flagModification == true) {	// модификация кристала
+						trace("col=" + i.toString() + " row=" + j1.toString() + " : " + (Resource.MatrixUnit[i][j1] as Unit).typeModification.toString());
+					}
+					if ((Resource.MatrixUnit[i][j1] as Unit).flagRemove == true) {	// удаление кристала
+						level.addChild(new Stars((Resource.MatrixUnit[i][j1] as Unit).x, (Resource.MatrixUnit[i][j1] as Unit).y));
+					}
+					
+					
+				}
+			}
+			return resultCheck;
+		}
+		
+		
+		/* Коректировка Индексов каждого кристала в массиве */
+		public static function Correction():void
+		{
+			for (var col:int = 0; col < Resource.COLUMNS; col++){
+				for (var row:int = 0; row < Resource.ROWS; row++) {
+					(Resource.MatrixUnit[col][row]as Unit).posColumnI = col;
+					(Resource.MatrixUnit[col][row]as Unit).posRowJ = row;
+					(Resource.MatrixUnit[col][row]as Unit).posX = (Resource.MatrixUnit[col][row]as Unit).x;
+					(Resource.MatrixUnit[col][row]as Unit).posY = (Resource.MatrixUnit[col][row]as Unit).y;
+					(Resource.MatrixUnit[col][row]as Unit).flagRemove = false;
+					(Resource.MatrixUnit[col][row]as Unit).flagModification = false;
+					(Resource.MatrixUnit[col][row]as Unit).typeModification = 0;
+				}
+			}
 		}
 		
 		

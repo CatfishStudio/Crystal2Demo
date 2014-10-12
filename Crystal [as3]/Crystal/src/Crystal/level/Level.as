@@ -223,7 +223,7 @@ package Crystal.level
 				_brifing.stop();
 				_brifing.removeEventListener(Event.ENTER_FRAME, onEnterFrame);
 				this.removeChild(_brifing);
-				CreateLevel();
+				CreateLevel();	// Создание уровня
 			}
 		}
 		
@@ -352,6 +352,7 @@ package Crystal.level
 			Mouse.cursor = MouseCursor.BUTTON;
 		}
 		
+		/* Обмен местами кристалов на поле */
 		private function onMouseUnitMove(e:MouseEvent):void
 		{
 			/* i - столбец; j - строка */
@@ -450,7 +451,7 @@ package Crystal.level
 							Mechanics.ExchangeCrystals(_unit1.posColumnI, _unit1.posRowJ, _unit2.posColumnI, _unit2.posRowJ);
 							this.addEventListener(Event.ENTER_FRAME, AnimationBackExchangeCrystals);
 							this.play();
-						}
+						} else Mechanics.Remove(this);	// обработка удаления помоченных объектов
 							
 					}
 				}
@@ -467,7 +468,7 @@ package Crystal.level
 							Mechanics.ExchangeCrystals(_unit1.posColumnI, _unit1.posRowJ, _unit2.posColumnI, _unit2.posRowJ);
 							this.addEventListener(Event.ENTER_FRAME, AnimationBackExchangeCrystals);
 							this.play();
-						}
+						} else Mechanics.Remove(this);	// обработка удаления помоченных объектов
 					}
 				}
 				if (_movingObject == "Up:J-1") { // Смещение по вертикале вверх
@@ -483,7 +484,7 @@ package Crystal.level
 							Mechanics.ExchangeCrystals(_unit1.posColumnI, _unit1.posRowJ, _unit2.posColumnI, _unit2.posRowJ);
 							this.addEventListener(Event.ENTER_FRAME, AnimationBackExchangeCrystals);
 							this.play();
-						}
+						} else Mechanics.Remove(this);	// обработка удаления помоченных объектов
 					}
 				}
 				if (_movingObject == "Down:J+1") { // Смещение по вертикале вниз
@@ -499,7 +500,7 @@ package Crystal.level
 							Mechanics.ExchangeCrystals(_unit1.posColumnI, _unit1.posRowJ, _unit2.posColumnI, _unit2.posRowJ);
 							this.addEventListener(Event.ENTER_FRAME, AnimationBackExchangeCrystals);
 							this.play();
-						}
+						} else Mechanics.Remove(this);	// обработка удаления помоченных объектов
 					}
 				}
 				
