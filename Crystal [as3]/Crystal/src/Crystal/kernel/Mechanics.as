@@ -242,7 +242,7 @@ package Crystal.kernel
 						(level as Level).Progress(60);
 						/* Определяем возвращаемое значение данной функцией */
 						resultCheck = true;
-					} else { /* НЕ УДАЛЯЕМ */
+					} else { /* НЕ УДАЛЯЕМ. (ПЕРЕНОСИМ В МАССИВЕ НА СВОБОДНОЕ МЕСТО) */
 						/* Сохраняем кристал в промежуточный массив */
 						matrixUnits.push((Resource.MatrixUnit[i][j1] as Unit));
 						/* Удаляем в массиве */

@@ -572,6 +572,7 @@ package Crystal.level
 		/* Прогресс уровня */
 		public function Progress(progress:int):void
 		{
+			/*
 			if (_levelQuest == "LEVEL_TYPE_COLLECT" && _crystalType == "CRYSTAL_TYPE_ALL") _labelQuest = new Label(155, 30, 400, 30, "Arial", 16, 0xFFFFFF, "Задание: Собрано 0 /  " + _amountCrystals.toString() + " любых кристалов.", false);
 			if (_levelQuest == "LEVEL_TYPE_COLLECT" && _crystalType == "CRYSTAL_TYPE_1_VIOLET") _labelQuest = new Label(155, 30, 400, 30, "Arial", 16, 0xFFFFFF, "Задание: Собрано 0 /  " + _amountCrystals.toString() + " фиолетовых кристалов.", false);
 			if (_levelQuest == "LEVEL_TYPE_COLLECT" && _crystalType == "CRYSTAL_TYPE_2_GREEN") _labelQuest = new Label(155, 30, 400, 30, "Arial", 16, 0xFFFFFF, "Задание: Собрано 0 /  " + _amountCrystals.toString() + " зеленых кристалов.", false);
@@ -581,14 +582,15 @@ package Crystal.level
 			if (_levelQuest == "LEVEL_TYPE_COLLECT" && _crystalType == "CRYSTAL_TYPE_6_LINE_UPRIGHT") _labelQuest = new Label(155, 30, 400, 30, "Arial", 16, 0xFFFFFF, "Задание: Собрано 0 /  " + _amountCrystals.toString() + " линейных вертикальных кристалов.", false);
 			if (_levelQuest == "LEVEL_TYPE_COLLECT" && _crystalType == "CRYSTAL_TYPE_7_LINE_HORIZONTALLY") _labelQuest = new Label(155, 30, 400, 30, "Arial", 16, 0xFFFFFF, "Задание: Собрано 0 /  " + _amountCrystals.toString() + " горизонтальных кристалов.", false);
 			if (_levelQuest == "LEVEL_TYPE_COLLECT" && _crystalType == "CRYSTAL_TYPE_8_SUPER") _labelQuest = new Label(155, 30, 400, 30, "Arial", 16, 0xFFFFFF, "Задание: Собрано 0 /  " + _amountCrystals.toString() + " супер кристалов.", false);
+			*/
 			
 			if (_levelQuest == "LEVEL_TYPE_SCORE_POINTS") {
 				_levelQuestAmountScore += progress;
 				_labelQuest.text = "Задание: Набрано " + _levelQuestAmountScore.toString() + " / " + _amountScoreStar1.toString() + " очков.";
 			}
 			
-			if (_levelQuest == "LEVEL_TYPE_DROP_OBJECT") _labelQuest = new Label(155, 30, 400, 30, "Arial", 16, 0xFFFFFF, "Задание: Спустить 0 / " + _amountCrystals.toString() + "рун.", false);
-			if (_levelQuest == "LEVEL_TYPE_TIME") _labelQuest = new Label(155, 30, 4000, 30, "Arial", 16, 0xFFFFFF, "Задание: Успеть за " + _amountTime.toString() + " минут.", false);
+			//if (_levelQuest == "LEVEL_TYPE_DROP_OBJECT") _labelQuest = new Label(155, 30, 400, 30, "Arial", 16, 0xFFFFFF, "Задание: Спустить 0 / " + _amountCrystals.toString() + "рун.", false);
+			//if (_levelQuest == "LEVEL_TYPE_TIME") _labelQuest = new Label(155, 30, 4000, 30, "Arial", 16, 0xFFFFFF, "Задание: Успеть за " + _amountTime.toString() + " минут.", false);
 		}
 	}
 
