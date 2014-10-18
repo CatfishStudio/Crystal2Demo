@@ -317,15 +317,19 @@ package Crystal.level
 		private function onMouseUnitClick(e:MouseEvent):void
 		{
 			// при нажатии
-			/*
+			
 			trace((e.target as Unit).unitType);
 			trace((Resource.MatrixUnit[(e.target as Unit).posColumnI][(e.target as Unit).posRowJ] as Unit).unitType);
+			trace((e.target as Unit).flagRemove);
+			trace((Resource.MatrixUnit[(e.target as Unit).posColumnI][(e.target as Unit).posRowJ] as Unit).flagRemove);
+			
+			/*
 			trace((e.target as Unit).posColumnI);
 			trace((Resource.MatrixUnit[(e.target as Unit).posColumnI][(e.target as Unit).posRowJ] as Unit).posColumnI);
 			trace((e.target as Unit).x);
 			trace((Resource.MatrixUnit[(e.target as Unit).posColumnI][(e.target as Unit).posRowJ] as Unit).posX);
 			trace("---------------------");
-			*/
+			
 			/*
 			trace("ПОЗИЦИЯ(i-колонка):" + (e.target as Unit).posColumnI.toString() + "  ПОЗИЦИЯ(j-строка):" + (e.target as Unit).posRowJ.toString());
 			trace("ПОЗИЦИЯ(X):" + (e.target as Unit).x.toString() + "  ПОЗИЦИЯ(Y):" + (e.target as Unit).y.toString());

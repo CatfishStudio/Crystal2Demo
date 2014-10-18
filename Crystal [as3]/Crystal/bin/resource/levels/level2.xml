@@ -37,7 +37,7 @@
 </cell>
 <cell>
 <cellType>CELL_TYPE_CLEAR</cellType>
-<cellObject>CRYSTAL_TYPE_5_YELLOW</cellObject>
+<cellObject>CRYSTAL_TYPE_9_STONE</cellObject>
 <cellColumn>0</cellColumn>
 <cellRow>4</cellRow>
 </cell>
@@ -55,7 +55,7 @@
 </cell>
 <cell>
 <cellType>CELL_TYPE_CLEAR</cellType>
-<cellObject>CRYSTAL_TYPE_4_BLUE</cellObject>
+<cellObject>CRYSTAL_TYPE_9_STONE</cellObject>
 <cellColumn>0</cellColumn>
 <cellRow>7</cellRow>
 </cell>
@@ -79,7 +79,7 @@
 </cell>
 <cell>
 <cellType>CELL_TYPE_CLEAR</cellType>
-<cellObject>CRYSTAL_TYPE_2_GREEN</cellObject>
+<cellObject>CRYSTAL_TYPE_9_STONE</cellObject>
 <cellColumn>1</cellColumn>
 <cellRow>1</cellRow>
 </cell>
@@ -97,7 +97,7 @@
 </cell>
 <cell>
 <cellType>CELL_TYPE_CLEAR</cellType>
-<cellObject>CRYSTAL_TYPE_3_RED</cellObject>
+<cellObject>CRYSTAL_TYPE_9_STONE</cellObject>
 <cellColumn>1</cellColumn>
 <cellRow>4</cellRow>
 </cell>
@@ -115,7 +115,7 @@
 </cell>
 <cell>
 <cellType>CELL_TYPE_CLEAR</cellType>
-<cellObject>CRYSTAL_TYPE_1_VIOLET</cellObject>
+<cellObject>CRYSTAL_TYPE_9_STONE</cellObject>
 <cellColumn>1</cellColumn>
 <cellRow>7</cellRow>
 </cell>
@@ -505,7 +505,7 @@
 </cell>
 <cell>
 <cellType>CELL_TYPE_CLEAR</cellType>
-<cellObject>CRYSTAL_TYPE_3_RED</cellObject>
+<cellObject>CRYSTAL_TYPE_9_STONE</cellObject>
 <cellColumn>8</cellColumn>
 <cellRow>2</cellRow>
 </cell>
@@ -523,7 +523,7 @@
 </cell>
 <cell>
 <cellType>CELL_TYPE_CLEAR</cellType>
-<cellObject>CRYSTAL_TYPE_3_RED</cellObject>
+<cellObject>CRYSTAL_TYPE_9_STONE</cellObject>
 <cellColumn>8</cellColumn>
 <cellRow>5</cellRow>
 </cell>
@@ -541,7 +541,7 @@
 </cell>
 <cell>
 <cellType>CELL_TYPE_CLEAR</cellType>
-<cellObject>CRYSTAL_TYPE_3_RED</cellObject>
+<cellObject>CRYSTAL_TYPE_9_STONE</cellObject>
 <cellColumn>8</cellColumn>
 <cellRow>8</cellRow>
 </cell>
@@ -565,7 +565,7 @@
 </cell>
 <cell>
 <cellType>CELL_TYPE_CLEAR</cellType>
-<cellObject>CRYSTAL_TYPE_3_RED</cellObject>
+<cellObject>CRYSTAL_TYPE_9_STONE</cellObject>
 <cellColumn>9</cellColumn>
 <cellRow>2</cellRow>
 </cell>
@@ -583,7 +583,7 @@
 </cell>
 <cell>
 <cellType>CELL_TYPE_CLEAR</cellType>
-<cellObject>CRYSTAL_TYPE_3_RED</cellObject>
+<cellObject>CRYSTAL_TYPE_9_STONE</cellObject>
 <cellColumn>9</cellColumn>
 <cellRow>5</cellRow>
 </cell>

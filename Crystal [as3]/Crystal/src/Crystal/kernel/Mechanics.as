@@ -88,6 +88,7 @@ package Crystal.kernel
 			/* просматриваем кристалы в строке (по столбцам) */
 			for (var i:int = 0; i < Resource.COLUMNS; i++) {
 				if (i < Resource.COLUMNS - 2) {	// < 8
+					if((Resource.MatrixUnit[i][row] as Unit).unitType != "CELL_TYPE_EMPTY"){
 					/* Группа из 3-х кристалов */
 					if (Resource.MatrixUnit[i][row].unitType == Resource.MatrixUnit[i + 1][row].unitType && Resource.MatrixUnit[i][row].unitType == Resource.MatrixUnit[i + 2][row].unitType) {
 						/*Отмечаем кристалы для удаления */
@@ -126,6 +127,7 @@ package Crystal.kernel
 							}
 						}
 					}
+					}
 				}else break;
 			}
 			return resultCheck;
@@ -138,6 +140,7 @@ package Crystal.kernel
 			/* просматриваем кристалы в столбце (по строкам) */
 			for (var j:int = 0; j < Resource.ROWS; j++) {
 				if (j < Resource.ROWS - 2) {	// < 8
+					if((Resource.MatrixUnit[column][j] as Unit).unitType != "CELL_TYPE_EMPTY"){
 					/* Группа из 3-х кристалов */
 					if (Resource.MatrixUnit[column][j].unitType == Resource.MatrixUnit[column][j+1].unitType && Resource.MatrixUnit[column][j].unitType == Resource.MatrixUnit[column][j+2].unitType) {
 						/*Отмечаем кристалы для удаления */
@@ -175,6 +178,7 @@ package Crystal.kernel
 								}
 							}
 						}
+					}
 					}
 				}else break;
 			}
@@ -214,6 +218,13 @@ package Crystal.kernel
 		public static function Remove(level:MovieClip):Boolean
 		{
 			var resultCheck:Boolean = false;
+			
+			return resultCheck;
+		}
+		
+		public static function RemoveTEST(level:MovieClip):Boolean
+		{
+			var resultCheck:Boolean = false;
 			/* Уменьшение ходов на уровне */
 			(level as Level).ReductionMoves();
 			
@@ -243,10 +254,21 @@ package Crystal.kernel
 						/* Определяем возвращаемое значение данной функцией */
 						resultCheck = true;
 					} else { /* НЕ УДАЛЯЕМ. (ПЕРЕНОСИМ В МАССИВЕ НА СВОБОДНОЕ МЕСТО) */
-						/* Сохраняем кристал в промежуточный массив */
-						matrixUnits.push((Resource.MatrixUnit[i][j1] as Unit));
-						/* Удаляем в массиве */
-						Resource.MatrixUnit[i].pop(); // Удаляем из массива
+						if ((Resource.MatrixCell[i][j1] as Cell).cellType != "CELL_TYPE_EMPTY") { // ПУСТОТА
+							if ((Resource.MatrixUnit[i][j1] as Unit).unitType != "CRYSTAL_TYPE_9_STONE") { // ПРЕГРАДА
+								/* Проверка свободных мест */
+								
+								//???????????????
+								
+								/* Сохраняем кристал в промежуточный массив */
+								matrixUnits.push((Resource.MatrixUnit[i][j1] as Unit));
+								/* Удаляем в массиве */
+								Resource.MatrixUnit[i].pop(); // Удаляем из массива
+							}
+						}
+						
+						
+						
 					}
 				}
 				
