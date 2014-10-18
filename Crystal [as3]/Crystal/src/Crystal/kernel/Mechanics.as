@@ -6,6 +6,8 @@ package Crystal.kernel
 	import Crystal.resource.Resource;
 	import Crystal.animation.Stars;
 	import flash.display.MovieClip;
+	import flash.events.MouseEvent;
+	
 	
 	public class Mechanics 
 	{
@@ -218,6 +220,79 @@ package Crystal.kernel
 		public static function Remove(level:MovieClip):Boolean
 		{
 			var resultCheck:Boolean = false;
+			/* Уменьшение ходов на уровне */
+			(level as Level).ReductionMoves();
+			
+			for (var i:int = 0; i < Resource.COLUMNS; i++) { /* i - столбецы (обработка слева на право) */
+				var matrixUnits:Vector.<Unit> = new Vector.<Unit>();
+				/* Удаление помеченных кристалов */
+				for (var j1:int = Resource.ROWS - 1; j1 >= 0; j1--) {	// 9
+					
+					/* Модификация */
+					if ((Resource.MatrixUnit[i][j1] as Unit).flagModification == true) {	// модификация кристала
+						level.addChild(new Stars((Resource.MatrixUnit[i][j1] as Unit).x, (Resource.MatrixUnit[i][j1] as Unit).y)); // анимация звезд
+						(Resource.MatrixUnit[i][j1] as Unit).Modification();	// модификацияобъекта (визуальное изменение)
+						/* Прогресс уровня (тип уровня ([собрать кристалы], [набрать очки], [спустить объект], [на время])*/
+						if ((Resource.MatrixUnit[i][j1] as Unit).typeModification == 5) (level as Level).Progress(240);
+						if ((Resource.MatrixUnit[i][j1] as Unit).typeModification > 5) (level as Level).Progress(160);
+					}
+					
+					/* Удаление */
+					if ((Resource.MatrixUnit[i][j1] as Unit).flagRemove == true && (Resource.MatrixUnit[i][j1] as Unit).flagModification == false) {	// удаление кристала
+						/* анимация звезд */
+						level.addChild(new Stars((Resource.MatrixUnit[i][j1] as Unit).x, (Resource.MatrixUnit[i][j1] as Unit).y));
+						/* Удаление объект с поля */
+						level.removeChild(Resource.MatrixUnit[i][j1]);
+						/* Удаляем в главном массиве */
+						Resource.MatrixUnit[i].pop(); // Удаляем из главного массива
+						/* Прогресс уровня (тип уровня ([собрать кристалы], [набрать очки], [спустить объект], [на время])*/
+						(level as Level).Progress(60);
+						/* Определяем возвращаемое значение данной функцией */
+						resultCheck = true;
+					}else {
+						/* Сохраняем кристал в промежуточный массив */
+						matrixUnits.push((Resource.MatrixUnit[i][j1] as Unit));
+						/* Удаляем в главном массиве */
+						Resource.MatrixUnit[i].pop(); // Удаляем из массива
+					}
+				}
+				
+				/* Возвращаем оставщиеся кристалы в массив игрового поля и добавляем новые */
+				var indexJ:int = 0;
+				for (var j2:int = Resource.ROWS - 1; j2 >= 0; j2--) {	// 9
+					if (matrixUnits.length > j2) {
+						/* Перемещение кристала в массиве */
+						Resource.MatrixUnit[i].push(matrixUnits[j2]); // Переносим (добавляем) в массив
+					}else {
+						/* Добавление новых объектов в массив и на поле */
+						var newUnit:Unit = new Unit();
+						newUnit.x = 200 + (50 * i);
+						newUnit.y = 50 + (10 * indexJ); // ?????
+						newUnit.posColumnI = i;
+						newUnit.posRowJ = indexJ;
+						newUnit.posX = newUnit.x;
+						newUnit.posY = 70 + (50 * indexJ);
+						var type:int = RandomIndex();
+						if (type == 1) newUnit.unitType = "CRYSTAL_TYPE_1_VIOLET";
+						if (type == 2) newUnit.unitType = "CRYSTAL_TYPE_2_GREEN";
+						if (type == 3) newUnit.unitType = "CRYSTAL_TYPE_3_RED";
+						if (type == 4) newUnit.unitType = "CRYSTAL_TYPE_4_BLUE";
+						if (type == 5) newUnit.unitType = "CRYSTAL_TYPE_5_YELLOW";
+						/*события*/
+						newUnit.addEventListener(MouseEvent.CLICK, (level as Level).onMouseUnitClick);
+						newUnit.addEventListener(MouseEvent.MOUSE_DOWN, (level as Level).onMouseUnitDown);
+						newUnit.addEventListener(MouseEvent.MOUSE_UP, (level as Level).onMouseUnitUp);
+						newUnit.addEventListener(MouseEvent.MOUSE_MOVE, (level as Level).onMouseUnitMove);
+						newUnit.addEventListener(MouseEvent.MOUSE_OUT, (level as Level).onMouseUnitOut);
+						newUnit.addEventListener(MouseEvent.MOUSE_OVER, (level as Level).onMouseUnitOver);
+					
+						Resource.MatrixUnit[i].push(newUnit);
+						(level as Level).addChild(Resource.MatrixUnit[i][indexJ]);
+						trace("col=" + i.toString() + " row=" + indexJ.toString() + " indexType=" + type.toString() + " type=" + (Resource.MatrixUnit[i][indexJ] as Unit).unitType);
+					}
+					indexJ++;
+				}
+			}
 			
 			return resultCheck;
 		}

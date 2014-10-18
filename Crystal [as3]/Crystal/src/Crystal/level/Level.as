@@ -314,7 +314,7 @@ package Crystal.level
 		}
 		
 		/*События объектов игрового поля --------------------------------------------*/
-		private function onMouseUnitClick(e:MouseEvent):void
+		public function onMouseUnitClick(e:MouseEvent):void
 		{
 			// при нажатии
 			
@@ -337,29 +337,29 @@ package Crystal.level
 			*/
 		}
 		
-		private function onMouseUnitDown(e:MouseEvent):void
+		public function onMouseUnitDown(e:MouseEvent):void
 		{
 			_clickObject = true; // флаг - объект нажат
 		}
 		
-		private function onMouseUnitUp(e:MouseEvent):void
+		public function onMouseUnitUp(e:MouseEvent):void
 		{
 			_clickObject = false; // флаг - объект не нажат
 		}
 		
-		private function onMouseUnitOut(e:MouseEvent):void
+		public function onMouseUnitOut(e:MouseEvent):void
 		{
 			_clickObject = false;
 			Mouse.cursor = MouseCursor.AUTO;
 		}
 		
-		private function onMouseUnitOver(e:MouseEvent):void
+		public function onMouseUnitOver(e:MouseEvent):void
 		{
 			Mouse.cursor = MouseCursor.BUTTON;
 		}
 		
 		/* Обмен местами кристалов на поле */
-		private function onMouseUnitMove(e:MouseEvent):void
+		public function onMouseUnitMove(e:MouseEvent):void
 		{
 			/* i - столбец; j - строка */
 			if(_blockedField == false){	// Игровое поле разблокировано
