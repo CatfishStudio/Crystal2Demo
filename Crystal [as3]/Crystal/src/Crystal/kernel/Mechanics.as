@@ -7,7 +7,7 @@ package Crystal.kernel
 	import Crystal.animation.Stars;
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
-	
+	import flash.events.Event;
 	
 	public class Mechanics 
 	{
@@ -217,9 +217,8 @@ package Crystal.kernel
 		}
 		
 		/* Удаление на поле всех отмеченных ячеек (Удаление, сортировка, добавление */
-		public static function Remove(level:MovieClip):Boolean
+		public static function SimplyRemove(level:MovieClip):void
 		{
-			var resultCheck:Boolean = false;
 			/* Уменьшение ходов на уровне */
 			(level as Level).ReductionMoves();
 			
@@ -247,8 +246,6 @@ package Crystal.kernel
 						Resource.MatrixUnit[i].pop(); // Удаляем из главного массива
 						/* Прогресс уровня (тип уровня ([собрать кристалы], [набрать очки], [спустить объект], [на время])*/
 						(level as Level).Progress(60);
-						/* Определяем возвращаемое значение данной функцией */
-						resultCheck = true;
 					}else {
 						/* Сохраняем кристал в промежуточный массив */
 						matrixUnits.push((Resource.MatrixUnit[i][j1] as Unit));
@@ -262,7 +259,8 @@ package Crystal.kernel
 				for (var j2:int = Resource.ROWS - 1; j2 >= 0; j2--) {	// 9
 					if (matrixUnits.length > j2) {
 						/* Перемещение кристала в массиве */
-						Resource.MatrixUnit[i].push(matrixUnits[j2]); // Переносим (добавляем) в массив
+						(matrixUnits[j2] as Unit).posRowJ = indexJ;		// изменяем индекс положения в строке
+						Resource.MatrixUnit[i].push(matrixUnits[j2]); 	// Переносим (добавляем) в массив
 					}else {
 						/* Добавление новых объектов в массив и на поле */
 						var newUnit:Unit = new Unit();
@@ -292,12 +290,16 @@ package Crystal.kernel
 					}
 					indexJ++;
 				}
+				
 			}
 			
-			return resultCheck;
+			/* Вызываем функцию спуска */
+			(level as Level).addEventListener(Event.ENTER_FRAME, (level as Level).AnimationMoveDown);
+			(level as Level).play();
+			
 		}
 		
-		public static function RemoveTEST(level:MovieClip):Boolean
+		public static function DifficultRemove(level:MovieClip):Boolean
 		{
 			var resultCheck:Boolean = false;
 			/* Уменьшение ходов на уровне */
@@ -362,6 +364,7 @@ package Crystal.kernel
 			}
 			return resultCheck;
 		}
+		
 		
 		
 		/* Коректировка Индексов каждого кристала в массиве */

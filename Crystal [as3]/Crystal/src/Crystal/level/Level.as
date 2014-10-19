@@ -6,7 +6,6 @@ package Crystal.level
 	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.events.Event;
-	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.ui.Mouse;
 	import flash.ui.MouseCursor;
@@ -64,7 +63,7 @@ package Crystal.level
 		/*----------------------------*/
 		
 		private var _clickObject:Boolean = false; 	// флаг нажатия на объект (кристал, камень, руну)
-		private var _blockedField:Boolean = false;	// флаг блокировки игрового поля от нажатий
+		public var blockedField:Boolean = false;	// флаг блокировки игрового поля от нажатий
 		private var _movingObject:String;			// Направление передвижения объекта на поле (при воздействии пользователя на него)
 		private var _unit1:Unit;					// Выбранные объекты для обмена местами
 		private var _unit2:Unit;						
@@ -317,7 +316,7 @@ package Crystal.level
 		public function onMouseUnitClick(e:MouseEvent):void
 		{
 			// при нажатии
-			
+			/*
 			trace((e.target as Unit).unitType);
 			trace((Resource.MatrixUnit[(e.target as Unit).posColumnI][(e.target as Unit).posRowJ] as Unit).unitType);
 			trace((e.target as Unit).flagRemove);
@@ -329,12 +328,11 @@ package Crystal.level
 			trace((e.target as Unit).x);
 			trace((Resource.MatrixUnit[(e.target as Unit).posColumnI][(e.target as Unit).posRowJ] as Unit).posX);
 			trace("---------------------");
-			
-			/*
+			*/
 			trace("ПОЗИЦИЯ(i-колонка):" + (e.target as Unit).posColumnI.toString() + "  ПОЗИЦИЯ(j-строка):" + (e.target as Unit).posRowJ.toString());
 			trace("ПОЗИЦИЯ(X):" + (e.target as Unit).x.toString() + "  ПОЗИЦИЯ(Y):" + (e.target as Unit).y.toString());
 			trace("ПОЗИЦИЯ(posX):" + (e.target as Unit).posX.toString() + "  ПОЗИЦИЯ(posY):" + (e.target as Unit).posY.toString());
-			*/
+			
 		}
 		
 		public function onMouseUnitDown(e:MouseEvent):void
@@ -362,14 +360,14 @@ package Crystal.level
 		public function onMouseUnitMove(e:MouseEvent):void
 		{
 			/* i - столбец; j - строка */
-			if(_blockedField == false){	// Игровое поле разблокировано
+			if(blockedField == false){	// Игровое поле разблокировано
 				if (_clickObject) {		// объект нажат
 					/* Смещение по горизонтале вправо */
 					if (e.localX > 35 && e.localY < 35 && e.localY > 5) {
 						if ((e.target as Unit).posColumnI < Resource.COLUMNS - 1) {	// < 9
 							/* Если не преграда (Камень) */
 							if ((e.target as Unit).unitType != "CRYSTAL_TYPE_9_STONE" && (Resource.MatrixUnit[(e.target as Unit).posColumnI + 1][(e.target as Unit).posRowJ] as Unit).unitType != "CRYSTAL_TYPE_9_STONE") {
-								_blockedField = true; // блокируем игровое поле
+								blockedField = true; // блокируем игровое поле
 								_movingObject = "Right:I+1";	// Обмен местами по горизонтали с объектом стоящим справа
 								_unit1 = (e.target as Unit);
 								_unit2 = (Resource.MatrixUnit[(e.target as Unit).posColumnI + 1][(e.target as Unit).posRowJ] as Unit);
@@ -387,7 +385,7 @@ package Crystal.level
 						if ((e.target as Unit).posColumnI > 0) {
 							/* Если не преграда (Камень) */
 							if ((e.target as Unit).unitType != "CRYSTAL_TYPE_9_STONE" && (Resource.MatrixUnit[(e.target as Unit).posColumnI - 1][(e.target as Unit).posRowJ] as Unit).unitType != "CRYSTAL_TYPE_9_STONE") {
-								_blockedField = true; // блокируем игровое поле
+								blockedField = true; // блокируем игровое поле
 								_movingObject = "Left:I-1";	// Обмен местами по горизонтали с объектом стоящим слева
 								_unit1 = (e.target as Unit);
 								_unit2 = (Resource.MatrixUnit[(e.target as Unit).posColumnI - 1][(e.target as Unit).posRowJ] as Unit);
@@ -405,7 +403,7 @@ package Crystal.level
 						if ((e.target as Unit).posRowJ > 0) {
 							/* Если не преграда (Камень) */
 							if ((e.target as Unit).unitType != "CRYSTAL_TYPE_9_STONE" && (Resource.MatrixUnit[(e.target as Unit).posColumnI][(e.target as Unit).posRowJ - 1] as Unit).unitType != "CRYSTAL_TYPE_9_STONE") {
-								_blockedField = true; // блокируем игровое поле
+								blockedField = true; // блокируем игровое поле
 								_movingObject = "Up:J-1";	// Обмен местами по горизонтали с объектом стоящим слева
 								_unit1 = (e.target as Unit);
 								_unit2 = (Resource.MatrixUnit[(e.target as Unit).posColumnI][(e.target as Unit).posRowJ - 1] as Unit);
@@ -423,7 +421,7 @@ package Crystal.level
 						if ((e.target as Unit).posRowJ < Resource.ROWS - 1) { // 9
 							/* Если не преграда (Камень) */
 							if ((e.target as Unit).unitType != "CRYSTAL_TYPE_9_STONE" && (Resource.MatrixUnit[(e.target as Unit).posColumnI][(e.target as Unit).posRowJ + 1] as Unit).unitType != "CRYSTAL_TYPE_9_STONE") {
-								_blockedField = true; // блокируем игровое поле
+								blockedField = true; // блокируем игровое поле
 								_movingObject = "Down:J+1";	// Обмен местами по горизонтали с объектом стоящим слева
 								_unit1 = (e.target as Unit);
 								_unit2 = (Resource.MatrixUnit[(e.target as Unit).posColumnI][(e.target as Unit).posRowJ + 1] as Unit);
@@ -437,6 +435,20 @@ package Crystal.level
 					}
 				}
 			}
+		}
+		
+		/* Анимация спуска объектов */
+		public function AnimationMoveDown(e:Event):void 
+		{
+			for (var i:int = 0; i < Resource.COLUMNS; i++) { /* i - столбецы (обработка слева на право) */
+				for (var j:int = Resource.ROWS - 1; j >= 0; j--) {	/* j - строки (обработка снизу вверх) */
+					//(Resource.MatrixUnit[i][j] as Unit).posRowJ
+				}
+			}
+			
+			/* Вызываем функцию проверки новых групп на поле */
+			if (Mechanics.CheckField()) Mechanics.SimplyRemove(this);
+			else blockedField = false;
 		}
 		
 		/* Анимация обмена местами между двумя объектами на поле, после воздействия на них пользователем */
@@ -457,7 +469,7 @@ package Crystal.level
 							Mechanics.ExchangeCrystals(_unit1.posColumnI, _unit1.posRowJ, _unit2.posColumnI, _unit2.posRowJ);
 							this.addEventListener(Event.ENTER_FRAME, AnimationBackExchangeCrystals);
 							this.play();
-						} else Mechanics.Remove(this);	// обработка удаления помеченных объектов
+						} else Mechanics.SimplyRemove(this);	// обработка удаления помеченных объектов
 							
 					}
 				}
@@ -474,7 +486,7 @@ package Crystal.level
 							Mechanics.ExchangeCrystals(_unit1.posColumnI, _unit1.posRowJ, _unit2.posColumnI, _unit2.posRowJ);
 							this.addEventListener(Event.ENTER_FRAME, AnimationBackExchangeCrystals);
 							this.play();
-						} else Mechanics.Remove(this);	// обработка удаления помеченных объектов
+						} else Mechanics.SimplyRemove(this);	// обработка удаления помеченных объектов
 					}
 				}
 				if (_movingObject == "Up:J-1") { // Смещение по вертикале вверх
@@ -490,7 +502,7 @@ package Crystal.level
 							Mechanics.ExchangeCrystals(_unit1.posColumnI, _unit1.posRowJ, _unit2.posColumnI, _unit2.posRowJ);
 							this.addEventListener(Event.ENTER_FRAME, AnimationBackExchangeCrystals);
 							this.play();
-						} else Mechanics.Remove(this);	// обработка удаления помеченных объектов
+						} else Mechanics.SimplyRemove(this);	// обработка удаления помеченных объектов
 					}
 				}
 				if (_movingObject == "Down:J+1") { // Смещение по вертикале вниз
@@ -506,7 +518,7 @@ package Crystal.level
 							Mechanics.ExchangeCrystals(_unit1.posColumnI, _unit1.posRowJ, _unit2.posColumnI, _unit2.posRowJ);
 							this.addEventListener(Event.ENTER_FRAME, AnimationBackExchangeCrystals);
 							this.play();
-						} else Mechanics.Remove(this);	// обработка удаления помеченных объектов
+						} else Mechanics.SimplyRemove(this);	// обработка удаления помеченных объектов
 					}
 				}
 				
@@ -526,7 +538,7 @@ package Crystal.level
 						this.removeEventListener(Event.ENTER_FRAME, AnimationBackExchangeCrystals);
 						_unit1.posX = _unit1.x;
 						_unit2.posX = _unit2.x;
-						_blockedField = false; 
+						blockedField = false; 
 					}
 				}
 				if (_movingObject == "Left:I-1") { // Смещение по горизонтале влево
@@ -537,7 +549,7 @@ package Crystal.level
 						this.removeEventListener(Event.ENTER_FRAME, AnimationBackExchangeCrystals);
 						_unit1.posX = _unit1.x;
 						_unit2.posX = _unit2.x;
-						_blockedField = false;
+						blockedField = false;
 					}
 				}
 				if (_movingObject == "Up:J-1") { // Смещение по вертикале вверх
@@ -548,7 +560,7 @@ package Crystal.level
 						this.removeEventListener(Event.ENTER_FRAME, AnimationBackExchangeCrystals);
 						_unit1.posY = _unit1.y;
 						_unit2.posY = _unit2.y;
-						_blockedField = false;
+						blockedField = false;
 					}
 				}
 				if (_movingObject == "Down:J+1") { // Смещение по вертикале вниз
@@ -559,7 +571,7 @@ package Crystal.level
 						this.removeEventListener(Event.ENTER_FRAME, AnimationBackExchangeCrystals);
 						_unit1.posY = _unit1.y;
 						_unit2.posY = _unit2.y;
-						_blockedField = false;
+						blockedField = false;
 					}
 				}
 			}
