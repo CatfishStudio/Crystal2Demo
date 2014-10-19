@@ -27,6 +27,7 @@ package Crystal.units
 		public function Unit() 
 		{
 			super();
+			posX = this.x; posY = this.y;
 			this.addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 		}
 		
@@ -37,7 +38,7 @@ package Crystal.units
 			if ((Resource.MatrixCell[posColumnI][posRowJ] as Cell).cellType == "CELL_TYPE_EMPTY") this.visible = false;
 			else ShowImageObject();
 			
-			posX = this.x; posY = this.y;
+			//posX = this.x; posY = this.y;
 		}
 		
 		private function ShowImageObject():void 

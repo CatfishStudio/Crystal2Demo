@@ -271,7 +271,6 @@ package Crystal.kernel
 						newUnit.posRowJ = indexJ;
 						newUnit.posX = newUnit.x;
 						newUnit.posY = 76 + (50 * indexJ);
-						trace("Y=" + newUnit.y.toString() + " posY=" + newUnit.posY.toString());
 						var type:int = RandomIndex();
 						if (type == 1) newUnit.unitType = "CRYSTAL_TYPE_1_VIOLET";
 						if (type == 2) newUnit.unitType = "CRYSTAL_TYPE_2_GREEN";
@@ -288,7 +287,6 @@ package Crystal.kernel
 					
 						Resource.MatrixUnit[i].push(newUnit);
 						(level as Level).addChild(Resource.MatrixUnit[i][indexJ]);
-						trace("col=" + i.toString() + " row=" + indexJ.toString() + " indexType=" + type.toString() + " type=" + (Resource.MatrixUnit[i][indexJ] as Unit).unitType);
 					}
 					indexJ++;
 				}
