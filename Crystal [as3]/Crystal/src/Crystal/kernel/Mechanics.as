@@ -260,16 +260,18 @@ package Crystal.kernel
 					if (matrixUnits.length > j2) {
 						/* Перемещение кристала в массиве */
 						(matrixUnits[j2] as Unit).posRowJ = indexJ;		// изменяем индекс положения в строке
+						(matrixUnits[j2] as Unit).posY = 76 + (50 * indexJ); // перерасчет позиции
 						Resource.MatrixUnit[i].push(matrixUnits[j2]); 	// Переносим (добавляем) в массив
 					}else {
 						/* Добавление новых объектов в массив и на поле */
 						var newUnit:Unit = new Unit();
 						newUnit.x = 200 + (50 * i);
-						newUnit.y = 50 + (10 * indexJ); // ?????
+						newUnit.y = 56 + (50 * 0);	// начальная позиция для нового объекта
 						newUnit.posColumnI = i;
 						newUnit.posRowJ = indexJ;
 						newUnit.posX = newUnit.x;
-						newUnit.posY = 70 + (50 * indexJ);
+						newUnit.posY = 76 + (50 * indexJ);
+						trace("Y=" + newUnit.y.toString() + " posY=" + newUnit.posY.toString());
 						var type:int = RandomIndex();
 						if (type == 1) newUnit.unitType = "CRYSTAL_TYPE_1_VIOLET";
 						if (type == 2) newUnit.unitType = "CRYSTAL_TYPE_2_GREEN";

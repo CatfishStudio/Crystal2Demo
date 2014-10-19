@@ -440,15 +440,23 @@ package Crystal.level
 		/* Анимация спуска объектов */
 		public function AnimationMoveDown(e:Event):void 
 		{
+			var endMove:Boolean = true;
 			for (var i:int = 0; i < Resource.COLUMNS; i++) { /* i - столбецы (обработка слева на право) */
 				for (var j:int = Resource.ROWS - 1; j >= 0; j--) {	/* j - строки (обработка снизу вверх) */
-					//(Resource.MatrixUnit[i][j] as Unit).posRowJ
+					if ((Resource.MatrixUnit[i][j] as Unit).posY > (Resource.MatrixUnit[i][j] as Unit).y) {
+						(Resource.MatrixUnit[i][j] as Unit).y += 10;
+						endMove = false;
+					} else (Resource.MatrixUnit[i][j] as Unit).y = (Resource.MatrixUnit[i][j] as Unit).posY;
 				}
 			}
 			
-			/* Вызываем функцию проверки новых групп на поле */
-			if (Mechanics.CheckField()) Mechanics.SimplyRemove(this);
-			else blockedField = false;
+			if (endMove) {
+				this.stop();
+				this.removeEventListener(Event.ENTER_FRAME, AnimationMoveDown);
+				/* Вызываем функцию проверки новых групп на поле */
+				if (Mechanics.CheckField()) Mechanics.SimplyRemove(this);
+				else blockedField = false;
+			}
 		}
 		
 		/* Анимация обмена местами между двумя объектами на поле, после воздействия на них пользователем */
