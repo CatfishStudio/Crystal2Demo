@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TextureAtlas imagePath="atlas_all.png">
+	<!--
+	Created with ShoeBox
+	http://renderhjs.net/shoebox/
+	-->
+	<SubTexture name="button_1.png"	x="334"	y="970"	width="164"	height="42" frameX="-2" frameY="-2" frameWidth="170" frameHeight="45"/>
+	<SubTexture name="button_2.png"	x="0"	y="970"	width="168"	height="45" frameX="-0" frameY="-0" frameWidth="170" frameHeight="45"/>
+	<SubTexture name="button_3.png"	x="169"	y="970"	width="164"	height="42" frameX="-2" frameY="-2" frameWidth="170" frameHeight="45"/>
+	<SubTexture name="crystal_1_50_50.png"	x="801"	y="321"	width="49"	height="49" frameX="-0" frameY="-0" frameWidth="50" frameHeight="50"/>
+	<SubTexture name="crystal_2_50_50.png"	x="801"	y="521"	width="49"	height="49" frameX="-0" frameY="-0" frameWidth="50" frameHeight="50"/>
+	<SubTexture name="crystal_3_50_50.png"	x="801"	y="471"	width="49"	height="49" frameX="-0" frameY="-0" frameWidth="50" frameHeight="50"/>
+	<SubTexture name="crystal_4_50_50.png"	x="801"	y="421"	width="49"	height="49" frameX="-0" frameY="-0" frameWidth="50" frameHeight="50"/>
+	<SubTexture name="crystal_5_50_50.png"	x="801"	y="371"	width="49"	height="49" frameX="-0" frameY="-0" frameWidth="50" frameHeight="50"/>
+	<SubTexture name="crystal_big_1.png"	x="440"	y="601"	width="128"	height="128" frameX="-0" frameY="-0" frameWidth="128" frameHeight="128"/>
+	<SubTexture name="dialog.png"	x="401"	y="837"	width="192"	height="132" frameX="-2" frameY="-1" frameWidth="200" frameHeight="135"/>
+	<SubTexture name="logo.png"	x="703"	y="929"	width="49"	height="50" frameX="-0" frameY="-0" frameWidth="50" frameHeight="50"/>
+	<SubTexture name="menu.png"	x="0"	y="0"	width="800"	height="600" frameX="-0" frameY="-0" frameWidth="800" frameHeight="600"/>
+	<SubTexture name="name.png"	x="0"	y="601"	width="439"	height="235" frameX="-191" frameY="-13" frameWidth="800" frameHeight="600"/>
+	<SubTexture name="roadblock_level_1_lock_map1.png"	x="594"	y="828"	width="108"	height="106" frameX="-1" frameY="-1" frameWidth="109" frameHeight="107"/>
+	<SubTexture name="roadblock_level_1_map1.png"	x="798"	y="601"	width="108"	height="106" frameX="-1" frameY="-1" frameWidth="109" frameHeight="107"/>
+	<SubTexture name="roadblock_level_2_lock_map1.png"	x="801"	y="214"	width="108"	height="106" frameX="-1" frameY="-1" frameWidth="109" frameHeight="107"/>
+	<SubTexture name="roadblock_level_2_map1.png"	x="801"	y="107"	width="108"	height="106" frameX="-1" frameY="-1" frameWidth="109" frameHeight="107"/>
+	<SubTexture name="roadblock_level_3_lock_map1.png"	x="440"	y="730"	width="108"	height="106" frameX="-1" frameY="-1" frameWidth="109" frameHeight="107"/>
+	<SubTexture name="roadblock_level_3_map1.png"	x="801"	y="0"	width="108"	height="106" frameX="-1" frameY="-1" frameWidth="109" frameHeight="107"/>
+	<SubTexture name="roadblock_level_4_lock_map1.png"	x="797"	y="708"	width="108"	height="106" frameX="-1" frameY="-1" frameWidth="109" frameHeight="107"/>
+	<SubTexture name="roadblock_level_4_map1.png"	x="703"	y="822"	width="108"	height="106" frameX="-1" frameY="-1" frameWidth="109" frameHeight="107"/>
+	<SubTexture name="roadblock_level_5_lock_map1.png"	x="689"	y="601"	width="108"	height="106" frameX="-1" frameY="-1" frameWidth="109" frameHeight="107"/>
+	<SubTexture name="roadblock_level_5_map1.png"	x="688"	y="715"	width="108"	height="106" frameX="-1" frameY="-1" frameWidth="109" frameHeight="107"/>
+	<SubTexture name="settingInfo.png"	x="549"	y="730"	width="18"	height="32" frameX="-9" frameY="-1" frameWidth="35" frameHeight="35"/>
+	<SubTexture name="settingMusic_1.png"	x="632"	y="986"	width="30"	height="32" frameX="-2" frameY="-2" frameWidth="35" frameHeight="35"/>
+	<SubTexture name="settingMusic_2.png"	x="601"	y="986"	width="30"	height="32" frameX="-2" frameY="-2" frameWidth="35" frameHeight="35"/>
+	<SubTexture name="settingSound_1.png"	x="334"	y="939"	width="32"	height="30" frameX="-2" frameY="-3" frameWidth="35" frameHeight="35"/>
+	<SubTexture name="settingSound_2.png"	x="367"	y="939"	width="32"	height="30" frameX="-2" frameY="-3" frameWidth="35" frameHeight="35"/>
+	<SubTexture name="star_1.png"	x="569"	y="601"	width="119"	height="113" frameX="-3" frameY="-1" frameWidth="125" frameHeight="125"/>
+	<SubTexture name="star_2.png"	x="569"	y="715"	width="118"	height="112" frameX="-5" frameY="-1" frameWidth="125" frameHeight="125"/>
+	<SubTexture name="stars_amin_1.png"	x="753"	y="929"	width="49"	height="50" frameX="-1" frameY="-0" frameWidth="50" frameHeight="50"/>
+	<SubTexture name="stars_amin_2.png"	x="601"	y="935"	width="50"	height="50" frameX="-0" frameY="-0" frameWidth="50" frameHeight="50"/>
+	<SubTexture name="stars_amin_3.png"	x="499"	y="970"	width="50"	height="50" frameX="-0" frameY="-0" frameWidth="50" frameHeight="50"/>
+	<SubTexture name="stars_amin_4.png"	x="652"	y="935"	width="50"	height="50" frameX="-0" frameY="-0" frameWidth="50" frameHeight="50"/>
+	<SubTexture name="stars_amin_5.png"	x="550"	y="970"	width="50"	height="46" frameX="-0" frameY="-4" frameWidth="50" frameHeight="50"/>
+	<SubTexture name="windowBorder_1.png"	x="0"	y="837"	width="400"	height="50" frameX="-0" frameY="-0" frameWidth="400" frameHeight="50"/>
+	<SubTexture name="windowBorder_2.png"	x="0"	y="888"	width="400"	height="50" frameX="-0" frameY="-0" frameWidth="400" frameHeight="50"/>
+</TextureAtlas>
