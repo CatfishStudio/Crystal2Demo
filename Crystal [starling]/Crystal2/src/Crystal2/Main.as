@@ -9,10 +9,14 @@ package Crystal2
 	import flash.events.Event;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
+	import flash.geom.Rectangle;
 	import starling.core.Starling;
 	import starling.display.Stage;
 	
 	import Crystal2.Stats;
+	import Crystal2.assets.Game;
+	import Crystal2.assets.resource.LoadResource;
+	
 	
 	[SWF(width="800", height="600", frameRate="30", backgroundColor="#ffffff")]
 	public class Main extends Sprite 

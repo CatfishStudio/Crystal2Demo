@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TextureAtlas imagePath="crystal2_atlas_panel.png">
+	<!--
+	Created with ShoeBox
+	http://renderhjs.net/shoebox/
+	-->
+	<SubTexture name="panel_1_map_1.png"	x="584"	y="34"	width="144"	height="455" frameX="-0" frameY="-0" frameWidth="144" frameHeight="455"/>
+	<SubTexture name="panel_2_map_1.png"	x="0"	y="282"	width="32"	height="146" frameX="-0" frameY="-0" frameWidth="32" frameHeight="146"/>
+	<SubTexture name="panel_3_map_1.png"	x="0"	y="34"	width="583"	height="31" frameX="-0" frameY="-0" frameWidth="583" frameHeight="31"/>
+	<SubTexture name="panel_4_map_1.png"	x="0"	y="66"	width="185"	height="215" frameX="-0" frameY="-0" frameWidth="185" frameHeight="215"/>
+	<SubTexture name="panel_5_map_1.png"	x="186"	y="66"	width="41"	height="352" frameX="-0" frameY="-0" frameWidth="41" frameHeight="352"/>
+	<SubTexture name="panel_6_map_1.png"	x="0"	y="0"	width="656"	height="33" frameX="-0" frameY="-0" frameWidth="656" frameHeight="33"/>
+</TextureAtlas>
