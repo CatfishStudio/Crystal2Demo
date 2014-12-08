@@ -1,13 +1,12 @@
 package Crystal2.assets.units 
 {
-	import flash.display.Shape;
-	
+	import starling.display.Sprite;
 	/**
 	 * ...
 	 * @author Somov Evgeniy
 	 */
 	
-	public class Cell extends Shape 
+	public class Cell extends Sprite 
 	{
 		
 		public function Cell() 

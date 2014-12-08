@@ -10,6 +10,7 @@ package Crystal2.assets
 	import Crystal2.assets.events.NavigationEvent;
 	import Crystal2.assets.menu.StartMenu;
 	import Crystal2.assets.map.Map;
+	import Crystal2.assets.setting.Setting;
 	
 	/**
 	 * ...
@@ -20,6 +21,7 @@ package Crystal2.assets
 	{
 		private var _startMenu:StartMenu;
 		private var _map:Map;
+		private var _setting:Setting;
 		
 		public function Game() 
 		{
@@ -46,6 +48,16 @@ package Crystal2.assets
 					_map = new Map();
 					this.addChild(_map);
 					break;
+					
+				case "SETTING":
+					_setting = new Setting();
+					this.addChild(_setting);
+					break;
+					
+				case "SETTING_CLOSE":
+					this.removeChild(_setting);
+					break;
+					
 				case "EXIT_START_MENU":
 					this.removeChild(_map);
 					_startMenu = new StartMenu();

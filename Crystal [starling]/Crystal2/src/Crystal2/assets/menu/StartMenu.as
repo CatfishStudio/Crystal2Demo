@@ -59,7 +59,7 @@ package Crystal2.assets.menu
 			}
 			if ((e.target as Button) == _btnSetting)
 			{
-				this.dispatchEvent(new NavigationEvent(NavigationEvent.CHANGE_SCREEN, { id: "SETTINGS" }, true));
+				this.dispatchEvent(new NavigationEvent(NavigationEvent.CHANGE_SCREEN, { id: "SETTING" }, true));
 			}
 		} 
 		
