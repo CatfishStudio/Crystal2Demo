@@ -14,6 +14,7 @@ package Crystal2.assets.level
 	
 	import flash.ui.Mouse;
 	import flash.ui.MouseCursor;
+	import flash.events.MouseEvent;
 	
 	import Crystal2.assets.resource.Resource;
 	import Crystal2.assets.events.NavigationEvent;
@@ -30,10 +31,8 @@ package Crystal2.assets.level
 	{
 		private var _xmlLevel:XML;
 		
-		
-		/* Обработка объектов игрового поля */
-		private var _clickObject:Boolean = false; 	// флаг нажатия на объект
-		
+		private var _unit1:Unit = null;
+		private var _unit2:Unit = null;
 		
 		
 		
@@ -122,6 +121,7 @@ package Crystal2.assets.level
 						(Resource.MatrixUnit[iUnit][jUnit] as Unit).CrystalShow();
 						/*события */
 						(Resource.MatrixUnit[iUnit][jUnit] as Unit).addEventListener(TouchEvent.TOUCH, onButtonTouch);
+						
 						this.addChild(Resource.MatrixUnit[iUnit][jUnit]);
 					}else {
 						/* объект CRYSTAL_TYPE_0 */
@@ -152,17 +152,20 @@ package Crystal2.assets.level
 			{
 				if (touch.phase == TouchPhase.BEGAN)
 				{
-					trace( ((e.target as Image).parent as Unit).unitType );
-					// при нажатии
-					trace("ПОЗИЦИЯ(i-колонка):" + ((e.target as Image).parent as Unit).posColumnI.toString() + "  ПОЗИЦИЯ(j-строка):" + ((e.target as Image).parent as Unit).posRowJ.toString());
-					trace("ПОЗИЦИЯ(X):" + ((e.target as Image).parent as Unit).x.toString() + "  ПОЗИЦИЯ(Y):" + ((e.target as Image).parent as Unit).y.toString());
-					trace("ПОЗИЦИЯ(posX):" + ((e.target as Image).parent as Unit).posX.toString() + "  ПОЗИЦИЯ(posY):" + ((e.target as Image).parent as Unit).posY.toString());
-					trace("ИМЯ:" + ((e.target as Image).parent as Unit).unitType);
-					_clickObject = true; // флаг - объект нажат
+					trace((e.currentTarget as Unit).unitType);
+					
+					Mouse.cursor = MouseCursor.BUTTON;
+					if (_unit1 == null)_unit1 = (e.currentTarget as Unit);
+					else {
+						_unit2 = (e.currentTarget as Unit);
+						Mechanics.ExchangeCrystals(_unit1.posColumnI, _unit1.posRowJ, _unit2.posColumnI, _unit2.posRowJ);
+						
+					}
+					
 				}
 				else if (touch.phase == TouchPhase.ENDED)
 				{
-					_clickObject = false; // флаг - объект не нажат
+					Mouse.cursor = MouseCursor.AUTO;
 				}
 				else if (touch.phase == TouchPhase.HOVER)
 				{
@@ -171,7 +174,6 @@ package Crystal2.assets.level
 				else if (touch.phase == TouchPhase.MOVED)
 				{
 					Mouse.cursor = MouseCursor.BUTTON;
-					
 				}
 			} 
 		}

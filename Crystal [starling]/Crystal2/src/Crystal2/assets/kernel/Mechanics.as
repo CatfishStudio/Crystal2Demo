@@ -1,5 +1,8 @@
 package Crystal2.assets.kernel 
 {
+	import starling.core.Starling;
+	import starling.animation.Tween;
+	
 	import Crystal2.assets.units.Cell;
 	import Crystal2.assets.units.Unit;
 	import Crystal2.assets.resource.Resource;
@@ -67,8 +70,35 @@ package Crystal2.assets.kernel
 			}
 			return _matrixProgress;
 		}
-		
 		/* ============================================================================================ */
+		
+		/* Обмен местами в массиве выбранных пользователем  объектов ===================================*/
+		public static function ExchangeCrystals(columnCrystal1:int, rowCrystal1:int, columnCrystal2:int, rowCrystal2:int):void
+		{
+			var crystalMove:Unit = new Unit();
+			crystalMove = Resource.MatrixUnit[columnCrystal1][rowCrystal1];
+			Resource.MatrixUnit[columnCrystal1][rowCrystal1] = Resource.MatrixUnit[columnCrystal2][rowCrystal2];
+			Resource.MatrixUnit[columnCrystal2][rowCrystal2] = crystalMove;
+			
+			(Resource.MatrixUnit[columnCrystal1][rowCrystal1] as Unit).posColumnI = columnCrystal1;
+			(Resource.MatrixUnit[columnCrystal1][rowCrystal1] as Unit).posRowJ = rowCrystal1;
+			(Resource.MatrixUnit[columnCrystal2][rowCrystal2] as Unit).posColumnI = columnCrystal2;
+			(Resource.MatrixUnit[columnCrystal2][rowCrystal2] as Unit).posRowJ = rowCrystal2;
+			
+			var _tweenUnit1:Tween = new Tween((Resource.MatrixUnit[columnCrystal1][rowCrystal1] as Unit), 1.0);
+			var _tweenUnit2:Tween = new Tween((Resource.MatrixUnit[columnCrystal2][rowCrystal2] as Unit), 1.0);
+		
+			_tweenUnit1.moveTo((Resource.MatrixUnit[columnCrystal2][rowCrystal2] as Unit).x, (Resource.MatrixUnit[columnCrystal2][rowCrystal2] as Unit).y);
+			_tweenUnit2.moveTo((Resource.MatrixUnit[columnCrystal1][rowCrystal1] as Unit).x, (Resource.MatrixUnit[columnCrystal1][rowCrystal1] as Unit).y);
+			//_tween.onComplete = function():void { Starling.juggler.remove(_tween); }
+			Starling.juggler.add(_tweenUnit1);
+			Starling.juggler.add(_tweenUnit2);
+		}
+		/* ============================================================================================ */
+		
+		
+		
+		
 	}
 
 }
