@@ -59,27 +59,27 @@ package Crystal2.assets.map
 			/* Роадблоки */
 			if (Resource.LevelComplete >= 0) _roadblock1 = new Button(atlasAll.getTexture("roadblock_level_1_map1.png"), "");
 			else _roadblock1 = new Button(atlasAll.getTexture("roadblock_level_1_lock_map1.png"), "");
-			_roadblock1.x = 200; _roadblock1.y = 600; _roadblock1.name = "roadblock";
+			_roadblock1.x = 200; _roadblock1.y = 600; _roadblock1.name = "roadblock1";
 			_map.addChild(_roadblock1);
 			
 			if (Resource.LevelComplete > 1) _roadblock2 = new Button(atlasAll.getTexture("roadblock_level_2_map1.png"), "");
 			else _roadblock2 = new Button(atlasAll.getTexture("roadblock_level_2_lock_map1.png"), "");
-			_roadblock2.x = 250; _roadblock2.y = 750; _roadblock2.name = "roadblock";
+			_roadblock2.x = 250; _roadblock2.y = 750; _roadblock2.name = "roadblock2";
 			_map.addChild(_roadblock2);
 			
 			if (Resource.LevelComplete > 2) _roadblock3 = new Button(atlasAll.getTexture("roadblock_level_3_map1.png"), "");
 			else _roadblock3 = new Button(atlasAll.getTexture("roadblock_level_3_lock_map1.png"), "");
-			_roadblock3.x = 550; _roadblock3.y = 820; _roadblock3.name = "roadblock";
+			_roadblock3.x = 550; _roadblock3.y = 820; _roadblock3.name = "roadblock3";
 			_map.addChild(_roadblock3);
 			
 			if (Resource.LevelComplete > 3) _roadblock4 = new Button(atlasAll.getTexture("roadblock_level_4_map1.png"), "");
 			else _roadblock4 = new Button(atlasAll.getTexture("roadblock_level_4_lock_map1.png"), "");
-			_roadblock4.x = 640; _roadblock4.y = 660; _roadblock4.name = "roadblock";
+			_roadblock4.x = 640; _roadblock4.y = 660; _roadblock4.name = "roadblock4";
 			_map.addChild(_roadblock4);
 			
 			if (Resource.LevelComplete > 4) _roadblock5 = new Button(atlasAll.getTexture("roadblock_level_5_map1.png"), "");
 			else _roadblock5 = new Button(atlasAll.getTexture("roadblock_level_5_lock_map1.png"), "");
-			_roadblock5.x = 500; _roadblock5.y = 500; _roadblock5.name = "roadblock";
+			_roadblock5.x = 500; _roadblock5.y = 500; _roadblock5.name = "roadblock5";
 			_map.addChild(_roadblock5);
 			
 			this.addChild(_map);
@@ -167,7 +167,24 @@ package Crystal2.assets.map
 				this.removeChild(_dialog)
 				this.dispatchEvent(new NavigationEvent(NavigationEvent.CHANGE_SCREEN, { id: "EXIT_START_MENU" }, true));
 			}
-			if ((e.target as Button).name == "roadblock") {
+			if ((e.target as Button).name == "roadblock1") {
+				Resource.SelectLevel = 1;
+				this.dispatchEvent(new NavigationEvent(NavigationEvent.CHANGE_SCREEN, { id: "LEVEL_DIALOG_SHOW" }, true));
+			}
+			if ((e.target as Button).name == "roadblock2") {
+				Resource.SelectLevel = 2;
+				this.dispatchEvent(new NavigationEvent(NavigationEvent.CHANGE_SCREEN, { id: "LEVEL_DIALOG_SHOW" }, true));
+			}
+			if ((e.target as Button).name == "roadblock3") {
+				Resource.SelectLevel = 3;
+				this.dispatchEvent(new NavigationEvent(NavigationEvent.CHANGE_SCREEN, { id: "LEVEL_DIALOG_SHOW" }, true));
+			}
+			if ((e.target as Button).name == "roadblock4") {
+				Resource.SelectLevel = 4;
+				this.dispatchEvent(new NavigationEvent(NavigationEvent.CHANGE_SCREEN, { id: "LEVEL_DIALOG_SHOW" }, true));
+			}
+			if ((e.target as Button).name == "roadblock5") {
+				Resource.SelectLevel = 5;
 				this.dispatchEvent(new NavigationEvent(NavigationEvent.CHANGE_SCREEN, { id: "LEVEL_DIALOG_SHOW" }, true));
 			}
 		} 

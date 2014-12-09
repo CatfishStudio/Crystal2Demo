@@ -121,19 +121,19 @@ package Crystal2.assets.level
 		
 		private function labelLevelNum():void
 		{
-			_labelLevel = new TextField(250, 100, "Уровень " + (Resource.LevelComplete + 1), "Arial", 32, 0x8000FF, true);
+			_labelLevel = new TextField(250, 100, "Уровень " + Resource.SelectLevel, "Arial", 32, 0x8000FF, true);
 			_labelLevel.x = 80; _labelLevel.y = 20;
 			_window.addChild(_labelLevel);
 		}
 		
 		private function stars():void
 		{
-			if ((Resource.Progress[Resource.LevelComplete][1] as int) == 0) {
+			if ((Resource.Progress[Resource.SelectLevel][1] as int) == 0) {
 				_Star1Image = new Image(_atlasAll.getTexture("star_1.png"));
 				_labelStar1 = new TextField(_Star1Image.width, 50, Resource.MapLevelScoreStar1.toString(), "Arial", 28, 0x8000FF, true);
 			}else {
 				_Star1Image = new Image(_atlasAll.getTexture("star_2.png"));
-				_labelStar1 = new TextField(_Star1Image.width, 50, (Resource.Progress[Resource.LevelComplete][1] as int).toString(), "Arial", 28, 0x8000FF, true);
+				_labelStar1 = new TextField(_Star1Image.width, 50, (Resource.Progress[Resource.SelectLevel][1] as int).toString(), "Arial", 28, 0x8000FF, true);
 			}
 			_Star1Image.x = 10; _Star1Image.y = 150; 
 			_window.addChild(_Star1Image);
@@ -141,12 +141,12 @@ package Crystal2.assets.level
 			_window.addChild(_labelStar1);
 			
 			
-			if ((Resource.Progress[Resource.LevelComplete][2] as int) == 0) {
+			if ((Resource.Progress[Resource.SelectLevel][2] as int) == 0) {
 				_Star2Image = new Image(_atlasAll.getTexture("star_1.png"));
 				_labelStar2 = new TextField(_Star2Image.width, 50, Resource.MapLevelScoreStar2.toString(), "Arial", 28, 0x8000FF, true);
 			} else {
 				_Star2Image = new Image(_atlasAll.getTexture("star_2.png"));
-				_labelStar2 = new TextField(_Star2Image.width, 50, (Resource.Progress[Resource.LevelComplete][2] as int).toString(), "Arial", 28, 0x8000FF, true);
+				_labelStar2 = new TextField(_Star2Image.width, 50, (Resource.Progress[Resource.SelectLevel][2] as int).toString(), "Arial", 28, 0x8000FF, true);
 			}
 			_Star2Image.x = 140; _Star2Image.y = 100;
 			_window.addChild(_Star2Image);
@@ -154,12 +154,12 @@ package Crystal2.assets.level
 			_window.addChild(_labelStar2);
 			
 			
-			if ((Resource.Progress[Resource.LevelComplete][3] as int) == 0) {
+			if ((Resource.Progress[Resource.SelectLevel][3] as int) == 0) {
 				_Star3Image = new Image(_atlasAll.getTexture("star_1.png"));
 				_labelStar3 = new TextField(_Star3Image.width, 50, Resource.MapLevelScoreStar3.toString(), "Arial", 28, 0x8000FF, true);
 			} else {
 				_Star3Image = new Image(_atlasAll.getTexture("star_2.png"));
-				_labelStar3 = new TextField(_Star3Image.width, 50, (Resource.Progress[Resource.LevelComplete][3] as int).toString(), "Arial", 28, 0x8000FF, true);
+				_labelStar3 = new TextField(_Star3Image.width, 50, (Resource.Progress[Resource.SelectLevel][3] as int).toString(), "Arial", 28, 0x8000FF, true);
 			}
 			_Star3Image.x = 270; _Star3Image.y = 150;
 			_window.addChild(_Star3Image);
@@ -179,7 +179,7 @@ package Crystal2.assets.level
 		
 		private function readXML():void
 		{
-			_xmlLevel = new XML((Resource.FilesXML_Levels[Resource.LevelComplete + 1] as XML));
+			_xmlLevel = new XML((Resource.FilesXML_Levels[Resource.SelectLevel] as XML));
 			Resource.MapLevelScoreStar1 = _xmlLevel.AmountScoreStar1;
 			Resource.MapLevelScoreStar2 = _xmlLevel.AmountScoreStar2;
 			Resource.MapLevelScoreStar3 = _xmlLevel.AmountScoreStar3;

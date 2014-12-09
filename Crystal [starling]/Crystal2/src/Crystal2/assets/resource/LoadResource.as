@@ -65,8 +65,8 @@ package Crystal2.assets.resource
 			this.addChild(_authorText);
 			
 			/* Начало загрузки данных с сервера */
-			Load("resource/textures/crystal2_atlas_all.xml","LOAD_XML");
-			//Load("https://psv4.vk.me/c423620/u99302165/docs/dd9f8e3bc1c5/crystal2_atlas_all.xml", "LOAD_XML");
+			//Load("resource/textures/crystal2_atlas_all.xml","LOAD_XML");
+			Load("https://psv4.vk.me/c423620/u99302165/docs/9ba5d0e489c0/crystal2_atlas_all.xml", "LOAD_XML");
 			//Load("https://drive.google.com/uc?export=download&confirm=no_antivirus&id=0BwE9OJtPA8qoUXF5dHpzcEMtcFU", "LOAD_XML");
 		}
 		
@@ -112,79 +112,79 @@ package Crystal2.assets.resource
 			
 			if (_percentComplete == 5) {
 				Resource.FileXML_AtlasAll = new XML(e.target.data);
-				//Load("https://psv4.vk.me/c609323/u99302165/docs/9850ab63c3e2/crystal2_atlas_all.png", "LOAD_IMAGE");
+				Load("https://psv4.vk.me/c609323/u99302165/docs/607128005dc8/crystal2_atlas_all.png", "LOAD_IMAGE");
 				//Load("https://drive.google.com/uc?export=download&confirm=no_antivirus&id=0BwE9OJtPA8qocXlaU0pFMnBOLWc", "LOAD_IMAGE");
-				Load("resource/textures/crystal2_atlas_all.png", "LOAD_IMAGE");
+				//Load("resource/textures/crystal2_atlas_all.png", "LOAD_IMAGE");
 			}
 			if (_percentComplete == 10) {
 				Resource.Image_AtlasAll = new Bitmap();
 				Resource.Image_AtlasAll = (e.target.content as Bitmap);
-				//Load("https://psv4.vk.me/c423126/u99302165/docs/c2481aadfa9b/crystal2_atlas_levels.xml", "LOAD_XML");
+				Load("https://psv4.vk.me/c423126/u99302165/docs/b4acb832df40/crystal2_atlas_levels.xml", "LOAD_XML");
 				//Load("https://drive.google.com/uc?export=download&confirm=no_antivirus&id=0BwE9OJtPA8qoT3BHYnV5ekJOM1k", "LOAD_XML");
-				Load("resource/textures/crystal2_atlas_levels.xml", "LOAD_XML");
+				//Load("resource/textures/crystal2_atlas_levels.xml", "LOAD_XML");
 			}
 			if (_percentComplete == 15) {
 				Resource.FileXML_AtlasLevels = new XML(e.target.data);
-				//Load("https://psv4.vk.me/c609326/u99302165/docs/b9c023e34525/crystal2_atlas_levels.jpg", "LOAD_IMAGE");
+				Load("https://psv4.vk.me/c609326/u99302165/docs/9c59056075ad/crystal2_atlas_levels.jpg", "LOAD_IMAGE");
 				//Load("https://drive.google.com/uc?export=download&confirm=no_antivirus&id=0BwE9OJtPA8qoYkZkS21DZnVKR1k", "LOAD_IMAGE");
-				Load("resource/textures/crystal2_atlas_levels.jpg", "LOAD_IMAGE");
+				//Load("resource/textures/crystal2_atlas_levels.jpg", "LOAD_IMAGE");
 			}
 			if (_percentComplete == 20) {
 				Resource.Image_AtlasLevels = new Bitmap();
 				Resource.Image_AtlasLevels = (e.target.content as Bitmap);
-				//Load("https://psv4.vk.me/c423117/u99302165/docs/49a8012abc45/crystal2_atlas_panel.xml", "LOAD_XML");
+				Load("https://psv4.vk.me/c423117/u99302165/docs/6c5390eb5b69/crystal2_atlas_panel.xml", "LOAD_XML");
 				//Load("https://drive.google.com/uc?export=download&confirm=no_antivirus&id=0BwE9OJtPA8qodGpVU3Y1Q2ExbFU", "LOAD_XML");
-				Load("resource/textures/crystal2_atlas_panel.xml", "LOAD_XML");
+				//Load("resource/textures/crystal2_atlas_panel.xml", "LOAD_XML");
 			}
 			if (_percentComplete == 25) {
 				Resource.FileXML_AtlasPanel = new XML(e.target.data);
-				//Load("https://psv4.vk.me/c609524/u99302165/docs/98788e653455/crystal2_atlas_panel.png", "LOAD_IMAGE");
+				Load("https://psv4.vk.me/c609524/u99302165/docs/4a4989299e3a/crystal2_atlas_panel.png", "LOAD_IMAGE");
 				//Load("https://drive.google.com/uc?export=download&confirm=no_antivirus&id=0BwE9OJtPA8qoallPN1dTLTRtOVE", "LOAD_IMAGE");
-				Load("resource/textures/crystal2_atlas_panel.png", "LOAD_IMAGE");
+				//Load("resource/textures/crystal2_atlas_panel.png", "LOAD_IMAGE");
 			}
 			if (_percentComplete == 30) {
 				Resource.Image_AtlasPanel = new Bitmap();
 				Resource.Image_AtlasPanel = (e.target.content as Bitmap);
-				//Load("https://psv4.vk.me/c609318/u99302165/docs/d83e7e0c8bf4/crystal2_map.jpg", "LOAD_IMAGE");
+				Load("https://psv4.vk.me/c609318/u99302165/docs/0b9db22efa9b/crystal2_map.jpg", "LOAD_IMAGE");
 				//Load("https://drive.google.com/uc?export=download&confirm=no_antivirus&id=0BwE9OJtPA8qodFEwdHZKamNjRWc", "LOAD_IMAGE");
-				Load("resource/textures/crystal2_map.jpg", "LOAD_IMAGE");
+				//Load("resource/textures/crystal2_map.jpg", "LOAD_IMAGE");
 			}
 			if (_percentComplete == 35) {
 				Resource.Image_Map = new Bitmap();
 				Resource.Image_Map = (e.target.content as Bitmap);
-				//Load("https://psv4.vk.me/c423130/u99302165/docs/c06c8e2c54fd/crystal2_level_0.xml", "LOAD_XML");
+				Load("https://psv4.vk.me/c423130/u99302165/docs/621f1a647d69/crystal2_level_0.xml", "LOAD_XML");
 				//Load("https://drive.google.com/uc?export=download&confirm=no_antivirus&id=0BwE9OJtPA8qoSWNtTG9fdGo3VEk", "LOAD_XML");
-				Load("resource/levels/crystal2_level_0.xml", "LOAD_XML");
+				//Load("resource/levels/crystal2_level_0.xml", "LOAD_XML");
 			}
 			if (_percentComplete == 40) {
 				Resource.FilesXML_Levels.push(new XML(e.target.data)); // массив уровней
-				//Load("https://psv4.vk.me/c423917/u99302165/docs/7eaab620f664/crystal2_level_1.xml", "LOAD_XML");
+				Load("https://psv4.vk.me/c423917/u99302165/docs/643212fd604c/crystal2_level_1.xml", "LOAD_XML");
 				//Load("https://drive.google.com/uc?export=download&confirm=no_antivirus&id=0BwE9OJtPA8qoR1NFTkhPNjJkdmc", "LOAD_XML");
-				Load("resource/levels/crystal2_level_1.xml", "LOAD_XML");
+				//Load("resource/levels/crystal2_level_1.xml", "LOAD_XML");
 			}
 			if (_percentComplete == 45) {
 				Resource.FilesXML_Levels.push(new XML(e.target.data)); // массив уровней
-				//Load("https://psv4.vk.me/c423820/u99302165/docs/d7fc23fefd0e/crystal2_level_2.xml", "LOAD_XML");
+				Load("https://psv4.vk.me/c423820/u99302165/docs/5ce65cdad325/crystal2_level_2.xml", "LOAD_XML");
 				//Load("https://drive.google.com/uc?export=download&confirm=no_antivirus&id=0BwE9OJtPA8qoNFhrdzhVMG1jdkk", "LOAD_XML");
-				Load("resource/levels/crystal2_level_2.xml", "LOAD_XML");
+				//Load("resource/levels/crystal2_level_2.xml", "LOAD_XML");
 			}
 			if (_percentComplete == 50) {
 				Resource.FilesXML_Levels.push(new XML(e.target.data)); // массив уровней
-				//Load("https://psv4.vk.me/c423121/u99302165/docs/8bce37f7d63a/crystal2_level_3.xml", "LOAD_XML");
+				Load("https://psv4.vk.me/c423121/u99302165/docs/f5f8e03f58a5/crystal2_level_3.xml", "LOAD_XML");
 				//Load("https://drive.google.com/uc?export=download&confirm=no_antivirus&id=0BwE9OJtPA8qoU2ZfRlhEdTJCOUk", "LOAD_XML");
-				Load("resource/levels/crystal2_level_3.xml", "LOAD_XML");
+				//Load("resource/levels/crystal2_level_3.xml", "LOAD_XML");
 			}
 			if (_percentComplete == 55) {
 				Resource.FilesXML_Levels.push(new XML(e.target.data)); // массив уровней
-				//Load("https://psv4.vk.me/c609228/u99302165/docs/a0dddf7db9ac/crystal2_level_4.xml", "LOAD_XML");
+				Load("https://psv4.vk.me/c609228/u99302165/docs/686ce9e9257f/crystal2_level_4.xml", "LOAD_XML");
 				//Load("https://drive.google.com/uc?export=download&confirm=no_antivirus&id=0BwE9OJtPA8qodkVrWXFlOEpISjA", "LOAD_XML");
-				Load("resource/levels/crystal2_level_4.xml", "LOAD_XML");
+				//Load("resource/levels/crystal2_level_4.xml", "LOAD_XML");
 			}
 			if (_percentComplete == 60) {
 				Resource.FilesXML_Levels.push(new XML(e.target.data)); // массив уровней
-				//Load("https://psv4.vk.me/c423020/u99302165/docs/9a90e0c760e5/crystal2_level_5.xml", "LOAD_XML");
+				Load("https://psv4.vk.me/c423020/u99302165/docs/a7bda5996e6b/crystal2_level_5.xml", "LOAD_XML");
 				//Load("https://drive.google.com/uc?export=download&confirm=no_antivirus&id=0BwE9OJtPA8qoa1Z1WEpBU2dIcGc", "LOAD_XML");
-				Load("resource/levels/crystal2_level_5.xml", "LOAD_XML");
+				//Load("resource/levels/crystal2_level_5.xml", "LOAD_XML");
 				_percentComplete = 95;
 			}
 			if (_percentComplete == 100) {

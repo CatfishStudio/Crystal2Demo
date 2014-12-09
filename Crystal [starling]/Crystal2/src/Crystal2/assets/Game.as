@@ -73,8 +73,10 @@ package Crystal2.assets
 					break;
 					
 				case "LEVEL_DIALOG_SHOW":
-					_levelDialog = new LevelDialog();
-					this.addChild(_levelDialog);
+					if(Resource.SelectLevel <= Resource.LevelComplete){
+						_levelDialog = new LevelDialog();
+						this.addChild(_levelDialog);
+					}
 					break;
 					
 				case "LEVEL_DIALOG_CLOSE":
