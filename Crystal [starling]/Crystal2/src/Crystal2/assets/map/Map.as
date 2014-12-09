@@ -46,9 +46,6 @@ package Crystal2.assets.map
 			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			this.addEventListener(Event.TRIGGERED, onClick);
 			
-			var atlasAll:TextureAtlas = new TextureAtlas(Texture.fromBitmap(Resource.Image_AtlasAll), Resource.FileXML_AtlasAll);
-			var atlasPanel:TextureAtlas = new TextureAtlas(Texture.fromBitmap(Resource.Image_AtlasPanel), Resource.FileXML_AtlasPanel);
-			
 			/* Карта -------------------------------------------------------------------------*/
 			_map = new Sprite();
 			_map.addChild(new Image(Texture.fromBitmap(Resource.Image_Map)));
@@ -56,28 +53,28 @@ package Crystal2.assets.map
 			_map.addEventListener(TouchEvent.TOUCH, onMapTouch);
 			
 			/* Роадблоки */
-			if (Resource.LevelComplete >= 0) _roadblock1 = new Button(atlasAll.getTexture("roadblock_level_1_map1.png"), "");
-			else _roadblock1 = new Button(atlasAll.getTexture("roadblock_level_1_lock_map1.png"), "");
+			if (Resource.LevelComplete >= 0) _roadblock1 = new Button(Resource.AtlasAll.getTexture("roadblock_level_1_map1.png"), "");
+			else _roadblock1 = new Button(Resource.AtlasAll.getTexture("roadblock_level_1_lock_map1.png"), "");
 			_roadblock1.x = 200; _roadblock1.y = 600; _roadblock1.name = "roadblock1";
 			_map.addChild(_roadblock1);
 			
-			if (Resource.LevelComplete > 1) _roadblock2 = new Button(atlasAll.getTexture("roadblock_level_2_map1.png"), "");
-			else _roadblock2 = new Button(atlasAll.getTexture("roadblock_level_2_lock_map1.png"), "");
+			if (Resource.LevelComplete > 1) _roadblock2 = new Button(Resource.AtlasAll.getTexture("roadblock_level_2_map1.png"), "");
+			else _roadblock2 = new Button(Resource.AtlasAll.getTexture("roadblock_level_2_lock_map1.png"), "");
 			_roadblock2.x = 250; _roadblock2.y = 750; _roadblock2.name = "roadblock2";
 			_map.addChild(_roadblock2);
 			
-			if (Resource.LevelComplete > 2) _roadblock3 = new Button(atlasAll.getTexture("roadblock_level_3_map1.png"), "");
-			else _roadblock3 = new Button(atlasAll.getTexture("roadblock_level_3_lock_map1.png"), "");
+			if (Resource.LevelComplete > 2) _roadblock3 = new Button(Resource.AtlasAll.getTexture("roadblock_level_3_map1.png"), "");
+			else _roadblock3 = new Button(Resource.AtlasAll.getTexture("roadblock_level_3_lock_map1.png"), "");
 			_roadblock3.x = 550; _roadblock3.y = 820; _roadblock3.name = "roadblock3";
 			_map.addChild(_roadblock3);
 			
-			if (Resource.LevelComplete > 3) _roadblock4 = new Button(atlasAll.getTexture("roadblock_level_4_map1.png"), "");
-			else _roadblock4 = new Button(atlasAll.getTexture("roadblock_level_4_lock_map1.png"), "");
+			if (Resource.LevelComplete > 3) _roadblock4 = new Button(Resource.AtlasAll.getTexture("roadblock_level_4_map1.png"), "");
+			else _roadblock4 = new Button(Resource.AtlasAll.getTexture("roadblock_level_4_lock_map1.png"), "");
 			_roadblock4.x = 640; _roadblock4.y = 660; _roadblock4.name = "roadblock4";
 			_map.addChild(_roadblock4);
 			
-			if (Resource.LevelComplete > 4) _roadblock5 = new Button(atlasAll.getTexture("roadblock_level_5_map1.png"), "");
-			else _roadblock5 = new Button(atlasAll.getTexture("roadblock_level_5_lock_map1.png"), "");
+			if (Resource.LevelComplete > 4) _roadblock5 = new Button(Resource.AtlasAll.getTexture("roadblock_level_5_map1.png"), "");
+			else _roadblock5 = new Button(Resource.AtlasAll.getTexture("roadblock_level_5_lock_map1.png"), "");
 			_roadblock5.x = 500; _roadblock5.y = 500; _roadblock5.name = "roadblock5";
 			_map.addChild(_roadblock5);
 			
@@ -85,22 +82,22 @@ package Crystal2.assets.map
 			/*-------------------------------------------------------------*/
 			
 			/* Панель */
-			_panelImage = new Image(atlasPanel.getTexture("panel_1_map_1.png"));
+			_panelImage = new Image(Resource.AtlasPanel.getTexture("panel_1_map_1.png"));
 			_panelImage.x = 0; _panelImage.y = 145;
 			this.addChild(_panelImage);
-			_panelImage = new Image(atlasPanel.getTexture("panel_2_map_1.png"));
+			_panelImage = new Image(Resource.AtlasPanel.getTexture("panel_2_map_1.png"));
 			_panelImage.x = 0; _panelImage.y = 0;
 			this.addChild(_panelImage);
-			_panelImage = new Image(atlasPanel.getTexture("panel_3_map_1.png"));
+			_panelImage = new Image(Resource.AtlasPanel.getTexture("panel_3_map_1.png"));
 			_panelImage.x = 32; _panelImage.y = 0;
 			this.addChild(_panelImage);
-			_panelImage = new Image(atlasPanel.getTexture("panel_4_map_1.png"));
+			_panelImage = new Image(Resource.AtlasPanel.getTexture("panel_4_map_1.png"));
 			_panelImage.x = 615; _panelImage.y = 0;
 			this.addChild(_panelImage);
-			_panelImage = new Image(atlasPanel.getTexture("panel_5_map_1.png"));
+			_panelImage = new Image(Resource.AtlasPanel.getTexture("panel_5_map_1.png"));
 			_panelImage.x = 759; _panelImage.y = 215;
 			this.addChild(_panelImage);
-			_panelImage = new Image(atlasPanel.getTexture("panel_6_map_1.png"));
+			_panelImage = new Image(Resource.AtlasPanel.getTexture("panel_6_map_1.png"));
 			_panelImage.x = 144; _panelImage.y = 567;
 			this.addChild(_panelImage);
 			
@@ -109,7 +106,7 @@ package Crystal2.assets.map
 			this.addChild(_dialog);
 			
 			/* Кнопка выход */
-			_btnExit = new Button(atlasAll.getTexture("button_3.png"), "Выход", atlasAll.getTexture("button_2.png"));
+			_btnExit = new Button(Resource.AtlasAll.getTexture("button_3.png"), "Выход", Resource.AtlasAll.getTexture("button_2.png"));
 			_btnExit.fontColor = 0xffffff;	_btnExit.fontSize = 18; _btnExit.fontName = "Arial";
 			_btnExit.x = 70; _btnExit.y = 540; _btnExit.name = "exit";
 			this.addChild(_btnExit);

@@ -44,11 +44,9 @@ package Crystal2.assets.animation
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			
-			var atlasAll:TextureAtlas = new TextureAtlas(Texture.fromBitmap(Resource.Image_AtlasAll), Resource.FileXML_AtlasAll);
-			
-			if (Resource.MapLevel1 == true && Resource.MapLevel2 == false) {
+			if (Resource.LevelComplete == 1) {
 				this.x = 70; this.y = 70;
-				this.addChild(new Image(atlasAll.getTexture("dialog.png")));
+				this.addChild(new Image(Resource.AtlasAll.getTexture("dialog.png")));
 				_label = new TextField(250, 100, "Приключения \nначинаются.\nМы отправляемся \nна поиски кристала.", "Arial", 18, 0xFFFFFF, true);
 				_label.x = -25;
 				this.addChild(_label);

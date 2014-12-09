@@ -26,7 +26,6 @@ package Crystal2.assets.level
 	public class LevelDialog extends Sprite
 	{
 		private var _tween:Tween;
-		private var _atlasAll:TextureAtlas;
 		
 		private var _window:Sprite;
 		private var _panel:Quad;
@@ -60,8 +59,6 @@ package Crystal2.assets.level
 			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			this.addEventListener(Event.TRIGGERED, onClick);
 			
-			_atlasAll = new TextureAtlas(Texture.fromBitmap(Resource.Image_AtlasAll), Resource.FileXML_AtlasAll);
-			
 			/* фон */
 			_bg = new Quad(800, 600,  0x000000, true);
 			_bg.alpha = 0.5;
@@ -74,7 +71,7 @@ package Crystal2.assets.level
 			panels();
 			
 			// верхний бордюр
-			_borderImage1 = new Image(_atlasAll.getTexture("windowBorder_1.png"));
+			_borderImage1 = new Image(Resource.AtlasAll.getTexture("windowBorder_1.png"));
 			_borderImage1.x = 5; _borderImage1.y = 5;
 			_window.addChild(_borderImage1);
 			
@@ -88,13 +85,13 @@ package Crystal2.assets.level
 			stars();
 			
 			// Задание на уровень
-			quest(Resource.LevelQuest);
+			quest(Resource.LevelType);
 			
 			// Кнопки
 			buttons();
 			
 			// нижний бордюр
-			_borderImage2 = new Image(_atlasAll.getTexture("windowBorder_2.png"));
+			_borderImage2 = new Image(Resource.AtlasAll.getTexture("windowBorder_2.png"));
 			_borderImage2.x = 5; _borderImage2.y = 405;
 			_window.addChild(_borderImage2);
 			
@@ -129,10 +126,10 @@ package Crystal2.assets.level
 		private function stars():void
 		{
 			if ((Resource.Progress[Resource.SelectLevel][1] as int) == 0) {
-				_Star1Image = new Image(_atlasAll.getTexture("star_1.png"));
-				_labelStar1 = new TextField(_Star1Image.width, 50, Resource.MapLevelScoreStar1.toString(), "Arial", 28, 0x8000FF, true);
+				_Star1Image = new Image(Resource.AtlasAll.getTexture("star_1.png"));
+				_labelStar1 = new TextField(_Star1Image.width, 50, Resource.AmountScoreStar1.toString(), "Arial", 28, 0x8000FF, true);
 			}else {
-				_Star1Image = new Image(_atlasAll.getTexture("star_2.png"));
+				_Star1Image = new Image(Resource.AtlasAll.getTexture("star_2.png"));
 				_labelStar1 = new TextField(_Star1Image.width, 50, (Resource.Progress[Resource.SelectLevel][1] as int).toString(), "Arial", 28, 0x8000FF, true);
 			}
 			_Star1Image.x = 10; _Star1Image.y = 150; 
@@ -142,10 +139,10 @@ package Crystal2.assets.level
 			
 			
 			if ((Resource.Progress[Resource.SelectLevel][2] as int) == 0) {
-				_Star2Image = new Image(_atlasAll.getTexture("star_1.png"));
-				_labelStar2 = new TextField(_Star2Image.width, 50, Resource.MapLevelScoreStar2.toString(), "Arial", 28, 0x8000FF, true);
+				_Star2Image = new Image(Resource.AtlasAll.getTexture("star_1.png"));
+				_labelStar2 = new TextField(_Star2Image.width, 50, Resource.AmountScoreStar2.toString(), "Arial", 28, 0x8000FF, true);
 			} else {
-				_Star2Image = new Image(_atlasAll.getTexture("star_2.png"));
+				_Star2Image = new Image(Resource.AtlasAll.getTexture("star_2.png"));
 				_labelStar2 = new TextField(_Star2Image.width, 50, (Resource.Progress[Resource.SelectLevel][2] as int).toString(), "Arial", 28, 0x8000FF, true);
 			}
 			_Star2Image.x = 140; _Star2Image.y = 100;
@@ -155,10 +152,10 @@ package Crystal2.assets.level
 			
 			
 			if ((Resource.Progress[Resource.SelectLevel][3] as int) == 0) {
-				_Star3Image = new Image(_atlasAll.getTexture("star_1.png"));
-				_labelStar3 = new TextField(_Star3Image.width, 50, Resource.MapLevelScoreStar3.toString(), "Arial", 28, 0x8000FF, true);
+				_Star3Image = new Image(Resource.AtlasAll.getTexture("star_1.png"));
+				_labelStar3 = new TextField(_Star3Image.width, 50, Resource.AmountScoreStar3.toString(), "Arial", 28, 0x8000FF, true);
 			} else {
-				_Star3Image = new Image(_atlasAll.getTexture("star_2.png"));
+				_Star3Image = new Image(Resource.AtlasAll.getTexture("star_2.png"));
 				_labelStar3 = new TextField(_Star3Image.width, 50, (Resource.Progress[Resource.SelectLevel][3] as int).toString(), "Arial", 28, 0x8000FF, true);
 			}
 			_Star3Image.x = 270; _Star3Image.y = 150;
@@ -180,21 +177,21 @@ package Crystal2.assets.level
 		private function readXML():void
 		{
 			_xmlLevel = new XML((Resource.FilesXML_Levels[Resource.SelectLevel] as XML));
-			Resource.MapLevelScoreStar1 = _xmlLevel.AmountScoreStar1;
-			Resource.MapLevelScoreStar2 = _xmlLevel.AmountScoreStar2;
-			Resource.MapLevelScoreStar3 = _xmlLevel.AmountScoreStar3;
-			Resource.LevelQuest = _xmlLevel.LevelType;
+			Resource.AmountScoreStar1 = _xmlLevel.AmountScoreStar1;
+			Resource.AmountScoreStar2 = _xmlLevel.AmountScoreStar2;
+			Resource.AmountScoreStar3 = _xmlLevel.AmountScoreStar3;
+			Resource.LevelType = _xmlLevel.LevelType;
 		}
 		
 		private function buttons():void
 		{
 			/* Кнопка Play */
-			_btnPlay = new Button(_atlasAll.getTexture("button_3.png"), "Играть", _atlasAll.getTexture("button_2.png"));
+			_btnPlay = new Button(Resource.AtlasAll.getTexture("button_3.png"), "Играть", Resource.AtlasAll.getTexture("button_2.png"));
 			_btnPlay.fontColor = 0xffffff;	_btnPlay.fontSize = 18; _btnPlay.fontName = "Arial";
 			_btnPlay.x = 25; _btnPlay.y = 350; _btnPlay.name = "Play";
 			_window.addChild(_btnPlay);
 			/* Кнопка Close */
-			_btnClose = new Button(_atlasAll.getTexture("button_3.png"), "Закрыть", _atlasAll.getTexture("button_2.png"));
+			_btnClose = new Button(Resource.AtlasAll.getTexture("button_3.png"), "Закрыть", Resource.AtlasAll.getTexture("button_2.png"));
 			_btnClose.fontColor = 0xffffff;	_btnClose.fontSize = 18; _btnClose.fontName = "Arial";
 			_btnClose.x = 210; _btnClose.y = 350; _btnClose.name = "Close";
 			_window.addChild(_btnClose);

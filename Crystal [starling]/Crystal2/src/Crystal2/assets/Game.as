@@ -1,11 +1,13 @@
 package Crystal2.assets 
 {
-	import Crystal2.assets.map.Map;
 	import starling.events.Event;
 	import starling.events.Touch;
 	import starling.events.TouchEvent;
 	import starling.events.TouchPhase;
 	import starling.display.Sprite;
+	import starling.textures.Texture;
+	import starling.textures.TextureAtlas;
+	
 	
 	import Crystal2.assets.events.NavigationEvent;
 	import Crystal2.assets.kernel.Mechanics;
@@ -15,6 +17,8 @@ package Crystal2.assets
 	import Crystal2.assets.setting.Setting;
 	import Crystal2.assets.level.LevelDialog;
 	import Crystal2.assets.level.Level;
+	import Crystal2.assets.map.Map;
+	
 	
 	/**
 	 * ...
@@ -39,6 +43,11 @@ package Crystal2.assets
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			this.addEventListener(NavigationEvent.CHANGE_SCREEN, onChangeScreen); 
+			
+			/* Инициализация атласов */
+			Resource.AtlasAll = new TextureAtlas(Texture.fromBitmap(Resource.Image_AtlasAll), Resource.FileXML_AtlasAll);
+			Resource.AtlasLevels = new TextureAtlas(Texture.fromBitmap(Resource.Image_AtlasLevels), Resource.FileXML_AtlasLevels);
+			Resource.AtlasPanel = new TextureAtlas(Texture.fromBitmap(Resource.Image_AtlasPanel), Resource.FileXML_AtlasPanel);
 			
 			/* Инициализация прогресса игры */
 			Resource.Progress = Mechanics.InitProgress(5); // инициализируем прогресс для 5-ти уровней

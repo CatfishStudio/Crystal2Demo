@@ -14,7 +14,6 @@ package Crystal2.assets.setting
 	
 	public class SettingPanel extends Sprite 
 	{
-		private var _atlasAll:TextureAtlas;
 		private var _btnMusic:Button;
 		private var _btnSound:Button;
 		private var _btnInfo:Button;
@@ -30,19 +29,17 @@ package Crystal2.assets.setting
 			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			this.addEventListener(Event.TRIGGERED, onClick);
 			
-			_atlasAll = new TextureAtlas(Texture.fromBitmap(Resource.Image_AtlasAll), Resource.FileXML_AtlasAll);
-			
-			if (Resource.Music) _btnMusic = new Button(_atlasAll.getTexture("settingMusic_1.png"), "");
-			else _btnMusic = new Button(_atlasAll.getTexture("settingMusic_2.png"), "");
+			if (Resource.Music) _btnMusic = new Button(Resource.AtlasAll.getTexture("settingMusic_1.png"), "");
+			else _btnMusic = new Button(Resource.AtlasAll.getTexture("settingMusic_2.png"), "");
 			_btnMusic.x = 0; _btnMusic.y = 0;
 			this.addChild(_btnMusic);
 			
-			if (Resource.Sound) _btnSound = new Button(_atlasAll.getTexture("settingSound_1.png"), "");
-			else _btnSound = new Button(_atlasAll.getTexture("settingSound_2.png"), "");
+			if (Resource.Sound) _btnSound = new Button(Resource.AtlasAll.getTexture("settingSound_1.png"), "");
+			else _btnSound = new Button(Resource.AtlasAll.getTexture("settingSound_2.png"), "");
 			_btnSound.x = 50; _btnSound.y = 0;
 			this.addChild(_btnSound);
 			
-			_btnInfo = new Button(_atlasAll.getTexture("settingInfo.png"), "");
+			_btnInfo = new Button(Resource.AtlasAll.getTexture("settingInfo.png"), "");
 			_btnInfo.x = 95; _btnInfo.y = 0;
 			this.addChild(_btnInfo);
 			
@@ -53,16 +50,16 @@ package Crystal2.assets.setting
 		{
 			if ((e.target as Button) == _btnMusic) {
 				if (Resource.Music == false) {
-					Resource.Music = true;	_btnMusic.upState = _atlasAll.getTexture("settingMusic_1.png");
+					Resource.Music = true;	_btnMusic.upState = Resource.AtlasAll.getTexture("settingMusic_1.png");
 				}else {
-					Resource.Music = false;	_btnMusic.upState = _atlasAll.getTexture("settingMusic_2.png");
+					Resource.Music = false;	_btnMusic.upState = Resource.AtlasAll.getTexture("settingMusic_2.png");
 				}
 			}
 			if ((e.target as Button) == _btnSound) {
 				if (Resource.Sound == false) {
-					Resource.Sound = true;	_btnSound.upState = _atlasAll.getTexture("settingSound_1.png");
+					Resource.Sound = true;	_btnSound.upState = Resource.AtlasAll.getTexture("settingSound_1.png");
 				}else {
-					Resource.Sound = false;	_btnSound.upState = _atlasAll.getTexture("settingSound_2.png");
+					Resource.Sound = false;	_btnSound.upState = Resource.AtlasAll.getTexture("settingSound_2.png");
 				}
 			}
 			

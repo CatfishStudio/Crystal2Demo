@@ -30,18 +30,17 @@ package Crystal2.assets.menu
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			
-			var atlas:TextureAtlas = new TextureAtlas(Texture.fromBitmap(Resource.Image_AtlasAll), Resource.FileXML_AtlasAll);
-			_bgImage = new Image(atlas.getTexture("menu.png"));
+			_bgImage = new Image(Resource.AtlasAll.getTexture("menu.png"));
 			this.addChild(_bgImage);
 			
-			_btnStart = new Button(atlas.getTexture("button_1.png"), "Играть", atlas.getTexture("button_2.png"));
+			_btnStart = new Button(Resource.AtlasAll.getTexture("button_1.png"), "Играть", Resource.AtlasAll.getTexture("button_2.png"));
 			_btnStart.fontColor = 0xffffff;
 			_btnStart.fontSize = 18;
 			_btnStart.fontName = "Arial";
 			_btnStart.x = 330; _btnStart.y = 450;
 			this.addChild(_btnStart);
 			
-			_btnSetting = new Button(atlas.getTexture("button_1.png"), "Настройки", atlas.getTexture("button_2.png"));
+			_btnSetting = new Button(Resource.AtlasAll.getTexture("button_1.png"), "Настройки", Resource.AtlasAll.getTexture("button_2.png"));
 			_btnSetting.fontColor = 0xffffff;
 			_btnSetting.fontSize = 18;
 			_btnSetting.fontName = "Arial";

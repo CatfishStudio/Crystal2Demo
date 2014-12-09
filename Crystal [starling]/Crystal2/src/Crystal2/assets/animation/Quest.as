@@ -12,6 +12,7 @@ package Crystal2.assets.animation
 	import starling.text.TextField;
 	import starling.display.Quad;
 	
+	
 	/**
 	 * ...
 	 * @author Somov Evgeniy
@@ -24,10 +25,18 @@ package Crystal2.assets.animation
 		private var _panel:Quad;
 		private var _window:Sprite;
 		private var _countTime:int = 0;
+		private var _label:TextField;
+		private var _text:String;
 		
-		public function Quest() 
+		[Embed(source = '../media/textures/crystal.png')]
+		private var Crystal:Class;
+		private var _textureCrystal:Texture;
+		private var _imageCrystal:Image;
+		
+		public function Quest(text:String) 
 		{
 			super();
+			_text = text;
 			this.addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 		}
 		
@@ -46,6 +55,15 @@ package Crystal2.assets.animation
 			_panel.x = 0; _panel.y = -100; _panel.alpha = 0.8; 
 			_window.addChild(_panel);
 			
+			_textureCrystal = Texture.fromBitmap(new Crystal());
+			_imageCrystal = new Image(_textureCrystal);
+			_imageCrystal.x = 150; _imageCrystal.y = -110;
+			_window.addChild(_imageCrystal);
+			
+			_label = new TextField(450, 100, _text, "Aria", 22, 0x0080FF, true);
+			_label.x = 200; _label.y = -100;
+			_window.addChild(_label);
+				
 			this.addChild(_window);
 			/* --------------------------------------------------------- */
 			
@@ -57,7 +75,7 @@ package Crystal2.assets.animation
 		{
 			_tween = new Tween(_window, 0.5);
 			_tween.moveTo(0, 300);
-			if (_countTime < 25) _tween.onComplete = animation;
+			if (_countTime < 50) _tween.onComplete = animation;
 			else {
 				Starling.juggler.remove(_tween);
 				this.parent.removeChild(this);
