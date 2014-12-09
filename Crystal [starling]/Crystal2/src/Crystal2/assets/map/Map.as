@@ -1,6 +1,5 @@
 package Crystal2.assets.map 
 {
-	import Crystal2.assets.animation.Dialog;
 	import starling.display.Sprite;
 	import starling.display.Button;
 	import starling.display.Image;
@@ -13,6 +12,9 @@ package Crystal2.assets.map
 	import starling.textures.TextureAtlas;
 	import Crystal2.assets.resource.Resource;
 	import Crystal2.assets.events.NavigationEvent;
+	import Crystal2.assets.setting.SettingPanel;
+	import Crystal2.assets.animation.Dialog;
+	
 	/**
 	 * ...
 	 * @author Somov Evgeniy
@@ -32,6 +34,7 @@ package Crystal2.assets.map
 		private var _mapMouseY:Number;		// позиция курсора
 		private var _mapMove:Boolean = false;	// флаг движения курсора (скрол карты)
 		private var _dialog:Dialog;			// диалог героя
+		private var _settingPanel:SettingPanel; // панель настроек
 		
 		public function Map() 
 		{
@@ -54,29 +57,29 @@ package Crystal2.assets.map
 			_map.addEventListener(TouchEvent.TOUCH, onMapTouch);
 			
 			/* Роадблоки */
-			if (Resource.LecelComplete >= 0) _roadblock1 = new Button(atlasAll.getTexture("roadblock_level_1_map1.png"), "");
+			if (Resource.LevelComplete >= 0) _roadblock1 = new Button(atlasAll.getTexture("roadblock_level_1_map1.png"), "");
 			else _roadblock1 = new Button(atlasAll.getTexture("roadblock_level_1_lock_map1.png"), "");
-			_roadblock1.x = 200; _roadblock1.y = 600;
+			_roadblock1.x = 200; _roadblock1.y = 600; _roadblock1.name = "roadblock";
 			_map.addChild(_roadblock1);
 			
-			if (Resource.LecelComplete > 1) _roadblock2 = new Button(atlasAll.getTexture("roadblock_level_2_map1.png"), "");
+			if (Resource.LevelComplete > 1) _roadblock2 = new Button(atlasAll.getTexture("roadblock_level_2_map1.png"), "");
 			else _roadblock2 = new Button(atlasAll.getTexture("roadblock_level_2_lock_map1.png"), "");
-			_roadblock2.x = 250; _roadblock2.y = 750;
+			_roadblock2.x = 250; _roadblock2.y = 750; _roadblock2.name = "roadblock";
 			_map.addChild(_roadblock2);
 			
-			if (Resource.LecelComplete > 2) _roadblock3 = new Button(atlasAll.getTexture("roadblock_level_3_map1.png"), "");
+			if (Resource.LevelComplete > 2) _roadblock3 = new Button(atlasAll.getTexture("roadblock_level_3_map1.png"), "");
 			else _roadblock3 = new Button(atlasAll.getTexture("roadblock_level_3_lock_map1.png"), "");
-			_roadblock3.x = 550; _roadblock3.y = 820;
+			_roadblock3.x = 550; _roadblock3.y = 820; _roadblock3.name = "roadblock";
 			_map.addChild(_roadblock3);
 			
-			if (Resource.LecelComplete > 3) _roadblock4 = new Button(atlasAll.getTexture("roadblock_level_4_map1.png"), "");
+			if (Resource.LevelComplete > 3) _roadblock4 = new Button(atlasAll.getTexture("roadblock_level_4_map1.png"), "");
 			else _roadblock4 = new Button(atlasAll.getTexture("roadblock_level_4_lock_map1.png"), "");
-			_roadblock4.x = 640; _roadblock4.y = 660;
+			_roadblock4.x = 640; _roadblock4.y = 660; _roadblock4.name = "roadblock";
 			_map.addChild(_roadblock4);
 			
-			if (Resource.LecelComplete > 4) _roadblock5 = new Button(atlasAll.getTexture("roadblock_level_5_map1.png"), "");
+			if (Resource.LevelComplete > 4) _roadblock5 = new Button(atlasAll.getTexture("roadblock_level_5_map1.png"), "");
 			else _roadblock5 = new Button(atlasAll.getTexture("roadblock_level_5_lock_map1.png"), "");
-			_roadblock5.x = 500; _roadblock5.y = 500;
+			_roadblock5.x = 500; _roadblock5.y = 500; _roadblock5.name = "roadblock";
 			_map.addChild(_roadblock5);
 			
 			this.addChild(_map);
@@ -109,8 +112,13 @@ package Crystal2.assets.map
 			/* Кнопка выход */
 			_btnExit = new Button(atlasAll.getTexture("button_3.png"), "Выход", atlasAll.getTexture("button_2.png"));
 			_btnExit.fontColor = 0xffffff;	_btnExit.fontSize = 18; _btnExit.fontName = "Arial";
-			_btnExit.x = 70; _btnExit.y = 540;
+			_btnExit.x = 70; _btnExit.y = 540; _btnExit.name = "exit";
 			this.addChild(_btnExit);
+			
+			/* Панель настроек */
+			_settingPanel = new SettingPanel();
+			_settingPanel.x = 525; _settingPanel.y = 20;
+			this.addChild(_settingPanel);
 		}
 		
 		/* Перемещение карты */
@@ -155,9 +163,12 @@ package Crystal2.assets.map
 		
 		private function onClick(e:Event):void
 		{
-			if ((e.target as Button) == _btnExit) {
+			if ((e.target as Button).name == "exit") {
 				this.removeChild(_dialog)
 				this.dispatchEvent(new NavigationEvent(NavigationEvent.CHANGE_SCREEN, { id: "EXIT_START_MENU" }, true));
+			}
+			if ((e.target as Button).name == "roadblock") {
+				this.dispatchEvent(new NavigationEvent(NavigationEvent.CHANGE_SCREEN, { id: "LEVEL_DIALOG_SHOW" }, true));
 			}
 		} 
 		

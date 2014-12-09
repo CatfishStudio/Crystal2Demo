@@ -41,7 +41,13 @@ package Crystal2.assets.resource
 		public static var MapLevel3:Boolean = false;
 		public static var MapLevel4:Boolean = false;
 		public static var MapLevel5:Boolean = false;
-		public static var LecelComplete:int = 0;
+		public static var MapLevelScoreStar1:int = 0;
+		public static var MapLevelScoreStar2:int = 0;
+		public static var MapLevelScoreStar3:int = 0;
+		public static var LevelQuest:String;
+		public static var LevelComplete:int = 0;
+		public static var Progress:Vector.<Vector.<int>>;
+		
 		
 		/* Игровое поле (Level.as)*/
 		public static var MatrixCell:Vector.<Vector.<Cell>>;

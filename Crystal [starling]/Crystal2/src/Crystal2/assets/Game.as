@@ -8,9 +8,12 @@ package Crystal2.assets
 	import starling.display.Sprite;
 	
 	import Crystal2.assets.events.NavigationEvent;
+	import Crystal2.assets.kernel.Mechanics;
+	import Crystal2.assets.resource.Resource;
 	import Crystal2.assets.menu.StartMenu;
 	import Crystal2.assets.map.Map;
 	import Crystal2.assets.setting.Setting;
+	import Crystal2.assets.level.LevelDialog;
 	
 	/**
 	 * ...
@@ -22,6 +25,7 @@ package Crystal2.assets
 		private var _startMenu:StartMenu;
 		private var _map:Map;
 		private var _setting:Setting;
+		private var _levelDialog:LevelDialog;
 		
 		public function Game() 
 		{
@@ -34,6 +38,10 @@ package Crystal2.assets
 			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			this.addEventListener(NavigationEvent.CHANGE_SCREEN, onChangeScreen); 
 			
+			/* Инициализация прогресса игры */
+			Resource.Progress = Mechanics.InitProgress(5); // инициализируем прогресс для 5-ти уровней
+			
+			/* Окно главного меню игры */
 			_startMenu = new StartMenu();
 			this.addChild(_startMenu);
 			
@@ -62,6 +70,15 @@ package Crystal2.assets
 					this.removeChild(_map);
 					_startMenu = new StartMenu();
 					this.addChild(_startMenu);
+					break;
+					
+				case "LEVEL_DIALOG_SHOW":
+					_levelDialog = new LevelDialog();
+					this.addChild(_levelDialog);
+					break;
+					
+				case "LEVEL_DIALOG_CLOSE":
+					this.removeChild(_levelDialog);
 					break;
 			}
 		} 

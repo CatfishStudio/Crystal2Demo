@@ -1,37 +1,25 @@
 package Crystal2.assets.setting 
 {
-	import starling.events.Event;
 	import starling.display.Sprite;
-	import starling.display.Quad;
+	import starling.events.Event;
 	import starling.display.Button;
-	import starling.animation.Tween;
-	import starling.core.Starling;
 	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
 	
 	import Crystal2.assets.resource.Resource;
-	import Crystal2.assets.events.NavigationEvent;
-	
 	/**
 	 * ...
 	 * @author Somov Evgeniy
 	 */
 	
-	public class Setting extends Sprite 
+	public class SettingPanel extends Sprite 
 	{
-		private var _tween:Tween;
 		private var _atlasAll:TextureAtlas;
-		
-		private var _window:Sprite;
-		private var _panel:Quad;
-		private var _bg:Quad;
-		
 		private var _btnMusic:Button;
 		private var _btnSound:Button;
 		private var _btnInfo:Button;
-		private var _btnClose:Button;
 		
-		public function Setting() 
+		public function SettingPanel() 
 		{
 			super();
 			this.addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
@@ -43,46 +31,22 @@ package Crystal2.assets.setting
 			this.addEventListener(Event.TRIGGERED, onClick);
 			
 			_atlasAll = new TextureAtlas(Texture.fromBitmap(Resource.Image_AtlasAll), Resource.FileXML_AtlasAll);
-						
-			_bg = new Quad(800, 600,  0x000000, true);
-			_bg.alpha = 0.5;
-			this.addChild(_bg);
-			
-			_window = new Sprite();
-			_panel = new Quad(800, 100, 0xFFFFFF, true);
-			_panel.alpha = 0.8;
-			_window.addChild(_panel);
 			
 			if (Resource.Music) _btnMusic = new Button(_atlasAll.getTexture("settingMusic_1.png"), "");
 			else _btnMusic = new Button(_atlasAll.getTexture("settingMusic_2.png"), "");
-			_btnMusic.x = 300; _btnMusic.y = 30;
-			_window.addChild(_btnMusic);
+			_btnMusic.x = 0; _btnMusic.y = 0;
+			this.addChild(_btnMusic);
 			
 			if (Resource.Sound) _btnSound = new Button(_atlasAll.getTexture("settingSound_1.png"), "");
 			else _btnSound = new Button(_atlasAll.getTexture("settingSound_2.png"), "");
-			_btnSound.x = 400; _btnSound.y = 30;
-			_window.addChild(_btnSound);
+			_btnSound.x = 50; _btnSound.y = 0;
+			this.addChild(_btnSound);
 			
 			_btnInfo = new Button(_atlasAll.getTexture("settingInfo.png"), "");
-			_btnInfo.x = 500; _btnInfo.y = 30;
-			_window.addChild(_btnInfo);
-			
-			_btnClose = new Button(_atlasAll.getTexture("button_1.png"), "Закрыть", _atlasAll.getTexture("button_2.png"));
-			_btnClose.fontColor = 0xffffff;
-			_btnClose.fontSize = 18;
-			_btnClose.fontName = "Arial";
-			_btnClose.x = 600; _btnClose.y = 30;
-			_window.addChild(_btnClose);
-			
-			this.addChild(_window);
+			_btnInfo.x = 95; _btnInfo.y = 0;
+			this.addChild(_btnInfo);
 			
 			
-			
-			
-			_tween = new Tween(_window, 0.2);
-			_tween.moveTo(0, 250);
-			_tween.onComplete = function():void { Starling.juggler.remove(_tween); }
-			Starling.juggler.add(_tween);
 		}
 		
 		private function onClick(e:Event):void
@@ -101,9 +65,8 @@ package Crystal2.assets.setting
 					Resource.Sound = false;	_btnSound.upState = _atlasAll.getTexture("settingSound_2.png");
 				}
 			}
-			if ((e.target as Button) == _btnClose) this.dispatchEvent(new NavigationEvent(NavigationEvent.CHANGE_SCREEN, { id: "SETTING_CLOSE" }, true));
+			
 		} 
-		
 	}
 
 }
