@@ -3,7 +3,6 @@ package Crystal2.assets.map
 	import starling.display.Sprite;
 	import starling.display.Button;
 	import starling.display.Image;
-	import starling.display.Sprite;
 	import starling.events.Event;
 	import starling.events.Touch;
 	import starling.events.TouchEvent;

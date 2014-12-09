@@ -202,7 +202,7 @@ package Crystal2.assets.level
 		
 		private function onClick(e:Event):void
 		{
-			if ((e.target as Button).name == "Play") this.dispatchEvent(new NavigationEvent(NavigationEvent.CHANGE_SCREEN, { id: "LEVEL_PLAY" }, true));
+			if ((e.target as Button).name == "Play") this.dispatchEvent(new NavigationEvent(NavigationEvent.CHANGE_SCREEN, { id: "LEVEL_DIALOG_PLAY" }, true));
 			if ((e.target as Button).name == "Close") this.dispatchEvent(new NavigationEvent(NavigationEvent.CHANGE_SCREEN, { id: "LEVEL_DIALOG_CLOSE" }, true));
 		}
 	}

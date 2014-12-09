@@ -14,6 +14,7 @@ package Crystal2.assets
 	import Crystal2.assets.map.Map;
 	import Crystal2.assets.setting.Setting;
 	import Crystal2.assets.level.LevelDialog;
+	import Crystal2.assets.level.Level;
 	
 	/**
 	 * ...
@@ -26,6 +27,7 @@ package Crystal2.assets
 		private var _map:Map;
 		private var _setting:Setting;
 		private var _levelDialog:LevelDialog;
+		private var _level:Level;
 		
 		public function Game() 
 		{
@@ -81,6 +83,13 @@ package Crystal2.assets
 					
 				case "LEVEL_DIALOG_CLOSE":
 					this.removeChild(_levelDialog);
+					break;
+				
+				case "LEVEL_DIALOG_PLAY":
+					this.removeChild(_levelDialog);
+					this.removeChild(_map);
+					_level = new Level();
+					this.addChild(_level);
 					break;
 			}
 		} 
