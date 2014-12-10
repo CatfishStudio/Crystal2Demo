@@ -138,13 +138,9 @@ package Crystal2.assets.level
 					index++;
 				}
 			}
-			
-			
-			
-			
 		}
 		
-		private function onButtonTouch(e:TouchEvent):void 
+		public function onButtonTouch(e:TouchEvent):void 
 		{
 			var touch:Touch = e.getTouch(stage);
 			if (touch)
@@ -154,16 +150,16 @@ package Crystal2.assets.level
 					Mouse.cursor = MouseCursor.BUTTON;
 					
 					if (_blockedField == false) {	// Игровое поле разблокировано
-						trace("ТИП:" + (e.currentTarget as Unit).unitType);
-						trace("ПОЗИЦИЯ(i-колонка):" + (e.currentTarget as Unit).posColumnI.toString() + "  ПОЗИЦИЯ(j-строка):" + (e.currentTarget as Unit).posRowJ.toString());
-						trace("ПОЗИЦИЯ(X):" + (e.currentTarget as Unit).x.toString() + "  ПОЗИЦИЯ(Y):" + (e.currentTarget as Unit).y.toString());
+						//trace("ТИП:" + (e.currentTarget as Unit).unitType);
+						//trace("ПОЗИЦИЯ(i-колонка):" + (e.currentTarget as Unit).posColumnI.toString() + "  ПОЗИЦИЯ(j-строка):" + (e.currentTarget as Unit).posRowJ.toString());
+						//trace("ПОЗИЦИЯ(X):" + (e.currentTarget as Unit).x.toString() + "  ПОЗИЦИЯ(Y):" + (e.currentTarget as Unit).y.toString());
 					
 						if (_unit1 == null)_unit1 = (e.currentTarget as Unit);
 						else {
 							if ((e.currentTarget as Unit) != _unit1) {
 								_blockedField = true;
 								_unit2 = (e.currentTarget as Unit);
-								if(_unit2.posColumnI > (_unit1.posColumnI - 2) && _unit2.posColumnI < (_unit1.posColumnI + 2) && _unit2.posRowJ > (_unit1.posRowJ - 2) && _unit2.posRowJ < (_unit1.posRowJ + 2))
+								if(_unit2.posColumnI > (_unit1.posColumnI - 2) && _unit2.posColumnI < (_unit1.posColumnI + 2) && _unit2.posRowJ > (_unit1.posRowJ - 2) && _unit2.posRowJ < (_unit1.posRowJ + 2) && (_unit2.posColumnI == _unit1.posColumnI || _unit2.posRowJ == _unit1.posRowJ))
 									Mechanics.ExchangeCrystals(this, _unit1.posColumnI, _unit1.posRowJ, _unit2.posColumnI, _unit2.posRowJ);
 								else RecoveryField();
 							}else RecoveryField();
@@ -187,10 +183,13 @@ package Crystal2.assets.level
 		}
 		
 		/* Поиск групп после действия пользователя */
-		public function CheckField():void
+		public function CheckField(afterDown:Boolean):void
 		{
-			if (Mechanics.CheckField()) trace("true");
-			else Mechanics.BackExchangeCrystals(this, _unit1.posColumnI, _unit1.posRowJ, _unit2.posColumnI, _unit2.posRowJ);
+			if (Mechanics.CheckField()) Mechanics.SimplyRemove(this);
+			else {
+				if (afterDown == false) Mechanics.BackExchangeCrystals(this, _unit1.posColumnI, _unit1.posRowJ, _unit2.posColumnI, _unit2.posRowJ);
+				else RecoveryField();
+			}
 		}
 		
 		/* Восстановление прежнего состояния*/
@@ -198,6 +197,8 @@ package Crystal2.assets.level
 		{
 			_unit1 = null; _unit2 = null; _blockedField = false;
 		}
+		
+		
 		
 		private function onClick(e:Event):void
 		{

@@ -2,6 +2,8 @@ package Crystal2.assets.kernel
 {
 	import starling.core.Starling;
 	import starling.animation.Tween;
+	import starling.events.Touch;
+	import starling.events.TouchEvent;
 	
 	import Crystal2.assets.units.Cell;
 	import Crystal2.assets.units.Unit;
@@ -91,11 +93,11 @@ package Crystal2.assets.kernel
 			var unit2Complite:Boolean = false;
 			
 			_tweenUnit1.moveTo((Resource.MatrixUnit[columnCrystal2][rowCrystal2] as Unit).x, (Resource.MatrixUnit[columnCrystal2][rowCrystal2] as Unit).y);
-			_tweenUnit1.onComplete = function():void { unit1Complite = true; if (unit1Complite && unit2Complite) level.CheckField(); };
+			_tweenUnit1.onComplete = function():void { unit1Complite = true; if (unit1Complite && unit2Complite) level.CheckField(false); };
 			Starling.juggler.add(_tweenUnit1);
 			
 			_tweenUnit2.moveTo((Resource.MatrixUnit[columnCrystal1][rowCrystal1] as Unit).x, (Resource.MatrixUnit[columnCrystal1][rowCrystal1] as Unit).y);
-			_tweenUnit2.onComplete = function():void { unit2Complite = true; if (unit1Complite && unit2Complite) level.CheckField(); };
+			_tweenUnit2.onComplete = function():void { unit2Complite = true; if (unit1Complite && unit2Complite) level.CheckField(false); };
 			Starling.juggler.add(_tweenUnit2);
 		}
 		
@@ -224,9 +226,178 @@ package Crystal2.assets.kernel
 			}
 			return resultCheck;
 		}
+		/* ============================================================================================ */
+		
+		/* Удаление на поле всех отмеченных ячеек (Удаление, сортировка, добавление ====================*/
+		public static function SimplyRemove(level:Level):void
+		{
+			for (var i:int = 0; i < Resource.COLUMNS; i++) { /* i - столбецы (обработка слева на право) */
+				var matrixUnits:Vector.<Unit> = new Vector.<Unit>(); // массив юнитов сохраняемых на поле
+				var matrixEmpty:Vector.<Unit> = new Vector.<Unit>(); // массив пустот сохраняемых на поле
+				var matrixAll:Vector.<Unit> = new Vector.<Unit>(); // массив всех эдементов игрового поля (после слияния и добавления)
+				
+				/* Удаление помеченных кристалов ---------------------------------------------------------------------------------*/
+				for (var j1:int = Resource.ROWS - 1; j1 >= 0; j1--) {
+					
+					/* Удаление */
+					if ((Resource.MatrixUnit[i][j1] as Unit).flagRemove == true && (Resource.MatrixUnit[i][j1] as Unit).unitType != "CRYSTAL_TYPE_0") {	// удаление 
+						/* анимация вспышки */
+						//////////////////////level.addChild(new Flash((Resource.MatrixUnit[i][j1] as Unit).x - 50, (Resource.MatrixUnit[i][j1] as Unit).y - 30));
+						/* Удаление объект с поля */
+						level.removeChild(Resource.MatrixUnit[i][j1]);
+						/* Уменьшение жизни и увеличение маны */
+						/////////////////////(level as Level).ReductionXP((Resource.MatrixUnit[i][j1] as Unit).unitType); // жизнь
+						/////////////////////(level as Level).IncreaseMana((Resource.MatrixUnit[i][j1] as Unit).unitType); // мана
+						/* Удаляем в главном массиве */
+						Resource.MatrixUnit[i].pop(); // Удаляем из главного массива
+						
+					}else {
+						/* Проверка пустота или нет */
+						if ((Resource.MatrixUnit[i][j1] as Unit).unitType == "CRYSTAL_TYPE_0") { // CRYSTAL_TYPE_0 - пустота
+							
+							/* переносим пустоту в промежуточный массив */
+							matrixEmpty.push((Resource.MatrixUnit[i][j1] as Unit));
+							/* Удаляем в главном массиве */
+							Resource.MatrixUnit[i].pop(); // Удаляем из массива
+								
+						}else { // не пустота
+							
+							/* Сохраняем удар в промежуточный массив */
+							matrixUnits.push((Resource.MatrixUnit[i][j1] as Unit));
+							/* Удаляем в главном массиве */
+							Resource.MatrixUnit[i].pop(); // Удаляем из массива
+							
+						}
+					}
+				}
+				/*---------------------------------------------------------------------------------------------------------------*/
+				
+				
+				/* Слияние двух массивов и добавление новых объектов -------------------------------------------------------------*/
+				var totalRows:int = matrixUnits.length + matrixEmpty.length;
+				if (totalRows == Resource.ROWS) { // слияние без добавлений ----------
+					for (var iTotal:int = Resource.ROWS - 1; iTotal >= 0; iTotal--) {
+						if (matrixEmpty.length > 0){ // пустоты
+							if ((matrixEmpty[0] as Unit).posRowJ == iTotal) {
+								matrixAll.push(matrixEmpty[0]); // переносим
+								matrixEmpty.shift(); // удаляем
+							}
+						}
+						if (matrixUnits.length > 0) { // объекты
+							if ((matrixUnits[0] as Unit).posRowJ == iTotal) {
+								matrixAll.push(matrixUnits[0]); // переносим
+								matrixUnits.shift(); // удаляем
+							}
+						}
+					}
+				}else { // слияние с добавлением -------------------------------------
+					for (var iAdd:int = Resource.ROWS - 1; iAdd >= 0; iAdd--) {
+						if (matrixEmpty.length > 0){ // пустоты
+							if ((matrixEmpty[0] as Unit).posRowJ == iAdd) {
+								matrixAll.push(matrixEmpty[0]); // переносим
+								matrixEmpty.shift(); // удаляем
+							}else { // в пустоте не найдено
+								if (matrixUnits.length > 0) { // объекты
+									if ((matrixUnits[0] as Unit).posRowJ == iAdd) {
+										matrixAll.push(matrixUnits[0]); // переносим
+										matrixUnits.shift(); // удаляем
+									}else { // переносим объект вниз
+										(matrixUnits[0] as Unit).posRowJ = iAdd;		// изменяем индекс положения в строке
+										matrixAll.push(matrixUnits[0]); // переносим
+										AnimationMoveDown((matrixUnits[0] as Unit), (matrixUnits[0] as Unit).x, (70 + (50 * iAdd)), level);
+										matrixUnits.shift(); // удаляем
+									}
+								}else { // создаём новый объект
+							
+									/* Добавление новых объектов в массив и на поле */
+									var newUnit1:Unit = new Unit();
+									newUnit1.x = 165 + (50 * i);
+									newUnit1.y = 0 + (50 * 0);	// начальная позиция для нового объекта
+									newUnit1.posColumnI = i;
+									newUnit1.posRowJ = iAdd;
+									
+									var type1:int = RandomIndex();
+									if (type1 >= 0 && type1 < 2) newUnit1.unitType = "CRYSTAL_TYPE_1_VIOLET";
+									if (type1 >= 2 && type1 < 4) newUnit1.unitType = "CRYSTAL_TYPE_2_GREEN";
+									if (type1 >= 4 && type1 < 6) newUnit1.unitType = "CRYSTAL_TYPE_3_RED";
+									if (type1 >= 6 && type1 < 8) newUnit1.unitType = "CRYSTAL_TYPE_4_BLUE";
+									if (type1 >= 8 && type1 <= 10) newUnit1.unitType = "CRYSTAL_TYPE_5_YELLOW";
+									
+									/*события*/
+									newUnit1.addEventListener(TouchEvent.TOUCH, (level as Level).onButtonTouch);
+									newUnit1.cellType = "CELL_TYPE_CLEAR";
+									newUnit1.CrystalShow();
+						
+									matrixAll.push(newUnit1);
+									level.addChild(newUnit1)
+									AnimationMoveDown(newUnit1, newUnit1.x, (70 + (50 * iAdd)), level);
+								}
+							}
+						}else { // пустоты закончились
+								if (matrixUnits.length > 0) { // объекты
+									if ((matrixUnits[0] as Unit).posRowJ == iAdd) {
+										matrixAll.push(matrixUnits[0]); // переносим
+										matrixUnits.shift(); // удаляем
+									}else { // переносим объект вниз
+										(matrixUnits[0] as Unit).posRowJ = iAdd;		// изменяем индекс положения в строке
+										matrixAll.push(matrixUnits[0]); // переносим
+										AnimationMoveDown((matrixUnits[0] as Unit), (matrixUnits[0] as Unit).x, (70 + (50 * iAdd)), level);
+										matrixUnits.shift(); // удаляем
+									}
+								}else { // создаём новый объект
+							
+									/* Добавление новых объектов в массив и на поле */
+									var newUnit2:Unit = new Unit();
+									newUnit2.x = 165 + (50 * i);
+									newUnit2.y = 0 + (50 * 0);	// начальная позиция для нового объекта
+									newUnit2.posColumnI = i;
+									newUnit2.posRowJ = iAdd;
+									
+									var type2:int = RandomIndex();
+									if (type2 >= 0 && type2 < 2) newUnit2.unitType = "CRYSTAL_TYPE_1_VIOLET";
+									if (type2 >= 2 && type2 < 4) newUnit2.unitType = "CRYSTAL_TYPE_2_GREEN";
+									if (type2 >= 4 && type2 < 6) newUnit2.unitType = "CRYSTAL_TYPE_3_RED";
+									if (type2 >= 6 && type2 < 8) newUnit2.unitType = "CRYSTAL_TYPE_4_BLUE";
+									if (type2 >= 8 && type2 <= 10) newUnit2.unitType = "CRYSTAL_TYPE_5_YELLOW";
+						
+									/*события*/
+									newUnit2.addEventListener(TouchEvent.TOUCH, (level as Level).onButtonTouch);
+									newUnit2.cellType = "CELL_TYPE_CLEAR";
+									newUnit2.CrystalShow();
+						
+									matrixAll.push(newUnit2);
+									level.addChild(newUnit2)
+									AnimationMoveDown(newUnit2, newUnit2.x, (70 + (50 * iAdd)), level);
+								}
+						}
+						
+					}
+				}
+				/*---------------------------------------------------------------------------------------------------------------*/
+				
+				
+				/* Возвращаем объекты обратно в главный массив ------------------------------------------------------------------*/
+				for (var j2:int = Resource.ROWS - 1; j2 >= 0; j2--) {	// 5-4-3-2-1-0
+					Resource.MatrixUnit[i].push(matrixAll[j2]); 	// Переносим (добавляем) в массив
+				}
+				
+			}
+		}
+		
 		
 		/* ============================================================================================ */
 		
+		/* Анимация спуска объектов ====================================================================*/
+		private static var _totalAnimation:int = 0;
+		public static function AnimationMoveDown(unit:Unit, xMove:int, yMove:int, level:Level):void 
+		{
+			_totalAnimation++;
+			var _tweenUnit:Tween = new Tween(unit, 0.5);
+			_tweenUnit.moveTo(xMove, yMove);
+			_tweenUnit.onComplete = function():void { Starling.juggler.remove(_tweenUnit); _totalAnimation--; if(_totalAnimation == 0) level.CheckField(true)};
+			Starling.juggler.add(_tweenUnit);
+		}
+		/* ============================================================================================ */
 		
 		
 	}

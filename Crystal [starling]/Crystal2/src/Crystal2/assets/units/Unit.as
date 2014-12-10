@@ -20,8 +20,8 @@ package Crystal2.assets.units
 		public var flagRemove:Boolean = false;
 		public var posColumnI:int = 0;
 		public var posRowJ:int = 0;
-		//public var posX:int = 0;
-		//public var posY:int = 0;
+		public var posX:int = 0;
+		public var posY:int = 0;
 		
 		private var _crystalImage:Image;
 		private var _atlasAll:TextureAtlas;
