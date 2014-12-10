@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TextureAtlas imagePath="crystal2_atlas_levels.jpg">
+	<!--
+	Created with ShoeBox
+	http://renderhjs.net/shoebox/
+	-->
+	<SubTexture name="level_1_map_1.jpg"	x="0"	y="1202"	width="800"	height="600" frameX="-0" frameY="-0" frameWidth="800" frameHeight="600"/>
+	<SubTexture name="level_2_map_1.jpg"	x="801"	y="0"	width="800"	height="600" frameX="-0" frameY="-0" frameWidth="800" frameHeight="600"/>
+	<SubTexture name="level_3_map_1.jpg"	x="801"	y="601"	width="800"	height="600" frameX="-0" frameY="-0" frameWidth="800" frameHeight="600"/>
+	<SubTexture name="level_4_map_1.jpg"	x="0"	y="601"	width="800"	height="600" frameX="-0" frameY="-0" frameWidth="800" frameHeight="600"/>
+	<SubTexture name="level_5_map_1.jpg"	x="0"	y="0"	width="800"	height="600" frameX="-0" frameY="-0" frameWidth="800" frameHeight="600"/>
+</TextureAtlas>

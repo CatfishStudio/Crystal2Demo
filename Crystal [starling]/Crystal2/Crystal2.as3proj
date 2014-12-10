@@ -72,6 +72,10 @@
     <asset path="src\Crystal2\assets\media\textures\logo.png" />
     <asset path="src\Crystal2\assets\media\textures\progress.png" />
     <asset path="src\Crystal2\assets\media\textures\crystal.png" />
+    <asset path="src\Crystal2\assets\media\atlas\crystal2_atlas_all.png" />
+    <asset path="src\Crystal2\assets\media\atlas\crystal2_atlas_levels.jpg" />
+    <asset path="src\Crystal2\assets\media\atlas\crystal2_atlas_panel.png" />
+    <asset path="src\Crystal2\assets\media\atlas\crystal2_map.jpg" />
   </library>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>

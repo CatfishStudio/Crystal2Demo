@@ -16,12 +16,14 @@ package Crystal2
 	import Crystal2.Stats;
 	import Crystal2.assets.Game;
 	import Crystal2.assets.resource.LoadResource;
+	import Crystal2.assets.resource.FastLoadResource;
 	
 	
 	[SWF(width="800", height="600", frameRate="30", backgroundColor="#ffffff")]
 	public class Main extends Sprite 
 	{
-		private var _loadResource:LoadResource;
+		//private var _loadResource:LoadResource;
+		private var _fastloadResource:FastLoadResource;
 		private var _starling:Starling;
 		
 		public function Main():void 
@@ -35,14 +37,20 @@ package Crystal2
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
 			this.addChild(new Stats); // панель статистики
-			_loadResource = new LoadResource();
-			_loadResource.addEventListener(Event.CLEAR, onLoadComplete);
-			this.addChild(_loadResource);
+			//_loadResource = new LoadResource();
+			//_loadResource.addEventListener(Event.CLEAR, onLoadComplete);
+			//this.addChild(_loadResource);
+			
+			_fastloadResource = new FastLoadResource();
+			_fastloadResource.addEventListener(Event.CLEAR, onLoadComplete);
+			_fastloadResource.width = 10; _fastloadResource.height = 10;
+			this.addChild(_fastloadResource);
 		}
 		
 		private function onLoadComplete(e:Event):void
 		{
-			this.removeChild(_loadResource);
+			//this.removeChild(_loadResource);
+			this.removeChild(_fastloadResource);
 			initStarling(); // инициализация Старлинг
 		}
 		
