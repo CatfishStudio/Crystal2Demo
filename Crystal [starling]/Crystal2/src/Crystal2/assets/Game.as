@@ -100,6 +100,13 @@ package Crystal2.assets
 					_level = new Level();
 					this.addChild(_level);
 					break;
+					
+				case "LEVEL_EXIT":
+					this.removeChild(_level);
+					_map = new Map();
+					this.addChild(_map);
+					break;
+					
 			}
 		} 
 		

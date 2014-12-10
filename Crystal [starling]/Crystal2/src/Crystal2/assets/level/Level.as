@@ -35,6 +35,7 @@ package Crystal2.assets.level
 		private var _unit2:Unit = null;
 		private var _blockedField:Boolean = false;	// флаг блокировки игрового поля от нажатий
 		private var _levelPanel:LevelPanel;
+		private var _btnExit:Button;			// кнопка выход на карту
 		/* Условие задания ----------*/
 		private var _textQuest:String;			// условие
 		private var _textTypeCrystal:String;	// тик кристалов
@@ -71,12 +72,22 @@ package Crystal2.assets.level
 			_textQuest = getTextQuest(Resource.LevelType);
 			_textTypeCrystal = getTextTypeCrystal(Resource.CrystalType);
 			
-			// Панель задания
-			if(Resource.LevelType == "LEVEL_TYPE_COLLECT") _levelPanel = new LevelPanel(_textQuest + ". Собрано " + _AmountCrystals + " из " + Resource.AmountCrystals.toString() + _textTypeCrystal, "Ходов " + Resource.AmountMoves.toString());
+			/* Кнопка выход */
+			_btnExit = new Button(Resource.AtlasAll.getTexture("button_3.png"), "Выход", Resource.AtlasAll.getTexture("button_2.png"));
+			_btnExit.fontColor = 0xffffff;	_btnExit.fontSize = 18; _btnExit.fontName = "Arial";
+			_btnExit.x = 0; _btnExit.y = 540; _btnExit.name = "exit";
+			this.addChild(_btnExit);
+			
+			// Панель общей информации
+			if (Resource.LevelType == "LEVEL_TYPE_COLLECT") _levelPanel = new LevelPanel(_textQuest + ". Собрано " + _AmountCrystals + " из " + Resource.AmountCrystals.toString() + _textTypeCrystal, "Ходов " + Resource.AmountMoves.toString());
+			//if (Resource.LevelType == "LEVEL_TYPE_SCORE_POINTS") return "Задание: Набрать очки";
+			//if (Resource.LevelType == "LEVEL_TYPE_TIME") return "Задание: Успеть за время";
 			this.addChild(_levelPanel);
 			
 			// окно описание квеста
 			if(Resource.LevelType == "LEVEL_TYPE_COLLECT") this.addChild(new Quest(_textQuest + _textTypeCrystal));
+			//if (Resource.LevelType == "LEVEL_TYPE_SCORE_POINTS") return "Задание: Набрать очки";
+			//if (Resource.LevelType == "LEVEL_TYPE_TIME") return "Задание: Успеть за время";
 			
 			
 		}
@@ -199,10 +210,10 @@ package Crystal2.assets.level
 			}
 		}
 		
-		/* Восстановление прежнего состояния*/
+		/* Восстановление прежнего состояния (связан с Mechanics) */
 		public function RecoveryField():void
 		{
-			_unit1 = null; _unit2 = null; _blockedField = false;
+			if(Mechanics.CheckCombinations(this)) _unit1 = null; _unit2 = null; _blockedField = false;
 		}
 		
 		/* Уменьшение количества ходов */
@@ -216,13 +227,16 @@ package Crystal2.assets.level
 			}
 		}
 		
-		/* Увеличиваем количество собранных кристалов и очков */
+		/* Увеличиваем количество собранных кристалов и очков (связан с Mechanics.SimplyRemove)*/
 		public function CollectAmountCrystalsAndScore(crystalID:String):void
 		{
 			if(Resource.CrystalType == crystalID || Resource.CrystalType == "CRYSTAL_TYPE_ALL") _AmountCrystals++;
-			_AmountScore += 60;
+			_AmountScore += 30;
 			_levelPanel.labelScore.text = "Очки: " + _AmountScore.toString();
-			if(Resource.LevelType == "LEVEL_TYPE_COLLECT") _levelPanel.labelQuest.text = _textQuest + ". Собрано " + _AmountCrystals + " из " + Resource.AmountCrystals.toString() + _textTypeCrystal
+			if (Resource.LevelType == "LEVEL_TYPE_COLLECT") _levelPanel.labelQuest.text = _textQuest + ". Собрано " + _AmountCrystals + " из " + Resource.AmountCrystals.toString() + _textTypeCrystal
+			//if (Resource.LevelType == "LEVEL_TYPE_SCORE_POINTS") return "Задание: Набрать очки";
+			//if (Resource.LevelType == "LEVEL_TYPE_TIME") return "Задание: Успеть за время";
+			
 		}
 		
 		/* Получить описание задания*/
@@ -246,9 +260,12 @@ package Crystal2.assets.level
 			return "";
 		}
 		
+		
 		private function onClick(e:Event):void
 		{
-			
+			if ((e.target as Button).name == "exit") {
+				this.dispatchEvent(new NavigationEvent(NavigationEvent.CHANGE_SCREEN, { id: "LEVEL_EXIT" }, true));
+			}
 		}
 	}
 
