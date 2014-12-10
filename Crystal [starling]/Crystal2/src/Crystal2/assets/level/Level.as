@@ -33,7 +33,7 @@ package Crystal2.assets.level
 		
 		private var _unit1:Unit = null;
 		private var _unit2:Unit = null;
-		
+		private var _blockedField:Boolean = false;	// флаг блокировки игрового поля от нажатий
 		
 		
 		public function Level() 
@@ -99,7 +99,6 @@ package Crystal2.assets.level
 						(Resource.MatrixCell[iCell][jCell] as Cell).y = 70 + (Resource.CELL_HEIGHT * jCell);
 						(Resource.MatrixCell[iCell][jCell] as Cell).cellType = "CELL_TYPE_DROP";
 					}
-					
 					index++;
 				}
 			}
@@ -112,8 +111,8 @@ package Crystal2.assets.level
 						/* объект */
 						(Resource.MatrixUnit[iUnit][jUnit] as Unit).x = 165 + (Resource.CELL_WIDTH * iUnit);
 						(Resource.MatrixUnit[iUnit][jUnit] as Unit).y = 70 + (Resource.CELL_HEIGHT * jUnit);
-						(Resource.MatrixUnit[iUnit][jUnit] as Unit).posX = 165 + (Resource.CELL_WIDTH * iUnit);
-						(Resource.MatrixUnit[iUnit][jUnit] as Unit).posY = 70 + (Resource.CELL_HEIGHT * jUnit);
+						//(Resource.MatrixUnit[iUnit][jUnit] as Unit).posX = 165 + (Resource.CELL_WIDTH * iUnit);
+						//(Resource.MatrixUnit[iUnit][jUnit] as Unit).posY = 70 + (Resource.CELL_HEIGHT * jUnit);
 						(Resource.MatrixUnit[iUnit][jUnit] as Unit).posColumnI = iUnit;
 						(Resource.MatrixUnit[iUnit][jUnit] as Unit).posRowJ = jUnit;
 						(Resource.MatrixUnit[iUnit][jUnit] as Unit).unitType = Resource.FilesXML_Levels[Resource.SelectLevel].cell[index].cellObject;
@@ -127,8 +126,8 @@ package Crystal2.assets.level
 						/* объект CRYSTAL_TYPE_0 */
 						(Resource.MatrixUnit[iUnit][jUnit] as Unit).x = 165 + (Resource.CELL_WIDTH * iUnit);
 						(Resource.MatrixUnit[iUnit][jUnit] as Unit).y = 70 + (Resource.CELL_HEIGHT * jUnit);
-						(Resource.MatrixUnit[iUnit][jUnit] as Unit).posX = 165 + (Resource.CELL_WIDTH * iUnit);
-						(Resource.MatrixUnit[iUnit][jUnit] as Unit).posY = 70 + (Resource.CELL_HEIGHT * jUnit);
+						//(Resource.MatrixUnit[iUnit][jUnit] as Unit).posX = 165 + (Resource.CELL_WIDTH * iUnit);
+						//(Resource.MatrixUnit[iUnit][jUnit] as Unit).posY = 70 + (Resource.CELL_HEIGHT * jUnit);
 						(Resource.MatrixUnit[iUnit][jUnit] as Unit).posColumnI = iUnit;
 						(Resource.MatrixUnit[iUnit][jUnit] as Unit).posRowJ = jUnit;
 						(Resource.MatrixUnit[iUnit][jUnit] as Unit).unitType = "CRYSTAL_TYPE_0"; //Resource.FilesXML_Levels[Resource.SelectLevel].cell[index].cellObject;
@@ -152,14 +151,23 @@ package Crystal2.assets.level
 			{
 				if (touch.phase == TouchPhase.BEGAN)
 				{
-					trace((e.currentTarget as Unit).unitType);
-					
 					Mouse.cursor = MouseCursor.BUTTON;
-					if (_unit1 == null)_unit1 = (e.currentTarget as Unit);
-					else {
-						_unit2 = (e.currentTarget as Unit);
-						Mechanics.ExchangeCrystals(_unit1.posColumnI, _unit1.posRowJ, _unit2.posColumnI, _unit2.posRowJ);
-						
+					
+					if (_blockedField == false) {	// Игровое поле разблокировано
+						trace("ТИП:" + (e.currentTarget as Unit).unitType);
+						trace("ПОЗИЦИЯ(i-колонка):" + (e.currentTarget as Unit).posColumnI.toString() + "  ПОЗИЦИЯ(j-строка):" + (e.currentTarget as Unit).posRowJ.toString());
+						trace("ПОЗИЦИЯ(X):" + (e.currentTarget as Unit).x.toString() + "  ПОЗИЦИЯ(Y):" + (e.currentTarget as Unit).y.toString());
+					
+						if (_unit1 == null)_unit1 = (e.currentTarget as Unit);
+						else {
+							if ((e.currentTarget as Unit) != _unit1) {
+								_blockedField = true;
+								_unit2 = (e.currentTarget as Unit);
+								if(_unit2.posColumnI > (_unit1.posColumnI - 2) && _unit2.posColumnI < (_unit1.posColumnI + 2) && _unit2.posRowJ > (_unit1.posRowJ - 2) && _unit2.posRowJ < (_unit1.posRowJ + 2))
+									Mechanics.ExchangeCrystals(this, _unit1.posColumnI, _unit1.posRowJ, _unit2.posColumnI, _unit2.posRowJ);
+								else RecoveryField();
+							}else RecoveryField();
+						}
 					}
 					
 				}
@@ -178,6 +186,18 @@ package Crystal2.assets.level
 			} 
 		}
 		
+		/* Поиск групп после действия пользователя */
+		public function CheckField():void
+		{
+			if (Mechanics.CheckField()) trace("true");
+			else Mechanics.BackExchangeCrystals(this, _unit1.posColumnI, _unit1.posRowJ, _unit2.posColumnI, _unit2.posRowJ);
+		}
+		
+		/* Восстановление прежнего состояния*/
+		public function RecoveryField():void
+		{
+			_unit1 = null; _unit2 = null; _blockedField = false;
+		}
 		
 		private function onClick(e:Event):void
 		{
