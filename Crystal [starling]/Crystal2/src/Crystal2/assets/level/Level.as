@@ -158,10 +158,6 @@ package Crystal2.assets.level
 					Mouse.cursor = MouseCursor.BUTTON;
 					
 					if (_blockedField == false) {	// Игровое поле разблокировано
-						//trace("ТИП:" + (e.currentTarget as Unit).unitType);
-						//trace("ПОЗИЦИЯ(i-колонка):" + (e.currentTarget as Unit).posColumnI.toString() + "  ПОЗИЦИЯ(j-строка):" + (e.currentTarget as Unit).posRowJ.toString());
-						//trace("ПОЗИЦИЯ(X):" + (e.currentTarget as Unit).x.toString() + "  ПОЗИЦИЯ(Y):" + (e.currentTarget as Unit).y.toString());
-					
 						if (_unit1 == null)_unit1 = (e.currentTarget as Unit);
 						else {
 							if ((e.currentTarget as Unit) != _unit1) {
@@ -193,7 +189,10 @@ package Crystal2.assets.level
 		/* Поиск групп после действия пользователя */
 		public function CheckField(afterDown:Boolean):void
 		{
-			if (Mechanics.CheckField()) Mechanics.SimplyRemove(this);
+			if (Mechanics.CheckField()) {
+				if (afterDown == false) reduceAmountMoves(); // уменьшаем количество ходов
+				Mechanics.SimplyRemove(this);
+			}
 			else {
 				if (afterDown == false) Mechanics.BackExchangeCrystals(this, _unit1.posColumnI, _unit1.posRowJ, _unit2.posColumnI, _unit2.posRowJ);
 				else RecoveryField();
@@ -206,7 +205,27 @@ package Crystal2.assets.level
 			_unit1 = null; _unit2 = null; _blockedField = false;
 		}
 		
+		/* Уменьшение количества ходов */
+		private function reduceAmountMoves():void 
+		{
+			if (Resource.AmountMoves > 0) {
+				Resource.AmountMoves--;
+				_levelPanel.labelGiven.text = "Ходов " + Resource.AmountMoves.toString();
+			}else {
+				// КОНЕЦ ИГРЫ!
+			}
+		}
 		
+		/* Увеличиваем количество собранных кристалов и очков */
+		public function CollectAmountCrystalsAndScore(crystalID:String):void
+		{
+			if(Resource.CrystalType == crystalID || Resource.CrystalType == "CRYSTAL_TYPE_ALL") _AmountCrystals++;
+			_AmountScore += 60;
+			_levelPanel.labelScore.text = "Очки: " + _AmountScore.toString();
+			if(Resource.LevelType == "LEVEL_TYPE_COLLECT") _levelPanel.labelQuest.text = _textQuest + ". Собрано " + _AmountCrystals + " из " + Resource.AmountCrystals.toString() + _textTypeCrystal
+		}
+		
+		/* Получить описание задания*/
 		private function getTextQuest(id:String):String
 		{
 			if (id == "LEVEL_TYPE_COLLECT") return "Задание: Собрать кристалы";
@@ -215,6 +234,7 @@ package Crystal2.assets.level
 			return "";
 		}
 		
+		/* Получить описание типа кристала для задания собрать кристалы */
 		private function getTextTypeCrystal(id:String):String
 		{
 			if (id == "CRYSTAL_TYPE_ALL") return " любого цвета.";

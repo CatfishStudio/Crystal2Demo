@@ -243,11 +243,10 @@ package Crystal2.assets.kernel
 					if ((Resource.MatrixUnit[i][j1] as Unit).flagRemove == true && (Resource.MatrixUnit[i][j1] as Unit).unitType != "CRYSTAL_TYPE_0") {	// удаление 
 						/* анимация вспышки */
 						//////////////////////level.addChild(new Flash((Resource.MatrixUnit[i][j1] as Unit).x - 50, (Resource.MatrixUnit[i][j1] as Unit).y - 30));
+						/* Увеличиваем количество собранных кристалов и очков */
+						level.CollectAmountCrystalsAndScore((Resource.MatrixUnit[i][j1] as Unit).unitType);
 						/* Удаление объект с поля */
 						level.removeChild(Resource.MatrixUnit[i][j1]);
-						/* Уменьшение жизни и увеличение маны */
-						/////////////////////(level as Level).ReductionXP((Resource.MatrixUnit[i][j1] as Unit).unitType); // жизнь
-						/////////////////////(level as Level).IncreaseMana((Resource.MatrixUnit[i][j1] as Unit).unitType); // мана
 						/* Удаляем в главном массиве */
 						Resource.MatrixUnit[i].pop(); // Удаляем из главного массива
 						
