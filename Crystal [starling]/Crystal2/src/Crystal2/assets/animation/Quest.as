@@ -61,7 +61,8 @@ package Crystal2.assets.animation
 			_window.addChild(_imageCrystal);
 			
 			_label = new TextField(450, 100, _text, "Aria", 22, 0x0080FF, true);
-			_label.x = 200; _label.y = -100;
+			_label.x = 300; _label.y = -100;
+			_label.hAlign = "left";
 			_window.addChild(_label);
 				
 			this.addChild(_window);

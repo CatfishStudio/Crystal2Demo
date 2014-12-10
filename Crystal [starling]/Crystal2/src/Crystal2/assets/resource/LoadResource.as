@@ -17,6 +17,7 @@ package Crystal2.assets.resource
 	 * ...
 	 * @author Somov Evgeniy
 	 */
+	
 	public class LoadResource extends Sprite 
 	{
 		[Embed(source = '../media/textures/progress.png')]

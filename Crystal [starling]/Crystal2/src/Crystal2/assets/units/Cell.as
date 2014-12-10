@@ -14,6 +14,7 @@ package Crystal2.assets.units
 	public class Cell extends Sprite 
 	{
 		public var cellType:String = "CELL_TYPE_CLEAR";	// тип ячейки
+		private var _cellBG:Quad;
 		private var _cell:Quad;
 		
 		public function Cell() 
@@ -28,8 +29,12 @@ package Crystal2.assets.units
 			
 			if (cellType == "CELL_TYPE_EMPTY") this.visible = false;
 			if (cellType == "CELL_TYPE_CLEAR") {
+				_cellBG = new Quad(Resource.CELL_WIDTH, Resource.CELL_HEIGHT, 0x8000FF, true);
+				_cellBG.alpha = 0.4;
+				this.addChild(_cellBG);
 				_cell = new Quad(Resource.CELL_WIDTH, Resource.CELL_HEIGHT, 0x000000, true);
-				_cell.alpha = 0.4;
+				_cell.width = 48; _cell.height = 48;
+				_cell.alpha = 0.6;
 				this.addChild(_cell);
 			}
 			

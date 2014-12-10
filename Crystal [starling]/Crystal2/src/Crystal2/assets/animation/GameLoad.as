@@ -7,8 +7,9 @@ package Crystal2.assets.animation
 	
 	/**
 	 * ...
-	 * @author Catfish Studio
+	 * @author Somov Evgeniy
 	 */
+	
 	public class GameLoad extends Sprite 
 	{
 		private var _progressText:Label; // текст загрузки в процентах

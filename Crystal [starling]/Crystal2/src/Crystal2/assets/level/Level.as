@@ -22,6 +22,7 @@ package Crystal2.assets.level
 	import Crystal2.assets.kernel.Mechanics;
 	import Crystal2.assets.units.Cell;
 	import Crystal2.assets.units.Unit;
+	import Crystal2.assets.level.LevelPanel;
 	/**
 	 * ...
 	 * @author Somov Evgeniy
@@ -30,11 +31,16 @@ package Crystal2.assets.level
 	public class Level extends Sprite 
 	{
 		private var _xmlLevel:XML;
-		
 		private var _unit1:Unit = null;
 		private var _unit2:Unit = null;
 		private var _blockedField:Boolean = false;	// флаг блокировки игрового поля от нажатий
-		
+		private var _levelPanel:LevelPanel;
+		/* Условие задания ----------*/
+		private var _textQuest:String;			// условие
+		private var _textTypeCrystal:String;	// тик кристалов
+		/* Прогресс выполнения задания */
+		private var _AmountCrystals:int = 0;// количество кристалов собрано
+		private var _AmountScore:int = 0;	// количество очков
 		
 		public function Level() 
 		{
@@ -62,11 +68,17 @@ package Crystal2.assets.level
 			readXML();
 			
 			// Задание на уровень
-			if (Resource.LevelType == "LEVEL_TYPE_COLLECT") this.addChild(new Quest("Задание: Собрать кристалы."));
-			if (Resource.LevelType == "LEVEL_TYPE_SCORE_POINTS") this.addChild(new Quest("Задание: Набрать очки."));
-			if (Resource.LevelType == "LEVEL_TYPE_TIME") this.addChild(new Quest("Задание: Успеть за время."));
+			_textQuest = getTextQuest(Resource.LevelType);
+			_textTypeCrystal = getTextTypeCrystal(Resource.CrystalType);
 			
-		
+			// Панель задания
+			if(Resource.LevelType == "LEVEL_TYPE_COLLECT") _levelPanel = new LevelPanel(_textQuest + ". Собрано " + _AmountCrystals + " из " + Resource.AmountCrystals.toString() + _textTypeCrystal, "Ходов " + Resource.AmountMoves.toString());
+			this.addChild(_levelPanel);
+			
+			// окно описание квеста
+			if(Resource.LevelType == "LEVEL_TYPE_COLLECT") this.addChild(new Quest(_textQuest + _textTypeCrystal));
+			
+			
 		}
 		
 		private function readXML():void
@@ -79,7 +91,7 @@ package Crystal2.assets.level
 			Resource.AmountScoreStar2 = _xmlLevel.AmountScoreStar2;
 			Resource.AmountScoreStar3 = _xmlLevel.AmountScoreStar3;
 			Resource.AmountTime = _xmlLevel.AmountTime;
-			Resource.AmountMoves - _xmlLevel.AmountMoves;
+			Resource.AmountMoves = _xmlLevel.AmountMoves;
 			
 			
 			/* Создаем игровое поле (i - столбец; j - строка) */
@@ -111,8 +123,6 @@ package Crystal2.assets.level
 						/* объект */
 						(Resource.MatrixUnit[iUnit][jUnit] as Unit).x = 165 + (Resource.CELL_WIDTH * iUnit);
 						(Resource.MatrixUnit[iUnit][jUnit] as Unit).y = 70 + (Resource.CELL_HEIGHT * jUnit);
-						//(Resource.MatrixUnit[iUnit][jUnit] as Unit).posX = 165 + (Resource.CELL_WIDTH * iUnit);
-						//(Resource.MatrixUnit[iUnit][jUnit] as Unit).posY = 70 + (Resource.CELL_HEIGHT * jUnit);
 						(Resource.MatrixUnit[iUnit][jUnit] as Unit).posColumnI = iUnit;
 						(Resource.MatrixUnit[iUnit][jUnit] as Unit).posRowJ = jUnit;
 						(Resource.MatrixUnit[iUnit][jUnit] as Unit).unitType = Resource.FilesXML_Levels[Resource.SelectLevel].cell[index].cellObject;
@@ -126,8 +136,6 @@ package Crystal2.assets.level
 						/* объект CRYSTAL_TYPE_0 */
 						(Resource.MatrixUnit[iUnit][jUnit] as Unit).x = 165 + (Resource.CELL_WIDTH * iUnit);
 						(Resource.MatrixUnit[iUnit][jUnit] as Unit).y = 70 + (Resource.CELL_HEIGHT * jUnit);
-						//(Resource.MatrixUnit[iUnit][jUnit] as Unit).posX = 165 + (Resource.CELL_WIDTH * iUnit);
-						//(Resource.MatrixUnit[iUnit][jUnit] as Unit).posY = 70 + (Resource.CELL_HEIGHT * jUnit);
 						(Resource.MatrixUnit[iUnit][jUnit] as Unit).posColumnI = iUnit;
 						(Resource.MatrixUnit[iUnit][jUnit] as Unit).posRowJ = jUnit;
 						(Resource.MatrixUnit[iUnit][jUnit] as Unit).unitType = "CRYSTAL_TYPE_0"; //Resource.FilesXML_Levels[Resource.SelectLevel].cell[index].cellObject;
@@ -199,6 +207,24 @@ package Crystal2.assets.level
 		}
 		
 		
+		private function getTextQuest(id:String):String
+		{
+			if (id == "LEVEL_TYPE_COLLECT") return "Задание: Собрать кристалы";
+			if (id == "LEVEL_TYPE_SCORE_POINTS") return "Задание: Набрать очки";
+			if (id == "LEVEL_TYPE_TIME") return "Задание: Успеть за время";
+			return "";
+		}
+		
+		private function getTextTypeCrystal(id:String):String
+		{
+			if (id == "CRYSTAL_TYPE_ALL") return " любого цвета.";
+			if (id == "CRYSTAL_TYPE_1_VIOLET") return " фиолетового цвета.";
+			if (id == "CRYSTAL_TYPE_2_GREEN") return " зеленого цвета.";
+			if (id == "CRYSTAL_TYPE_3_RED") return " красного цвета.";
+			if (id == "CRYSTAL_TYPE_4_BLUE") return " синего цвета.";
+			if (id == "CRYSTAL_TYPE_5_YELLOW") return " желтого цвета.";
+			return "";
+		}
 		
 		private function onClick(e:Event):void
 		{

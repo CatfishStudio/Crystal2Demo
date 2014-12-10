@@ -36,7 +36,8 @@ package Crystal2
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
-			this.addChild(new Stats); // панель статистики
+			//this.addChild(new Stats); // панель статистики
+			
 			//_loadResource = new LoadResource();
 			//_loadResource.addEventListener(Event.CLEAR, onLoadComplete);
 			//this.addChild(_loadResource);
