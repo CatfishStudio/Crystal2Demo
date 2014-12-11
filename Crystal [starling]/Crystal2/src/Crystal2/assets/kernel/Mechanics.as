@@ -59,17 +59,15 @@ package Crystal2.assets.kernel
 		public static function InitProgress(_line:uint):Vector.<Vector.<int>>
 		{
 			var _matrixProgress:Vector.<Vector.<int>> = new Vector.<Vector.<int>>();
-			var _indexLevel:int = 1;
-			
 			for (var i:uint = 0; i < _line; i++) {
 				var newRow:Vector.<int> = new Vector.<int>();
-				newRow.push(_indexLevel); 	// номер уровня
+				newRow.push(i); 			// номер уровня
 				newRow.push(0);				// очки за одну звезду
 				newRow.push(0);				// очки за две звезды
 				newRow.push(0);				// очки за три звезды
-				newRow.push(0);				// флаг пройденного уровня (0 - не пройден, 1 - пройден)
+				newRow.push(0);				// очки за уровень
+				newRow.push(0);				// флаг статуса уровня (0 - не пройден, 1 - пройден)
 				_matrixProgress.push(newRow);
-				_indexLevel++;
 			}
 			return _matrixProgress;
 		}
@@ -420,65 +418,65 @@ package Crystal2.assets.kernel
 								//[1][1][X][1]
 								if ((iCol + 3) < Resource.COLUMNS)
 									if((Resource.MatrixUnit[iCol+2][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol+1][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol+3][iRow] as Unit).unitType != "CRYSTAL_TYPE_0")
-										if ((Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 1][iRow] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 3][iRow] as Unit).unitType) { trace("1"); return true; }
+										if ((Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 1][iRow] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 3][iRow] as Unit).unitType) { return true; }
 								//[1][X][1][1]
 								if ((iCol + 3) < Resource.COLUMNS)
 									if((Resource.MatrixUnit[iCol+1][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol+2][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol+3][iRow] as Unit).unitType != "CRYSTAL_TYPE_0")
-										if ((Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 2][iRow] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 3][iRow] as Unit).unitType) { trace("2"); return true; }
+										if ((Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 2][iRow] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 3][iRow] as Unit).unitType) { return true; }
 								//[0][1][X][1]
 								//[0][0][1][0]
 								if ((iCol + 2) < Resource.COLUMNS && (iRow + 1) < Resource.ROWS)
 									if((Resource.MatrixUnit[iCol+1][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol+1][iRow+1] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol+2][iRow] as Unit).unitType != "CRYSTAL_TYPE_0")
-										if ((Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 1][iRow + 1] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 2][iRow] as Unit).unitType) { trace("3"); return true; }
+										if ((Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 1][iRow + 1] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 2][iRow] as Unit).unitType) { return true; }
 								//[0][1][1][X]
 								//[0][0][0][1]
 								if ((iCol + 2) < Resource.COLUMNS && (iRow + 1) < Resource.ROWS)
 									if((Resource.MatrixUnit[iCol+2][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol+1][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol+2][iRow] as Unit).unitType != "CRYSTAL_TYPE_0")
-										if ((Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 1][iRow] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 2][iRow + 1] as Unit).unitType) { trace("4"); return true; }
+										if ((Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 1][iRow] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 2][iRow + 1] as Unit).unitType) { return true; }
 								//[0][X][1][1]
 								//[0][1][0][0]
 								if ((iCol + 2) < Resource.COLUMNS && (iRow + 1) < Resource.ROWS)
 									if((Resource.MatrixUnit[iCol][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol][iRow+1] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol+1][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol+2][iRow] as Unit).unitType != "CRYSTAL_TYPE_0")
-										if ((Resource.MatrixUnit[iCol][iRow + 1] as Unit).unitType == (Resource.MatrixUnit[iCol + 1][iRow] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow + 1] as Unit).unitType == (Resource.MatrixUnit[iCol + 2][iRow] as Unit).unitType) { trace("5"); return true; }
+										if ((Resource.MatrixUnit[iCol][iRow + 1] as Unit).unitType == (Resource.MatrixUnit[iCol + 1][iRow] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow + 1] as Unit).unitType == (Resource.MatrixUnit[iCol + 2][iRow] as Unit).unitType) { return true; }
 							}else {
 								//[1][1][X][1]
 								if ((iCol + 3) < Resource.COLUMNS)
 									if((Resource.MatrixUnit[iCol+2][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol+1][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol+3][iRow] as Unit).unitType != "CRYSTAL_TYPE_0")
-										if ((Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 1][iRow] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 3][iRow] as Unit).unitType) { trace("6"); return true; }
+										if ((Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 1][iRow] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 3][iRow] as Unit).unitType) { return true; }
 								//[1][X][1][1]
 								if ((iCol + 3) < Resource.COLUMNS)
 									if((Resource.MatrixUnit[iCol+1][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol+2][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol+3][iRow] as Unit).unitType != "CRYSTAL_TYPE_0")
-										if ((Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 2][iRow] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 3][iRow] as Unit).unitType) { trace("7"); return true; }
+										if ((Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 2][iRow] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 3][iRow] as Unit).unitType) { return true; }
 								//[0][1][1][X]
 								//[0][0][0][1]
 								if ((iCol + 2) < Resource.COLUMNS && (iRow + 1) < Resource.ROWS)
 									if((Resource.MatrixUnit[iCol+2][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol+1][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol+2][iRow+1] as Unit).unitType != "CRYSTAL_TYPE_0")
-										if ((Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 1][iRow] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 2][iRow + 1] as Unit).unitType) { trace("8"); return true; }
+										if ((Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 1][iRow] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 2][iRow + 1] as Unit).unitType) { return true; }
 								//[0][0][0][1]
 								//[0][1][1][X]
 								if ((iCol + 2) < Resource.COLUMNS && (iRow - 1) >= 0)
 									if((Resource.MatrixUnit[iCol+2][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol+1][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol+2][iRow-1] as Unit).unitType != "CRYSTAL_TYPE_0")
-										if ((Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 1][iRow] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 2][iRow - 1] as Unit).unitType) { trace("9"); return true; }
+										if ((Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 1][iRow] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 2][iRow - 1] as Unit).unitType) { return true; }
 								//[0][X][1][1]
 								//[0][1][0][0]
 								if ((iCol + 2) < Resource.COLUMNS && (iRow + 1) < Resource.ROWS)
 									if((Resource.MatrixUnit[iCol][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol][iRow+1] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol+1][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol+2][iRow] as Unit).unitType != "CRYSTAL_TYPE_0")
-										if ((Resource.MatrixUnit[iCol][iRow + 1] as Unit).unitType == (Resource.MatrixUnit[iCol + 1][iRow] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow + 1] as Unit).unitType == (Resource.MatrixUnit[iCol + 2][iRow] as Unit).unitType) { trace("10"); return true; }
+										if ((Resource.MatrixUnit[iCol][iRow + 1] as Unit).unitType == (Resource.MatrixUnit[iCol + 1][iRow] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow + 1] as Unit).unitType == (Resource.MatrixUnit[iCol + 2][iRow] as Unit).unitType) { return true; }
 								//[0][1][0][0]
 								//[0][X][1][1]
 								if ((iCol + 2) < Resource.COLUMNS && (iRow + 1) < Resource.ROWS)
 									if((Resource.MatrixUnit[iCol][iRow + 1] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol+1][iRow+1] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol+2][iRow+1] as Unit).unitType != "CRYSTAL_TYPE_0")
-										if ((Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 1][iRow + 1] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 2][iRow + 1] as Unit).unitType) { trace("11"); return true; }
+										if ((Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 1][iRow + 1] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 2][iRow + 1] as Unit).unitType) { return true; }
 								//[0][0][1][0]
 								//[0][1][X][1]
 								if ((iCol + 2) < Resource.COLUMNS && (iRow - 1) >= 0)
 									if((Resource.MatrixUnit[iCol + 1][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol + 1][iRow - 1] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol + 2][iRow] as Unit).unitType != "CRYSTAL_TYPE_0")
-										if ((Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 1][iRow - 1] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 2][iRow] as Unit).unitType) { trace("12"); return true; }
+										if ((Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 1][iRow - 1] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 2][iRow] as Unit).unitType) { return true; }
 								//[0][1][X][1]
 								//[0][0][1][0]
 								if ((iCol + 2) < Resource.COLUMNS && (iRow + 1) < Resource.ROWS)
 									if((Resource.MatrixUnit[iCol + 1][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol + 1][iRow + 1] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol + 2][iRow] as Unit).unitType != "CRYSTAL_TYPE_0")
-										if ((Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 1][iRow + 1] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 2][iRow] as Unit).unitType) { trace("13"); return true; }
+										if ((Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 1][iRow + 1] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 2][iRow] as Unit).unitType) { return true; }
 							}
 							
 							// ПРОВЕРКА КОЛОНКИ -----------------------------------------------------------------------------------------
@@ -489,35 +487,35 @@ package Crystal2.assets.kernel
 								//[1]
 								if ((iRow + 3) < Resource.ROWS)
 									if((Resource.MatrixUnit[iCol][iRow + 2] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol][iRow + 1] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol][iRow + 3] as Unit).unitType != "CRYSTAL_TYPE_0")
-										if ((Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol][iRow + 1] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol][iRow + 3] as Unit).unitType) { trace("14"); return true; }
+										if ((Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol][iRow + 1] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol][iRow + 3] as Unit).unitType) { return true; }
 								//[1]
 								//[X]
 								//[1]
 								//[1]
 								if ((iRow + 3) < Resource.ROWS)
 									if((Resource.MatrixUnit[iCol][iRow + 1] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol][iRow + 2] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol][iRow + 3] as Unit).unitType != "CRYSTAL_TYPE_0")
-										if ((Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol][iRow + 2] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol][iRow + 3] as Unit).unitType) { trace("15"); return true; }
+										if ((Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol][iRow + 2] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol][iRow + 3] as Unit).unitType) { return true; }
 								//[1][0]
 								//[X][1]
 								//[1][0]
 								//[0][0]
 								if ((iRow + 2) < Resource.ROWS && (iCol + 1) < Resource.COLUMNS)
 									if((Resource.MatrixUnit[iCol][iRow + 1] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol + 1][iRow + 1] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol][iRow + 2] as Unit).unitType != "CRYSTAL_TYPE_0")
-										if ((Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 1][iRow + 1] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol][iRow + 2] as Unit).unitType) { trace("16"); return true; }
+										if ((Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 1][iRow + 1] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol][iRow + 2] as Unit).unitType) { return true; }
 								//[1][0]
 								//[1][0]
 								//[X][1]
 								//[0][0]
 								if ((iRow + 2) < Resource.ROWS && (iCol + 1) < Resource.COLUMNS)
 									if((Resource.MatrixUnit[iCol][iRow + 2] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol][iRow + 1] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol + 1][iRow + 2] as Unit).unitType != "CRYSTAL_TYPE_0")
-										if ((Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol][iRow + 1] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 1][iRow + 2] as Unit).unitType) { trace("17"); return true; }
+										if ((Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol][iRow + 1] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 1][iRow + 2] as Unit).unitType) { return true; }
 								//[X][1]
 								//[1][0]
 								//[1][0]
 								//[0][0]
 								if ((iRow + 2) < Resource.ROWS && (iCol + 1) < Resource.COLUMNS)
 									if((Resource.MatrixUnit[iCol][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol + 1][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol][iRow + 1] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol][iRow + 2] as Unit).unitType != "CRYSTAL_TYPE_0")
-										if ((Resource.MatrixUnit[iCol + 1][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol][iRow + 1] as Unit).unitType && (Resource.MatrixUnit[iCol + 1][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol][iRow + 2] as Unit).unitType) { trace("18"); return true; }
+										if ((Resource.MatrixUnit[iCol + 1][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol][iRow + 1] as Unit).unitType && (Resource.MatrixUnit[iCol + 1][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol][iRow + 2] as Unit).unitType) { return true; }
 							}else {
 								//[1]
 								//[1]
@@ -525,56 +523,56 @@ package Crystal2.assets.kernel
 								//[1]
 								if ((iRow + 3) < Resource.ROWS)
 									if((Resource.MatrixUnit[iCol][iRow + 2] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol][iRow + 1] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol][iRow + 3] as Unit).unitType != "CRYSTAL_TYPE_0")
-										if ((Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol][iRow + 1] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol][iRow + 3] as Unit).unitType) { trace("19"); return true; }
+										if ((Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol][iRow + 1] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol][iRow + 3] as Unit).unitType) { return true; }
 								//[1]
 								//[X]
 								//[1]
 								//[1]
 								if ((iRow + 3) < Resource.ROWS)
 									if((Resource.MatrixUnit[iCol][iRow + 1] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol][iRow + 2] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol][iRow + 3] as Unit).unitType != "CRYSTAL_TYPE_0")
-										if ((Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol][iRow + 2] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol][iRow + 3] as Unit).unitType) { trace("20"); return true; }
+										if ((Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol][iRow + 2] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol][iRow + 3] as Unit).unitType) { return true; }
 								//[1][0]
 								//[X][1]
 								//[1][0]
 								//[0][0]
 								if ((iRow + 2) < Resource.ROWS && (iCol + 1) < Resource.COLUMNS)
 									if((Resource.MatrixUnit[iCol][iRow + 1] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol + 1][iRow + 1] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol][iRow + 2] as Unit).unitType != "CRYSTAL_TYPE_0")
-										if ((Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 1][iRow + 1] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol][iRow + 2] as Unit).unitType) { trace("21"); return true; }
+										if ((Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 1][iRow + 1] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol][iRow + 2] as Unit).unitType) { return true; }
 								//[0][1]
 								//[1][X]
 								//[0][1]
 								//[0][0]
 								if ((iRow + 2) < Resource.ROWS && (iCol - 1) >= 0)
 									if((Resource.MatrixUnit[iCol][iRow + 1] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol - 1][iRow + 1] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol][iRow + 2] as Unit).unitType != "CRYSTAL_TYPE_0")
-										if ((Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol - 1][iRow + 1] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol][iRow + 2] as Unit).unitType) { trace("22"); return true; }
+										if ((Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol - 1][iRow + 1] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol][iRow + 2] as Unit).unitType) { return true; }
 								//[1][0]
 								//[1][0]
 								//[X][1]
 								//[0][0]
 								if ((iRow + 2) < Resource.ROWS && (iCol + 1) < Resource.COLUMNS)
 									if((Resource.MatrixUnit[iCol][iRow + 2] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol][iRow + 1] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol + 1][iRow + 2] as Unit).unitType != "CRYSTAL_TYPE_0")
-										if ((Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol][iRow + 1] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 1][iRow + 2] as Unit).unitType) { trace("23"); return true; }
+										if ((Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol][iRow + 1] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol + 1][iRow + 2] as Unit).unitType) { return true; }
 								//[X][1]
 								//[1][0]
 								//[1][0]
 								//[0][0]
 								if ((iRow + 2) < Resource.ROWS && (iCol + 1) < Resource.COLUMNS)
 									if((Resource.MatrixUnit[iCol][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol + 1][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol][iRow + 1] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol][iRow + 2] as Unit).unitType != "CRYSTAL_TYPE_0")
-										if ((Resource.MatrixUnit[iCol + 1][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol][iRow + 1] as Unit).unitType && (Resource.MatrixUnit[iCol + 1][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol][iRow + 2] as Unit).unitType) { trace("24"); return true; }
+										if ((Resource.MatrixUnit[iCol + 1][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol][iRow + 1] as Unit).unitType && (Resource.MatrixUnit[iCol + 1][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol][iRow + 2] as Unit).unitType) { return true; }
 								//[0][1]
 								//[0][1]
 								//[1][X]
 								//[0][0]
 								if ((iRow + 2) < Resource.ROWS && (iCol - 1) >= 0)
 									if((Resource.MatrixUnit[iCol][iRow + 2] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol][iRow + 1] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol - 1][iRow + 2] as Unit).unitType != "CRYSTAL_TYPE_0")
-										if ((Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol][iRow + 1] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol - 1][iRow + 2] as Unit).unitType) { trace("25"); return true; }
+										if ((Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol][iRow + 1] as Unit).unitType && (Resource.MatrixUnit[iCol][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol - 1][iRow + 2] as Unit).unitType) { return true; }
 								//[1][X]
 								//[0][1]
 								//[0][1]
 								//[0][0]
 								if ((iRow + 2) < Resource.ROWS && (iCol - 1) >= 0)
 									if((Resource.MatrixUnit[iCol][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol - 1][iRow] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol][iRow + 1] as Unit).unitType != "CRYSTAL_TYPE_0" && (Resource.MatrixUnit[iCol][iRow + 2] as Unit).unitType != "CRYSTAL_TYPE_0")
-										if ((Resource.MatrixUnit[iCol - 1][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol][iRow + 1] as Unit).unitType && (Resource.MatrixUnit[iCol - 1][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol][iRow + 2] as Unit).unitType) {	trace("26"); return true; }
+										if ((Resource.MatrixUnit[iCol - 1][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol][iRow + 1] as Unit).unitType && (Resource.MatrixUnit[iCol - 1][iRow] as Unit).unitType == (Resource.MatrixUnit[iCol][iRow + 2] as Unit).unitType) {	return true; }
 							}
 					}
 				}

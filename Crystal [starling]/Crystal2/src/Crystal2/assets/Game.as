@@ -50,7 +50,7 @@ package Crystal2.assets
 			Resource.AtlasPanel = new TextureAtlas(Texture.fromBitmap(Resource.Image_AtlasPanel), Resource.FileXML_AtlasPanel);
 			
 			/* Инициализация прогресса игры */
-			Resource.Progress = Mechanics.InitProgress(5); // инициализируем прогресс для 5-ти уровней
+			Resource.Progress = Mechanics.InitProgress(6); // инициализируем прогресс для 5-ти уровней
 			
 			/* Окно главного меню игры */
 			_startMenu = new StartMenu();
@@ -106,7 +106,18 @@ package Crystal2.assets
 					_map = new Map();
 					this.addChild(_map);
 					break;
-					
+				
+				case "LEVEL_CLOSE":
+					this.removeChild(_level);
+					_map = new Map();
+					this.addChild(_map);
+				break;
+				
+				case "LEVEL_NEXT":
+					this.removeChild(_level);
+					_map = new Map();
+					this.addChild(_map);
+				break;
 			}
 		} 
 		

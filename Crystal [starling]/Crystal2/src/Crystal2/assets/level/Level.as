@@ -23,6 +23,9 @@ package Crystal2.assets.level
 	import Crystal2.assets.units.Cell;
 	import Crystal2.assets.units.Unit;
 	import Crystal2.assets.level.LevelPanel;
+	import Crystal2.assets.level.LevelDialogResult;
+	import Crystal2.assets.setting.SettingPanel;
+	
 	/**
 	 * ...
 	 * @author Somov Evgeniy
@@ -35,6 +38,7 @@ package Crystal2.assets.level
 		private var _unit2:Unit = null;
 		private var _blockedField:Boolean = false;	// флаг блокировки игрового поля от нажатий
 		private var _levelPanel:LevelPanel;
+		private var _settingPanel:SettingPanel; // панель настроек
 		private var _btnExit:Button;			// кнопка выход на карту
 		/* Условие задания ----------*/
 		private var _textQuest:String;			// условие
@@ -72,6 +76,11 @@ package Crystal2.assets.level
 			_textQuest = getTextQuest(Resource.LevelType);
 			_textTypeCrystal = getTextTypeCrystal(Resource.CrystalType);
 			
+			/* Панель настроек */
+			_settingPanel = new SettingPanel();
+			_settingPanel.x = 20; _settingPanel.y = 500;
+			this.addChild(_settingPanel);
+			
 			/* Кнопка выход */
 			_btnExit = new Button(Resource.AtlasAll.getTexture("button_3.png"), "Выход", Resource.AtlasAll.getTexture("button_2.png"));
 			_btnExit.fontColor = 0xffffff;	_btnExit.fontSize = 18; _btnExit.fontName = "Arial";
@@ -92,6 +101,7 @@ package Crystal2.assets.level
 			
 		}
 		
+		/*================================================================================================================*/
 		private function readXML():void
 		{
 			_xmlLevel = new XML((Resource.FilesXML_Levels[Resource.SelectLevel] as XML));
@@ -216,6 +226,9 @@ package Crystal2.assets.level
 			if(Mechanics.CheckCombinations(this)) _unit1 = null; _unit2 = null; _blockedField = false;
 		}
 		
+		/*========================================================================================================================================*/
+		
+		
 		/* Уменьшение количества ходов */
 		private function reduceAmountMoves():void 
 		{
@@ -223,7 +236,11 @@ package Crystal2.assets.level
 				Resource.AmountMoves--;
 				_levelPanel.labelGiven.text = "Ходов " + Resource.AmountMoves.toString();
 			}else {
-				// КОНЕЦ ИГРЫ!
+				// КОНЕЦ ИГРЫ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+				if (Resource.LevelType == "LEVEL_TYPE_COLLECT" && _AmountCrystals >= Resource.AmountCrystals) { gameResult("WIN"); Resource.LevelComplete++; this.addChild(new LevelDialogResult("WIN")); }
+				if (Resource.LevelType == "LEVEL_TYPE_COLLECT" && _AmountCrystals < Resource.AmountCrystals) { gameResult("LOSE"); this.addChild(new LevelDialogResult("LOSE")); }
+				if (Resource.LevelType == "LEVEL_TYPE_SCORE_POINTS" && _AmountScore >= Resource.AmountScoreStar1) { gameResult("WIN"); Resource.LevelComplete++; this.addChild(new LevelDialogResult("WIN")); }
+				if (Resource.LevelType == "LEVEL_TYPE_SCORE_POINTS" && _AmountScore < Resource.AmountScoreStar1) { gameResult("LOSE"); this.addChild(new LevelDialogResult("LOSE")); }
 			}
 		}
 		
@@ -260,11 +277,30 @@ package Crystal2.assets.level
 			return "";
 		}
 		
+		/* Сохранение результата игры */
+		private function gameResult(status:String):void
+		{
+			// Расчет очков на 1, 2, 3 звезды
+			if (_AmountScore < Resource.AmountScoreStar1)Resource.Progress[Resource.SelectLevel][1] = _AmountScore;
+			else {
+				if (_AmountScore >= Resource.AmountScoreStar1) Resource.Progress[Resource.SelectLevel][1] = Resource.AmountScoreStar1;
+				if (_AmountScore >= Resource.AmountScoreStar2) Resource.Progress[Resource.SelectLevel][2] = Resource.AmountScoreStar2;
+				if (_AmountScore >= Resource.AmountScoreStar3) Resource.Progress[Resource.SelectLevel][3] = _AmountScore;
+			}
+			// Очки за уровень
+			Resource.Progress[Resource.SelectLevel][4]= _AmountScore;
+			// Результат уровня
+			if (status == "WIN")Resource.Progress[Resource.SelectLevel][5] = 1;
+			else Resource.Progress[Resource.SelectLevel][5] = 0;
+		}
+		
 		
 		private function onClick(e:Event):void
 		{
 			if ((e.target as Button).name == "exit") {
-				this.dispatchEvent(new NavigationEvent(NavigationEvent.CHANGE_SCREEN, { id: "LEVEL_EXIT" }, true));
+				//this.dispatchEvent(new NavigationEvent(NavigationEvent.CHANGE_SCREEN, { id: "LEVEL_EXIT" }, true));
+				gameResult("LOSE");
+				this.addChild(new LevelDialogResult("EXIT"));
 			}
 		}
 	}
