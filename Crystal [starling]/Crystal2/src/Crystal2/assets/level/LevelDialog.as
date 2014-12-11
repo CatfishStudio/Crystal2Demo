@@ -125,7 +125,7 @@ package Crystal2.assets.level
 		
 		private function stars():void
 		{
-			if ((Resource.Progress[Resource.SelectLevel][1] as int) == 0) {
+			if ((Resource.Progress[Resource.SelectLevel][1] as int) < Resource.AmountScoreStar1) {
 				_Star1Image = new Image(Resource.AtlasAll.getTexture("star_1.png"));
 				_labelStar1 = new TextField(_Star1Image.width, 50, Resource.AmountScoreStar1.toString(), "Arial", 28, 0x8000FF, true);
 			}else {
@@ -138,7 +138,7 @@ package Crystal2.assets.level
 			_window.addChild(_labelStar1);
 			
 			
-			if ((Resource.Progress[Resource.SelectLevel][2] as int) == 0) {
+			if ((Resource.Progress[Resource.SelectLevel][2] as int) < Resource.AmountScoreStar2) {
 				_Star2Image = new Image(Resource.AtlasAll.getTexture("star_1.png"));
 				_labelStar2 = new TextField(_Star2Image.width, 50, Resource.AmountScoreStar2.toString(), "Arial", 28, 0x8000FF, true);
 			} else {
@@ -151,7 +151,7 @@ package Crystal2.assets.level
 			_window.addChild(_labelStar2);
 			
 			
-			if ((Resource.Progress[Resource.SelectLevel][3] as int) == 0) {
+			if ((Resource.Progress[Resource.SelectLevel][3] as int) < Resource.AmountScoreStar3) {
 				_Star3Image = new Image(Resource.AtlasAll.getTexture("star_1.png"));
 				_labelStar3 = new TextField(_Star3Image.width, 50, Resource.AmountScoreStar3.toString(), "Arial", 28, 0x8000FF, true);
 			} else {

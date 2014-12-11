@@ -118,6 +118,14 @@ package Crystal2.assets
 					_map = new Map();
 					this.addChild(_map);
 				break;
+				
+				case "LEVEL_POST":
+					this.removeChild(_level);
+					_map = new Map();
+					this.addChild(_map);
+				break;
+				
+				
 			}
 		} 
 		

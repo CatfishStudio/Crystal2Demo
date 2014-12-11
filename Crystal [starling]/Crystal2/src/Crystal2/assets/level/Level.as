@@ -15,6 +15,8 @@ package Crystal2.assets.level
 	import flash.ui.Mouse;
 	import flash.ui.MouseCursor;
 	import flash.events.MouseEvent;
+	import flash.utils.Timer;
+	import flash.events.TimerEvent;
 	
 	import Crystal2.assets.resource.Resource;
 	import Crystal2.assets.events.NavigationEvent;
@@ -89,14 +91,14 @@ package Crystal2.assets.level
 			
 			// Панель общей информации
 			if (Resource.LevelType == "LEVEL_TYPE_COLLECT") _levelPanel = new LevelPanel(_textQuest + ". Собрано " + _AmountCrystals + " из " + Resource.AmountCrystals.toString() + _textTypeCrystal, "Ходов " + Resource.AmountMoves.toString());
-			//if (Resource.LevelType == "LEVEL_TYPE_SCORE_POINTS") return "Задание: Набрать очки";
-			//if (Resource.LevelType == "LEVEL_TYPE_TIME") return "Задание: Успеть за время";
+			if (Resource.LevelType == "LEVEL_TYPE_SCORE_POINTS") _levelPanel = new LevelPanel(_textQuest + ". Набрано " + _AmountScore + " из " + Resource.AmountScoreStar1.toString(), "Ходов " + Resource.AmountMoves.toString());;
+			if (Resource.LevelType == "LEVEL_TYPE_TIME") _levelPanel = new LevelPanel(_textQuest + ". Набрать " + Resource.AmountScoreStar1.toString() + " очков", "Секунд " + Resource.AmountTime.toString());
 			this.addChild(_levelPanel);
 			
 			// окно описание квеста
 			if(Resource.LevelType == "LEVEL_TYPE_COLLECT") this.addChild(new Quest(_textQuest + _textTypeCrystal));
-			//if (Resource.LevelType == "LEVEL_TYPE_SCORE_POINTS") return "Задание: Набрать очки";
-			//if (Resource.LevelType == "LEVEL_TYPE_TIME") return "Задание: Успеть за время";
+			if (Resource.LevelType == "LEVEL_TYPE_SCORE_POINTS") this.addChild(new Quest(_textQuest));
+			if (Resource.LevelType == "LEVEL_TYPE_TIME") this.addChild(new Quest(_textQuest));
 			
 			
 		}
@@ -207,12 +209,14 @@ package Crystal2.assets.level
 			} 
 		}
 		
-		/* Поиск групп после действия пользователя */
+		/* Поиск групп после действия */
 		public function CheckField(afterDown:Boolean):void
 		{
 			if (Mechanics.CheckField()) {
 				if (afterDown == false) reduceAmountMoves(); // уменьшаем количество ходов
-				Mechanics.SimplyRemove(this);
+				if (Resource.LevelType != "LEVEL_TYPE_TIME"){
+					if (Resource.AmountMoves != 0) Mechanics.SimplyRemove(this);
+				}else Mechanics.SimplyRemove(this);
 			}
 			else {
 				if (afterDown == false) Mechanics.BackExchangeCrystals(this, _unit1.posColumnI, _unit1.posRowJ, _unit2.posColumnI, _unit2.posRowJ);
@@ -235,6 +239,7 @@ package Crystal2.assets.level
 			if (Resource.AmountMoves > 0) {
 				Resource.AmountMoves--;
 				_levelPanel.labelGiven.text = "Ходов " + Resource.AmountMoves.toString();
+				if (Resource.AmountMoves == 0) reduceAmountMoves();
 			}else {
 				// КОНЕЦ ИГРЫ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 				if (Resource.LevelType == "LEVEL_TYPE_COLLECT" && _AmountCrystals >= Resource.AmountCrystals) { gameResult("WIN"); Resource.LevelComplete++; this.addChild(new LevelDialogResult("WIN")); }
@@ -250,10 +255,8 @@ package Crystal2.assets.level
 			if(Resource.CrystalType == crystalID || Resource.CrystalType == "CRYSTAL_TYPE_ALL") _AmountCrystals++;
 			_AmountScore += 30;
 			_levelPanel.labelScore.text = "Очки: " + _AmountScore.toString();
-			if (Resource.LevelType == "LEVEL_TYPE_COLLECT") _levelPanel.labelQuest.text = _textQuest + ". Собрано " + _AmountCrystals + " из " + Resource.AmountCrystals.toString() + _textTypeCrystal
-			//if (Resource.LevelType == "LEVEL_TYPE_SCORE_POINTS") return "Задание: Набрать очки";
-			//if (Resource.LevelType == "LEVEL_TYPE_TIME") return "Задание: Успеть за время";
-			
+			if (Resource.LevelType == "LEVEL_TYPE_COLLECT") _levelPanel.labelQuest.text = _textQuest + ". Собрано " + _AmountCrystals + " из " + Resource.AmountCrystals.toString() + _textTypeCrystal;
+			if (Resource.LevelType == "LEVEL_TYPE_SCORE_POINTS") _levelPanel.labelQuest.text  = _textQuest + ". Набрано " + _AmountScore + " из " + Resource.AmountScoreStar1.toString();
 		}
 		
 		/* Получить описание задания*/
