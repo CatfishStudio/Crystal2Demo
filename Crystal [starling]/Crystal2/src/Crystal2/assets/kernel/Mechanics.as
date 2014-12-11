@@ -239,8 +239,9 @@ package Crystal2.assets.kernel
 					
 					/* Удаление */
 					if ((Resource.MatrixUnit[i][j1] as Unit).flagRemove == true && (Resource.MatrixUnit[i][j1] as Unit).unitType != "CRYSTAL_TYPE_0") {	// удаление 
-						/* анимация вспышки */
+						/* анимация звёзд */
 						//////////////////////level.addChild(new Flash((Resource.MatrixUnit[i][j1] as Unit).x - 50, (Resource.MatrixUnit[i][j1] as Unit).y - 30));
+						level.StarsAnimation((Resource.MatrixUnit[i][j1] as Unit).x, (Resource.MatrixUnit[i][j1] as Unit).y);
 						/* Увеличиваем количество собранных кристалов и очков */
 						level.CollectAmountCrystalsAndScore((Resource.MatrixUnit[i][j1] as Unit).unitType);
 						/* Удаление объект с поля */

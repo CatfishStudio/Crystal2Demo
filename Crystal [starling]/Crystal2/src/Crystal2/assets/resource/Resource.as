@@ -1,6 +1,9 @@
 package Crystal2.assets.resource 
 {
+	import flash.events.Event;
 	import flash.display.Bitmap;
+	import flash.media.Sound;
+	import flash.media.SoundChannel;
 	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
 	import Crystal2.assets.units.Cell;
@@ -22,10 +25,15 @@ package Crystal2.assets.resource
 		
 		/* Настройки игры */
 		public static var Music:Boolean = true;
-		public static var Sound:Boolean = true;
+		public static var Sounds:Boolean = true;
 		
 		/* Текстуры */
 		public static var Image_Map:Bitmap;
+		
+		/* Звуки */
+		public static var MusicMelody:Sound;
+		public static var MusicChannel:SoundChannel;
+		public static var MoveSound:Sound;
 		
 		/* Атласы */
 		public static var Image_AtlasAll:Bitmap;
@@ -77,6 +85,30 @@ package Crystal2.assets.resource
 		public static var MatrixCell:Vector.<Vector.<Cell>>;
 		/* Объекты игрового поля */
 		public static var MatrixUnit:Vector.<Vector.<Unit>>;
+		
+		/* МУЗЫКА -------------------------------------------------*/
+		public static function PlayMusic():void
+		{
+			if (Music) {
+				MusicChannel = MusicMelody.play();
+				MusicChannel.addEventListener(Event.SOUND_COMPLETE, PlayMusicLoop);
+			}
+		}
+		public static function PlayMusicLoop(e:Event):void
+		{
+			SoundChannel(e.target).removeEventListener(e.type, PlayMusicLoop);
+			if (Music) PlayMusic();
+		}
+		public static function StopMusic():void
+		{
+			MusicChannel.stop();
+		}
+		/*ЗВУКИ --------------------------------------------------*/
+		public static function PlaySound():void
+		{
+			if(Sounds) MoveSound.play();
+		}
+		/*---------------------------------------------------------*/
 	}
 
 }

@@ -21,6 +21,7 @@ package Crystal2.assets.level
 	import Crystal2.assets.resource.Resource;
 	import Crystal2.assets.events.NavigationEvent;
 	import Crystal2.assets.animation.Quest;
+	import Crystal2.assets.animation.Stars;
 	import Crystal2.assets.kernel.Mechanics;
 	import Crystal2.assets.units.Cell;
 	import Crystal2.assets.units.Unit;
@@ -182,6 +183,7 @@ package Crystal2.assets.level
 				if (touch.phase == TouchPhase.BEGAN)
 				{
 					Mouse.cursor = MouseCursor.BUTTON;
+					Resource.PlaySound();
 					
 					if (_blockedField == false) {	// Игровое поле разблокировано
 						if (_unit1 == null)_unit1 = (e.currentTarget as Unit);
@@ -217,8 +219,8 @@ package Crystal2.assets.level
 		{
 			if (Mechanics.CheckField()) {
 				if (afterDown == false) reduceAmountMoves(); // уменьшаем количество ходов
-				if (Resource.LevelType != "LEVEL_TYPE_TIME" && Resource.AmountMoves != 0){
-					Mechanics.SimplyRemove(this);
+				if (Resource.LevelType != "LEVEL_TYPE_TIME"){
+					if (Resource.AmountMoves != 0) Mechanics.SimplyRemove(this);
 				}else Mechanics.SimplyRemove(this);
 			}
 			else {
@@ -320,8 +322,11 @@ package Crystal2.assets.level
 			if (_AmountScore < Resource.AmountScoreStar1)Resource.Progress[Resource.SelectLevel][1] = _AmountScore;
 			else {
 				if (_AmountScore >= Resource.AmountScoreStar1) Resource.Progress[Resource.SelectLevel][1] = Resource.AmountScoreStar1;
+				else Resource.Progress[Resource.SelectLevel][1] = _AmountScore;
 				if (_AmountScore >= Resource.AmountScoreStar2) Resource.Progress[Resource.SelectLevel][2] = Resource.AmountScoreStar2;
+				else Resource.Progress[Resource.SelectLevel][2] = _AmountScore;
 				if (_AmountScore >= Resource.AmountScoreStar3) Resource.Progress[Resource.SelectLevel][3] = _AmountScore;
+				else Resource.Progress[Resource.SelectLevel][3] = _AmountScore;
 			}
 			// Очки за уровень
 			Resource.Progress[Resource.SelectLevel][4]= _AmountScore;
@@ -330,6 +335,13 @@ package Crystal2.assets.level
 			else Resource.Progress[Resource.SelectLevel][5] = 0;
 		}
 		
+		/* Анимация звезд */
+		public function StarsAnimation(_x:int, _y:int):void
+		{
+			var stars:Stars = new Stars();
+			stars.x = _x; stars.y = _y;
+			this.addChild(stars);
+		}
 		
 		private function onClick(e:Event):void
 		{

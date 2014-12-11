@@ -4,10 +4,13 @@ package Crystal2.assets.resource
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.utils.ByteArray;
+	import flash.media.Sound;
+	
 	/**
 	 * ...
-	 * @author Catfish Studio
+	 * @author Somov Evgeniy
 	 */
+	
 	public class FastLoadResource extends Sprite 
 	{
 		[Embed(source = '../media/atlas/crystal2_atlas_all.png')]
@@ -40,6 +43,13 @@ package Crystal2.assets.resource
 		private var Level4XML:Class;
 		[Embed(source = '../media/levels/crystal2_level_5.xml', mimeType='application/octet-stream')]
 		private var Level5XML:Class;
+		
+		[Embed(source = '../media/sounds/music_mono_48.mp3')]
+		public static var Sound1:Class;
+		
+		[Embed(source = '../media/sounds/move.mp3')]
+		public static var Sound2:Class;
+		
 		
 		public function FastLoadResource() 
 		{
@@ -97,6 +107,9 @@ package Crystal2.assets.resource
 			contentfile = new Level5XML();
 			contentstr = contentfile.readUTFBytes(contentfile.length);
 			Resource.FilesXML_Levels.push(new XML(contentstr)); // массив уровней
+			
+			Resource.MusicMelody = new Sound1() as Sound;
+			Resource.MoveSound = new Sound2() as Sound;
 			
 			dispatchEvent(new Event(Event.CLEAR));
 		}

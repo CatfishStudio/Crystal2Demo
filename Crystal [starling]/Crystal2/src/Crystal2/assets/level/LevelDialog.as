@@ -31,6 +31,7 @@ package Crystal2.assets.level
 		private var _panel:Quad;
 		private var _bg:Quad;
 		private var _bgPanel:Quad;
+		private var _bgPanel2:Quad
 		
 		private var _borderImage1:Image;
 		private var _borderImage2:Image;
@@ -114,6 +115,12 @@ package Crystal2.assets.level
 			_panel = new Quad(400, 450, 0xFFFFFF, false);
 			_panel.x = 5; _panel.y = 5;
 			_window.addChild(_panel);
+			
+			_bgPanel2 = new Quad(250, 250, 0x8000FF, false);
+			_bgPanel2.alpha = 0.2;
+			_bgPanel2.x = 208; _bgPanel2.y = 54;
+			_bgPanel2.rotation = 0.8;
+			_window.addChild(_bgPanel2);
 		}
 		
 		private function labelLevelNum():void

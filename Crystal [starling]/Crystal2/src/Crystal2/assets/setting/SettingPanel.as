@@ -34,7 +34,7 @@ package Crystal2.assets.setting
 			_btnMusic.x = 0; _btnMusic.y = 0;
 			this.addChild(_btnMusic);
 			
-			if (Resource.Sound) _btnSound = new Button(Resource.AtlasAll.getTexture("settingSound_1.png"), "");
+			if (Resource.Sounds) _btnSound = new Button(Resource.AtlasAll.getTexture("settingSound_1.png"), "");
 			else _btnSound = new Button(Resource.AtlasAll.getTexture("settingSound_2.png"), "");
 			_btnSound.x = 50; _btnSound.y = 0;
 			this.addChild(_btnSound);
@@ -51,15 +51,17 @@ package Crystal2.assets.setting
 			if ((e.target as Button) == _btnMusic) {
 				if (Resource.Music == false) {
 					Resource.Music = true;	_btnMusic.upState = Resource.AtlasAll.getTexture("settingMusic_1.png");
+					Resource.PlayMusic();
 				}else {
 					Resource.Music = false;	_btnMusic.upState = Resource.AtlasAll.getTexture("settingMusic_2.png");
+					Resource.StopMusic();
 				}
 			}
 			if ((e.target as Button) == _btnSound) {
-				if (Resource.Sound == false) {
-					Resource.Sound = true;	_btnSound.upState = Resource.AtlasAll.getTexture("settingSound_1.png");
+				if (Resource.Sounds == false) {
+					Resource.Sounds = true;	_btnSound.upState = Resource.AtlasAll.getTexture("settingSound_1.png");
 				}else {
-					Resource.Sound = false;	_btnSound.upState = Resource.AtlasAll.getTexture("settingSound_2.png");
+					Resource.Sounds = false; _btnSound.upState = Resource.AtlasAll.getTexture("settingSound_2.png");
 				}
 			}
 			

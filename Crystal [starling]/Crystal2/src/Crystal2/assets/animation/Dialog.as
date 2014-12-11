@@ -50,7 +50,7 @@ package Crystal2.assets.animation
 			if (Resource.LevelComplete == 2) _label = new TextField(250, 100, "В пищере \nкристала \nне оказалось. \nПродолжим путь.", "Arial", 18, 0xFFFFFF, true);
 			if (Resource.LevelComplete == 3) _label = new TextField(250, 100, "Пройдя лес \nмы нашли \nразрушенный  \nособняк.", "Arial", 18, 0xFFFFFF, true);
 			if (Resource.LevelComplete == 4) _label = new TextField(250, 100, "Мы узнали что \nв городе можно \nузнать о  \nкристале больше", "Arial", 18, 0xFFFFFF, true);
-			if (Resource.LevelComplete == 5) _label = new TextField(250, 100, "Нас пригласили \nко дворцу. \nПопробуем узнать  \nо кристале там.", "Arial", 18, 0xFFFFFF, true);
+			if (Resource.LevelComplete == 5) _label = new TextField(250, 100, "Нас пригласили \nво дворц. \nПопробуем узнать  \nо кристале там.", "Arial", 18, 0xFFFFFF, true);
 			if (Resource.LevelComplete == 6) _label = new TextField(250, 100, "Кристал находится \nгде-то за морем. \nПриключения  \nпродолдаются...", "Arial", 18, 0xFFFFFF, true);
 			_label.x = -25;
 			this.addChild(_label);

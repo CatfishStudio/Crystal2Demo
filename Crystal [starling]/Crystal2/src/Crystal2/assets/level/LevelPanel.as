@@ -47,7 +47,7 @@ package Crystal2.assets.level
 			_panel1.alpha = 0.4;
 			this.addChild(_panel1);
 			
-			_panel2 = new Quad(600, 40, 0x800080, true);
+			_panel2 = new Quad(700, 40, 0x800080, true);
 			_panel2.x = 60; _panel2.y = 20;
 			_panel2.alpha = 0.4;
 			this.addChild(_panel2);

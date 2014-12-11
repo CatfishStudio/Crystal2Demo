@@ -8,7 +8,7 @@
 <AmountScoreStar2>10000</AmountScoreStar2>
 <AmountScoreStar3>15000</AmountScoreStar3>
 <AmountTime>0</AmountTime>
-<AmountMoves>30</AmountMoves>
+<AmountMoves>25</AmountMoves>
 <cell>
 <cellType>CELL_TYPE_DROP</cellType>
 <cellObject>CRYSTAL_TYPE_0</cellObject>

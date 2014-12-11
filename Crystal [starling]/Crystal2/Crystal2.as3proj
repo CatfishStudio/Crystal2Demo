@@ -76,6 +76,9 @@
     <asset path="src\Crystal2\assets\media\atlas\crystal2_atlas_levels.jpg" />
     <asset path="src\Crystal2\assets\media\atlas\crystal2_atlas_panel.png" />
     <asset path="src\Crystal2\assets\media\atlas\crystal2_map.jpg" />
+    <asset path="src\Crystal2\assets\media\sounds\music_mono_48.MP3" />
+    <asset path="src\Crystal2\assets\media\sounds\move.mp3" />
+    <asset path="src\Crystal2\assets\media\sounds\music_mono_48.mp3" />
   </library>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>

@@ -56,6 +56,8 @@ package Crystal2.assets
 			_startMenu = new StartMenu();
 			this.addChild(_startMenu);
 			
+			/* Запуск музыки */
+			Resource.PlayMusic();
 		}
 		
 		private function onChangeScreen(e:NavigationEvent):void
@@ -120,9 +122,7 @@ package Crystal2.assets
 				break;
 				
 				case "LEVEL_POST":
-					this.removeChild(_level);
-					_map = new Map();
-					this.addChild(_map);
+					// постинг ВК
 				break;
 				
 				
