@@ -45,6 +45,7 @@ package Crystal2.assets.level
 		/* Условие задания ----------*/
 		private var _textQuest:String;			// условие
 		private var _textTypeCrystal:String;	// тик кристалов
+		private var _timer:Timer;				// таймер
 		/* Прогресс выполнения задания */
 		private var _AmountCrystals:int = 0;// количество кристалов собрано
 		private var _AmountScore:int = 0;	// количество очков
@@ -59,6 +60,7 @@ package Crystal2.assets.level
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			this.addEventListener(Event.TRIGGERED, onClick);
+			this.addEventListener(Event.REMOVED_FROM_STAGE, onRemoveFromStage);
 			
 			// Инициализация игрового поля
 			Resource.MatrixCell = Mechanics.CreateCellVectorMatrix2D(Resource.COLUMNS, Resource.ROWS);
@@ -96,14 +98,15 @@ package Crystal2.assets.level
 			this.addChild(_levelPanel);
 			
 			// окно описание квеста
-			if(Resource.LevelType == "LEVEL_TYPE_COLLECT") this.addChild(new Quest(_textQuest + _textTypeCrystal));
+			if (Resource.LevelType == "LEVEL_TYPE_COLLECT") this.addChild(new Quest(_textQuest + _textTypeCrystal));
 			if (Resource.LevelType == "LEVEL_TYPE_SCORE_POINTS") this.addChild(new Quest(_textQuest));
 			if (Resource.LevelType == "LEVEL_TYPE_TIME") this.addChild(new Quest(_textQuest));
 			
-			
+			// Таймер для уровня на время
+			if (Resource.LevelType == "LEVEL_TYPE_TIME") timer();
 		}
 		
-		/*================================================================================================================*/
+		/*= Механика ===============================================================================================================*/
 		private function readXML():void
 		{
 			_xmlLevel = new XML((Resource.FilesXML_Levels[Resource.SelectLevel] as XML));
@@ -214,8 +217,8 @@ package Crystal2.assets.level
 		{
 			if (Mechanics.CheckField()) {
 				if (afterDown == false) reduceAmountMoves(); // уменьшаем количество ходов
-				if (Resource.LevelType != "LEVEL_TYPE_TIME"){
-					if (Resource.AmountMoves != 0) Mechanics.SimplyRemove(this);
+				if (Resource.LevelType != "LEVEL_TYPE_TIME" && Resource.AmountMoves != 0){
+					Mechanics.SimplyRemove(this);
 				}else Mechanics.SimplyRemove(this);
 			}
 			else {
@@ -258,6 +261,36 @@ package Crystal2.assets.level
 			if (Resource.LevelType == "LEVEL_TYPE_COLLECT") _levelPanel.labelQuest.text = _textQuest + ". Собрано " + _AmountCrystals + " из " + Resource.AmountCrystals.toString() + _textTypeCrystal;
 			if (Resource.LevelType == "LEVEL_TYPE_SCORE_POINTS") _levelPanel.labelQuest.text  = _textQuest + ". Набрано " + _AmountScore + " из " + Resource.AmountScoreStar1.toString();
 		}
+		
+		/* Таймер =========================================================================*/
+		public function timer():void
+		{
+			var countTime:int = Resource.AmountTime;
+			_timer = new Timer(1000, countTime);
+			_timer.addEventListener(TimerEvent.TIMER, timerHandler);
+            _timer.addEventListener(TimerEvent.TIMER_COMPLETE, completeHandler);
+            _timer.start();
+		}
+		
+		private function timerHandler(e:TimerEvent):void
+		{
+			if (Resource.LevelType == "LEVEL_TYPE_TIME") {
+				Resource.AmountTime--;
+				_levelPanel.labelGiven.text = "Секунд " + Resource.AmountTime.toString()
+			}
+		}
+
+		private function completeHandler(e:TimerEvent):void
+		{
+			if (Resource.LevelType == "LEVEL_TYPE_TIME" && _AmountScore >= Resource.AmountScoreStar1) { gameResult("WIN"); Resource.LevelComplete++; this.addChild(new LevelDialogResult("WIN")); }
+			if (Resource.LevelType == "LEVEL_TYPE_TIME" && _AmountScore < Resource.AmountScoreStar1) { gameResult("LOSE"); this.addChild(new LevelDialogResult("LOSE")); }
+		} 
+		
+		private function onRemoveFromStage(e:Event):void 
+		{
+			if (Resource.LevelType == "LEVEL_TYPE_TIME") _timer.stop();
+		}
+		/* ==================================================================================== */
 		
 		/* Получить описание задания*/
 		private function getTextQuest(id:String):String
