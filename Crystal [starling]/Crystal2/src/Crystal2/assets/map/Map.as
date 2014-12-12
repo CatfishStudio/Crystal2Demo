@@ -22,6 +22,8 @@ package Crystal2.assets.map
 	public class Map extends Sprite 
 	{
 		private var _btnExit:Button;		// кнопка выход в меню
+		private var _btnVkInviteFriends:Button;		// кнопка позвать друзей в игру (ВКонтакт)
+		
 		private var _roadblock1:Button;		// роадблок 1-го уровня
 		private var _roadblock2:Button;		// роадблок 2-го уровня
 		private var _roadblock3:Button;		// роадблок 3-го уровня
@@ -105,6 +107,12 @@ package Crystal2.assets.map
 			_dialog = new Dialog();
 			this.addChild(_dialog);
 			
+			/* Кнопка позвать друзей */
+			_btnVkInviteFriends = new Button(Resource.AtlasAll.getTexture("button_3.png"), "Пригласить", Resource.AtlasAll.getTexture("button_2.png"));
+			_btnVkInviteFriends.fontColor = 0xffffff;	_btnVkInviteFriends.fontSize = 18; _btnVkInviteFriends.fontName = "Arial";
+			_btnVkInviteFriends.x = 70; _btnVkInviteFriends.y = 490; _btnVkInviteFriends.name = "inviteFriends";
+			this.addChild(_btnVkInviteFriends);
+			
 			/* Кнопка выход */
 			_btnExit = new Button(Resource.AtlasAll.getTexture("button_3.png"), "Выход", Resource.AtlasAll.getTexture("button_2.png"));
 			_btnExit.fontColor = 0xffffff;	_btnExit.fontSize = 18; _btnExit.fontName = "Arial";
@@ -159,10 +167,15 @@ package Crystal2.assets.map
 		
 		private function onClick(e:Event):void
 		{
+			if ((e.target as Button).name == "inviteFriends") {
+				this.dispatchEvent(new NavigationEvent(NavigationEvent.CHANGE_SCREEN, { id: "VK_INVITE_FRIENDS" }, true));
+			}
+			
 			if ((e.target as Button).name == "exit") {
 				this.removeChild(_dialog)
 				this.dispatchEvent(new NavigationEvent(NavigationEvent.CHANGE_SCREEN, { id: "EXIT_START_MENU" }, true));
 			}
+			
 			if ((e.target as Button).name == "roadblock1") {
 				Resource.SelectLevel = 1;
 				this.dispatchEvent(new NavigationEvent(NavigationEvent.CHANGE_SCREEN, { id: "LEVEL_DIALOG_SHOW" }, true));

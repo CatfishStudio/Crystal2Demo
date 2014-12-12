@@ -15,8 +15,11 @@ package Crystal2
 	
 	import Crystal2.Stats;
 	import Crystal2.assets.Game;
+	import Crystal2.assets.resource.Resource;
 	import Crystal2.assets.resource.LoadResource;
 	import Crystal2.assets.resource.FastLoadResource;
+	
+	import vk.APIConnection;
 	
 	
 	[SWF(width="800", height="600", frameRate="30", backgroundColor="#ffffff")]
@@ -46,6 +49,9 @@ package Crystal2
 			_fastloadResource.addEventListener(Event.CLEAR, onLoadComplete);
 			_fastloadResource.width = 10; _fastloadResource.height = 10;
 			this.addChild(_fastloadResource);
+			
+			/* Инициализация API соц. сети ВКонтакте (VK) */
+			vkInit();
 		}
 		
 		private function onLoadComplete(e:Event):void
@@ -71,6 +77,13 @@ package Crystal2
 			Starling.current.viewPort = new Rectangle (0, 0, stage.stageWidth, stage.stageHeight);
 			_starling.stage.stageWidth = 800;
 			_starling.stage.stageHeight = 600;
+		}
+		
+		/* Иникиализация ВКонтакте */
+		private function vkInit():void
+		{
+			var flashVars: Object = stage.loaderInfo.parameters as Object;
+			Resource.VK = new APIConnection(flashVars);
 		}
 		
 	}

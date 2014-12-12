@@ -8,6 +8,7 @@ package Crystal2.assets.resource
 	import starling.textures.TextureAtlas;
 	import Crystal2.assets.units.Cell;
 	import Crystal2.assets.units.Unit;
+	import vk.APIConnection;
 	
 	/**
 	 * ...
@@ -16,6 +17,8 @@ package Crystal2.assets.resource
 	
 	public class Resource 
 	{
+		/* ВКонтакте */
+		public static var VK:APIConnection;
 		
 		/* Костанты */
 		public static const COLUMNS:int = 10;

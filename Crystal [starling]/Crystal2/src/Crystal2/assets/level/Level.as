@@ -221,7 +221,9 @@ package Crystal2.assets.level
 				if (afterDown == false) reduceAmountMoves(); // уменьшаем количество ходов
 				if (Resource.LevelType != "LEVEL_TYPE_TIME"){
 					if (Resource.AmountMoves != 0) Mechanics.SimplyRemove(this);
-				}else Mechanics.SimplyRemove(this);
+				}else {
+					if (Resource.AmountTime != 0) Mechanics.SimplyRemove(this);
+				}
 			}
 			else {
 				if (afterDown == false) Mechanics.BackExchangeCrystals(this, _unit1.posColumnI, _unit1.posRowJ, _unit2.posColumnI, _unit2.posRowJ);

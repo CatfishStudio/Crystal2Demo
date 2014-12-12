@@ -8,7 +8,6 @@ package Crystal2.assets
 	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
 	
-	
 	import Crystal2.assets.events.NavigationEvent;
 	import Crystal2.assets.kernel.Mechanics;
 	import Crystal2.assets.resource.Resource;
@@ -58,6 +57,7 @@ package Crystal2.assets
 			
 			/* Запуск музыки */
 			Resource.PlayMusic();
+			
 		}
 		
 		private function onChangeScreen(e:NavigationEvent):void
@@ -121,13 +121,18 @@ package Crystal2.assets
 					this.addChild(_map);
 				break;
 				
-				case "LEVEL_POST":
-					// постинг ВК
+				case "LEVEL_POST": // ВК постинг
+					Resource.VK.api('wall.post', {owner_id:'99302165',message:"В поисках кристала. \nЯ успешно прошел уровень в игре!"} ); //99302165
 				break;
 				
+				case "VK_INVITE_FRIENDS": // ВК пригласить друзей
+					Resource.VK.callMethod("showInviteBox");
+				break;
 				
 			}
 		} 
+		
+		
 		
 	}
 
