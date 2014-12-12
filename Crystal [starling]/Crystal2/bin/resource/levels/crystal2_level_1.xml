@@ -4,9 +4,9 @@
 <LevelType>LEVEL_TYPE_COLLECT</LevelType>
 <CrystalType>CRYSTAL_TYPE_ALL</CrystalType>
 <AmountCrystals>100</AmountCrystals>
-<AmountScoreStar1>5000</AmountScoreStar1>
-<AmountScoreStar2>10000</AmountScoreStar2>
-<AmountScoreStar3>15000</AmountScoreStar3>
+<AmountScoreStar1>2500</AmountScoreStar1>
+<AmountScoreStar2>5000</AmountScoreStar2>
+<AmountScoreStar3>10000</AmountScoreStar3>
 <AmountTime>0</AmountTime>
 <AmountMoves>25</AmountMoves>
 <cell>

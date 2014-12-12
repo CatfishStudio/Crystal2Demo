@@ -44,7 +44,7 @@ package LoadGame
 			_rect.x = 0;
 			_canvasBD.copyPixels(_imageBD, _rect, _pt);
 			_loaderImage = new Bitmap(_canvasBD);
-			this.x = 370; this.y = 280;
+			this.x = 380; this.y = 300;
 			this.addChild(_loaderImage);
 			
 			this.addEventListener(Event.ENTER_FRAME, onEnterFrame);

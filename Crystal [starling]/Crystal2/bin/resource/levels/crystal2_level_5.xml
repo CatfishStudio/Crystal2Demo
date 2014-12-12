@@ -4,9 +4,9 @@
 <LevelType>LEVEL_TYPE_SCORE_POINTS</LevelType>
 <CrystalType>CRYSTAL_TYPE_ALL</CrystalType>
 <AmountCrystals>0</AmountCrystals>
-<AmountScoreStar1>20000</AmountScoreStar1>
-<AmountScoreStar2>30000</AmountScoreStar2>
-<AmountScoreStar3>40000</AmountScoreStar3>
+<AmountScoreStar1>10000</AmountScoreStar1>
+<AmountScoreStar2>20000</AmountScoreStar2>
+<AmountScoreStar3>30000</AmountScoreStar3>
 <AmountTime>0</AmountTime>
 <AmountMoves>45</AmountMoves>
 <cell>

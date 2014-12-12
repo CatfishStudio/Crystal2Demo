@@ -7,6 +7,7 @@ package Crystal2.assets.resource
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import flash.events.SecurityErrorEvent;
+	import flash.media.Sound;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
 	import Crystal2.assets.text.Label;
@@ -186,10 +187,21 @@ package Crystal2.assets.resource
 				//Load("https://psv4.vk.me/c423020/u99302165/docs/a7bda5996e6b/crystal2_level_5.xml", "LOAD_XML");
 				//Load("https://drive.google.com/uc?export=download&confirm=no_antivirus&id=0BwE9OJtPA8qoa1Z1WEpBU2dIcGc", "LOAD_XML");
 				Load("resource/levels/crystal2_level_5.xml", "LOAD_XML");
+				
+			}
+			if (_percentComplete == 65) {
+				Resource.FilesXML_Levels.push(new XML(e.target.data)); // массив уровней
+				Load("resource/sounds/move.mp3", "LOAD_XML");
+			}
+			if (_percentComplete == 70) {
+				Resource.MoveSound = new Sound();
+				Resource.MoveSound = e.target as Sound;
+				Load("resource/sounds/music_mono_48.mp3", "LOAD_XML");
 				_percentComplete = 95;
 			}
 			if (_percentComplete == 100) {
-				Resource.FilesXML_Levels.push(new XML(e.target.data)); // массив уровней
+				Resource.MusicMelody = new Sound();
+				Resource.MusicMelody = e.target as Sound;
 				
 				LoadComplite(); // завершение загрузки
 			}

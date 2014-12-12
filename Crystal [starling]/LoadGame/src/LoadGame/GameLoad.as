@@ -1,5 +1,6 @@
 package LoadGame 
 {
+	import flash.display.Bitmap;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import LoadGame.Label;
@@ -17,6 +18,10 @@ package LoadGame
 		private var _spiner:SpinerLoader; // спинер
 		private var _authorText:Label; // авторские права
 		
+		[Embed(source = 'textures/name.png')]
+		private var LoaderImage:Class;
+		private var _image:Bitmap = new LoaderImage();;
+		
 		public function GameLoad() 
 		{
 			super();
@@ -26,8 +31,11 @@ package LoadGame
 		private function onAddedToStage(e:Event):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+			
+			this.addChild(_image);
+			
 			/* Текстовое отображение загругки в процентах */
-			_progressText = new Label(350, 350, 200, 30, "Arial", 16, 0xFF00FF, "Загрузка...", false);
+			_progressText = new Label(360, 380, 200, 30, "Arial", 16, 0xFF00FF, "Загрузка...", false);
 			_progressText.text = "Загрузка ...";
 			this.addChild(_progressText);
 			
