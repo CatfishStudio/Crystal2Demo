@@ -9,7 +9,8 @@ package LoadGame
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import flash.net.URLRequest;
-	import flash.external.ExternalInterface;
+	
+		
 	import LoadGame.GameLoad;
 	
 	
@@ -47,20 +48,25 @@ package LoadGame
 			//Security.loadPolicyFile("https://app.vk.com/c420925/u99302165/e9cb1c679adc18.swf");
 			//Security.allowDomain("*");
 			
+			
 			/*
-			if (ExternalInterface.available)
-			{
-				var urle:String = ExternalInterface.call("window.location.href.toString");
-				var protocol:String = urle.slice(0, 5);
-			}else protocol = "https";
+			if (protocol == "https") {
+				_request = new URLRequest("https://app.vk.com/c420925/u99302165/e9cb1c679adc18.swf");
+				_gameLoad.progressText.text = "Загрузка " + protocol + " ...";
+			} else {
+				_request = new URLRequest("http://app.vk.com/c420925/u99302165/e9cb1c679adc18.swf");
+				_gameLoad.progressText.text = "Загрузка " + protocol + " ...";
+			}
 			*/
+			
+			//trace(stage.loaderInfo.parameters["browserURL"]);
+			//_gameLoad.progressText.text = "Протокол " + stage.loaderInfo.parameters["browserURL"];
+			//_gameLoad.progressText.text = "Протокол " + this.loaderInfo.loaderURL;
 			
 			_loader = new Loader();
 			_loaderContext = new LoaderContext(false, ApplicationDomain.currentDomain, SecurityDomain.currentDomain);
-			//if (protocol == "https") _request = new URLRequest("https://app.vk.com/c420925/u99302165/e9cb1c679adc18.swf");
-			//else _request = new URLRequest("http://app.vk.com/c420925/u99302165/e9cb1c679adc18.swf");
-			
-			_request = new URLRequest("https://app.vk.com/c420925/u99302165/e9cb1c679adc18.swf");
+			//_request = new URLRequest("https://app.vk.com/c420925/u99302165/e9cb1c679adc18.swf");
+			_request = new URLRequest("http://app.vk.com/c420925/u99302165/e9cb1c679adc18.swf");
 			_loader.contentLoaderInfo.addEventListener(Event.COMPLETE, LoadComplite);
 			_loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, LoadError);
 			_loader.load(_request, _loaderContext);
