@@ -55,7 +55,7 @@ package Crystal2.assets.resource
 		/* Игровой прогресс(открытие уровней) */
 		public static var Life:uint = 5;
 		public static var SelectLevel:int = 0;
-		public static var LevelComplete:int = 1;
+		public static var LevelComplete:int = 6;
 		public static var Progress:Vector.<Vector.<int>>;
 		
 		/* Данные об уровне из xml файла ----------------------------------------*/

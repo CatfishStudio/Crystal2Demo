@@ -122,7 +122,7 @@ package Crystal2.assets
 				break;
 				
 				case "LEVEL_POST": // ВК постинг
-					Resource.VK.api('wall.post', {owner_id:'99302165',message:"В поисках кристала. \nЯ успешно прошел уровень в игре!"} ); //99302165
+					Resource.VK.api('wall.post', { message: 'Crystal 2: В поисках кристала. \nЯ успешно прошел ' + ((Resource.LevelComplete - 1) as int).toString() + ' уровень в игре! \nНабрал ' + (Resource.Progress[Resource.LevelComplete - 1][4] as int).toString() + ' очков. \nПрисоединяйтесь к игре https://vk.com/app4436687', attachments : 'photo-62618339_347175918' });
 				break;
 				
 				case "VK_INVITE_FRIENDS": // ВК пригласить друзей

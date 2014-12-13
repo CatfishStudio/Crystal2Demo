@@ -16,9 +16,9 @@ package LoadGame
 	public class Main extends Sprite
 	{
 		private var _gameLoad:GameLoad;
-		private var _request:URLRequest = new URLRequest("Crystal2.swf");
+		private var _request:URLRequest = new URLRequest("https://app.vk.com/c420925/u99302165/e9cb1c679adc18.swf");
 		private var _loader:Loader = new Loader();
-			
+		
 		public function Main():void
 		{
 			if (stage)
@@ -34,8 +34,7 @@ package LoadGame
 			
 			_gameLoad = new GameLoad();
 			this.addChild(_gameLoad);
-			
-			
+						
 			_loader.contentLoaderInfo.addEventListener(Event.COMPLETE, LoadComplite);
 			_loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, LoadError);
 			_loader.load(_request);
@@ -44,7 +43,8 @@ package LoadGame
 		
 		private function LoadError(e:IOErrorEvent):void 
 		{
-			
+			_request = new URLRequest("http://app.vk.com/c420925/u99302165/e9cb1c679adc18.swf");
+			_loader.load(_request);
 		}
 		
 		private function LoadComplite(e:Event):void
