@@ -14,7 +14,7 @@ package LoadGame
 	
 	public class GameLoad extends Sprite 
 	{
-		private var _progressText:Label; // текст загрузки в процентах
+		public var progressText:Label; // текст загрузки в процентах
 		private var _spiner:SpinerLoader; // спинер
 		private var _authorText:Label; // авторские права
 		
@@ -35,9 +35,9 @@ package LoadGame
 			this.addChild(_image);
 			
 			/* Текстовое отображение загругки в процентах */
-			_progressText = new Label(360, 380, 200, 30, "Arial", 16, 0xFF00FF, "Загрузка...", false);
-			_progressText.text = "Загрузка ...";
-			this.addChild(_progressText);
+			progressText = new Label(360, 380, 200, 30, "Arial", 16, 0xFF00FF, "Загрузка...", false);
+			progressText.text = "Загрузка ...";
+			this.addChild(progressText);
 			
 			/* Цикличный индикатор загрузки */
 			_spiner = new SpinerLoader();
