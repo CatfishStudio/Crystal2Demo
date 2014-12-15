@@ -392,6 +392,7 @@ package Crystal2.assets.kernel
 			_totalAnimation++;
 			var _tweenUnit:Tween = new Tween(unit, 0.5);
 			_tweenUnit.moveTo(xMove, yMove);
+			_tweenUnit.onUpdate = function():void {	};
 			_tweenUnit.onComplete = function():void { Starling.juggler.remove(_tweenUnit); _totalAnimation--; if(_totalAnimation == 0) level.CheckField(true)};
 			Starling.juggler.add(_tweenUnit);
 		}

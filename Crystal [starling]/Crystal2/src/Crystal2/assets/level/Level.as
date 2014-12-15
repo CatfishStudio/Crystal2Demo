@@ -137,6 +137,7 @@ package Crystal2.assets.level
 						(Resource.MatrixCell[iCell][jCell] as Cell).x = 165 + (Resource.CELL_WIDTH * iCell);
 						(Resource.MatrixCell[iCell][jCell] as Cell).y = 70 + (Resource.CELL_HEIGHT * jCell);
 						(Resource.MatrixCell[iCell][jCell] as Cell).cellType = "CELL_TYPE_DROP";
+						(Resource.MatrixCell[iCell][jCell] as Cell).visible = false;
 					}
 					index++;
 				}

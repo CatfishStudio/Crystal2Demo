@@ -25,7 +25,7 @@ package LoadGame
 		private var _gameLoad:GameLoad;
 		private var _request:URLRequest;
 		private var _loader:Loader;
-		private var _loaderContext:LoaderContext
+		private var _loaderContext:LoaderContext;
 		
 		public function Main():void
 		{
@@ -48,16 +48,6 @@ package LoadGame
 			//Security.loadPolicyFile("https://app.vk.com/c420925/u99302165/e9cb1c679adc18.swf");
 			//Security.allowDomain("*");
 			
-			
-			/*
-			if (protocol == "https") {
-				_request = new URLRequest("https://app.vk.com/c420925/u99302165/e9cb1c679adc18.swf");
-				_gameLoad.progressText.text = "Загрузка " + protocol + " ...";
-			} else {
-				_request = new URLRequest("http://app.vk.com/c420925/u99302165/e9cb1c679adc18.swf");
-				_gameLoad.progressText.text = "Загрузка " + protocol + " ...";
-			}
-			*/
 			
 			//trace(stage.loaderInfo.parameters["browserURL"]);
 			//_gameLoad.progressText.text = "Протокол " + stage.loaderInfo.parameters["browserURL"];
